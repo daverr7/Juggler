@@ -56,28 +56,8 @@
         <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full mx-4 border border-gray-100 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
             
-            <!-- Custom Juggler SVG Brand Illustration -->
-            <div class="w-32 h-32 mx-auto mb-4 relative flex items-center justify-center">
-                <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- 5 Warm Juggling Balls in Arc -->
-                    <circle cx="28" cy="104" r="15" fill="#FDBA74" />
-                    <circle cx="56" cy="52" r="15.5" fill="#FB923C" />
-                    <circle cx="100" cy="28" r="16" fill="#F97316" />
-                    <circle cx="144" cy="52" r="15.5" fill="#EA580C" />
-                    <circle cx="172" cy="104" r="15" fill="#C2410C" />
-
-                    <!-- Juggler Head (Dual-Tone Blue) -->
-                    <path d="M100 70 A24 24 0 0 0 100 118 Z" fill="#38BDF8" />
-                    <path d="M100 70 A24 24 0 0 1 100 118 Z" fill="#2563EB" />
-
-                    <!-- Juggler Body & Slimmer Upturned Arms -->
-                    <!-- Left Side (Light Blue) -->
-                    <path d="M100 126 C88 126 74 133 60 142 C52 147 42 153 32 147 L22 133 C17 127 11 133 14 140 L24 158 C28 167 36 173 46 168 L68 158 C72 158 74 162 74 168 L74 200 L100 200 Z" fill="#38BDF8" />
-                    
-                    <!-- Right Side (Deep Blue) -->
-                    <path d="M100 126 C112 126 126 133 140 142 C148 147 158 153 168 147 L178 133 C183 127 189 133 186 140 L176 158 C172 167 164 173 154 168 L132 158 C128 158 126 162 126 168 L126 200 L100 200 Z" fill="#2563EB" />
-                </svg>
-            </div>
+            <!-- Injected Juggler SVG Brand Illustration -->
+            <div id="loginBrandSvg" class="w-32 h-32 mx-auto mb-4 relative flex items-center justify-center"></div>
 
             <h1 class="text-3xl font-extrabold mb-1 tracking-tight text-gray-900">Juggler</h1>
             <p class="text-gray-500 mb-6 text-sm font-medium">Proposals, Projects, Deliverables, & Events</p>
@@ -98,31 +78,19 @@
         <!-- Header & Navigation -->
         <header class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center shrink-0 shadow-sm z-10 relative">
             <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/80 rounded-xl flex items-center justify-center shadow-sm p-1">
-                    <svg viewBox="0 0 200 200" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="28" cy="104" r="15" fill="#FDBA74" />
-                        <circle cx="56" cy="52" r="15.5" fill="#FB923C" />
-                        <circle cx="100" cy="28" r="16" fill="#F97316" />
-                        <circle cx="144" cy="52" r="15.5" fill="#EA580C" />
-                        <circle cx="172" cy="104" r="15" fill="#C2410C" />
-                        <path d="M100 70 A24 24 0 0 0 100 118 Z" fill="#38BDF8" />
-                        <path d="M100 70 A24 24 0 0 1 100 118 Z" fill="#2563EB" />
-                        <path d="M100 126 C88 126 74 133 60 142 C52 147 42 153 32 147 L22 133 C17 127 11 133 14 140 L24 158 C28 167 36 173 46 168 L68 158 C72 158 74 162 74 168 L74 200 L100 200 Z" fill="#38BDF8" />
-                        <path d="M100 126 C112 126 126 133 140 142 C148 147 158 153 168 147 L178 133 C183 127 189 133 186 140 L176 158 C172 167 164 173 154 168 L132 158 C128 158 126 162 126 168 L126 200 L100 200 Z" fill="#2563EB" />
-                    </svg>
-                </div>
+                <div id="headerBrandSvg" class="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/80 rounded-xl flex items-center justify-center shadow-sm p-1"></div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-gray-900 leading-tight">Juggler</h1>
                     <p class="text-[11px] text-gray-500 font-semibold tracking-wider" id="workspaceTitle">Workspace: Default</p>
                 </div>
             </div>
             
-            <nav class="flex space-x-1 bg-gray-100/80 p-1.5 rounded-xl border border-gray-200/50 backdrop-blur-sm">
-                <button onclick="window.switchSection('todos')" id="navTodos" class="px-4 py-2 text-sm font-semibold rounded-lg bg-white shadow-sm text-gray-800 transition-all">To Do</button>
-                <button onclick="window.switchSection('proposals')" id="navProposals" class="px-4 py-2 text-sm font-medium rounded-lg text-gray-600 hover:text-gray-800 hover:bg-white/50 transition-all">Proposals</button>
-                <button onclick="window.switchSection('projects')" id="navProjects" class="px-4 py-2 text-sm font-medium rounded-lg text-gray-600 hover:text-gray-800 hover:bg-white/50 transition-all">Projects</button>
-                <button onclick="window.switchSection('kanban')" id="navKanban" class="px-4 py-2 text-sm font-medium rounded-lg text-gray-600 hover:text-gray-800 hover:bg-white/50 transition-all">Deliverables</button>
-                <button onclick="window.switchSection('events')" id="navEvents" class="px-4 py-2 text-sm font-medium rounded-lg text-gray-600 hover:text-gray-800 hover:bg-white/50 transition-all">Events</button>
+            <nav class="flex space-x-1.5 bg-slate-100 p-1.5 rounded-xl border border-slate-200/80 shadow-inner">
+                <button onclick="window.switchSection('todos')" id="navTodos" class="px-4 py-2 text-sm font-bold rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 transition-all">To Do</button>
+                <button onclick="window.switchSection('proposals')" id="navProposals" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-blue-600 hover:bg-white/80 transition-all">Proposals</button>
+                <button onclick="window.switchSection('projects')" id="navProjects" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-blue-600 hover:bg-white/80 transition-all">Projects</button>
+                <button onclick="window.switchSection('kanban')" id="navKanban" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-blue-600 hover:bg-white/80 transition-all">Deliverables</button>
+                <button onclick="window.switchSection('events')" id="navEvents" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-blue-600 hover:bg-white/80 transition-all">Events</button>
             </nav>
 
             <div class="flex items-center gap-2">
@@ -200,7 +168,6 @@
                         <p class="text-gray-500 text-sm">Track upcoming work and win probabilities.</p>
                     </div>
                     <div class="flex items-center gap-3">
-                        <!-- View Mode Switcher -->
                         <div class="flex bg-gray-100/80 rounded-lg p-1 border border-gray-200/50 shadow-inner">
                             <button onclick="window.switchProposalView('board')" id="btnPropBoard" class="px-3 py-1.5 text-xs font-semibold rounded-md bg-white shadow-sm text-gray-800 transition-all flex items-center gap-1.5">
                                 <i class="fa-solid fa-border-all"></i> Board
@@ -216,7 +183,7 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-4 gap-4 mb-6" id="proposalMetrics"></div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6" id="proposalMetrics"></div>
 
                 <!-- Proposal Board View -->
                 <div id="proposalBoardView" class="flex gap-4 overflow-x-auto flex-1 pb-4 min-h-[400px]"></div>
@@ -583,10 +550,45 @@
         let activeDragContext = null;
 
         // ==========================================
-        // 3. UTILITY & REUSABLE HELPERS
+        // 3. UTILITY & SECURITY HELPERS
         // ==========================================
         const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const shortMonthNames = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // Centralized SVG Markup
+        const JUGGLER_SVG = `
+            <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="28" cy="104" r="15" fill="#FDBA74" />
+                <circle cx="56" cy="52" r="15.5" fill="#FB923C" />
+                <circle cx="100" cy="28" r="16" fill="#F97316" />
+                <circle cx="144" cy="52" r="15.5" fill="#EA580C" />
+                <circle cx="172" cy="104" r="15" fill="#C2410C" />
+                <path d="M100 70 A24 24 0 0 0 100 118 Z" fill="#38BDF8" />
+                <path d="M100 70 A24 24 0 0 1 100 118 Z" fill="#2563EB" />
+                <path d="M100 126 C88 126 74 133 60 142 C52 147 42 153 32 147 L22 133 C17 127 11 133 14 140 L24 158 C28 167 36 173 46 168 L68 158 C72 158 74 162 74 168 L74 200 L100 200 Z" fill="#38BDF8" />
+                <path d="M100 126 C112 126 126 133 140 142 C148 147 158 153 168 147 L178 133 C183 127 189 133 186 140 L176 158 C172 167 164 173 154 168 L132 158 C128 158 126 162 126 168 L126 200 L100 200 Z" fill="#2563EB" />
+            </svg>
+        `;
+
+        // Escape HTML to prevent string interpolation syntax breakages & XSS
+        function escapeHTML(str) {
+            if (str == null) return '';
+            return String(str).replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag]));
+        }
+
+        // Initialize SVGs on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginBox = document.getElementById('loginBrandSvg');
+            const headerBox = document.getElementById('headerBrandSvg');
+            if (loginBox) loginBox.innerHTML = JUGGLER_SVG;
+            if (headerBox) headerBox.innerHTML = JUGGLER_SVG;
+        });
 
         function getUpcomingMonthNumbers() {
             const currentMonth = new Date().getMonth() + 1; // 1 to 12
@@ -615,7 +617,6 @@
             if (ev.status === 'Attending') return 'Attending';
             if (ev.status === 'Upcoming') return 'Upcoming';
             if (ev.status === 'Registry') return 'Registry';
-            // Auto calculate based on month
             return isEventInNext3Months(ev.timing) ? 'Upcoming' : 'Registry';
         }
 
@@ -635,6 +636,7 @@
             return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
         };
 
+        // Unified Drag and Drop Calculations
         function calculateDragDropTarget(container, mouseY, itemSelector) {
             const draggableElements = [...container.querySelectorAll(`${itemSelector}:not(.dragging)`)];
             return draggableElements.reduce((closest, child) => {
@@ -646,6 +648,66 @@
                     return closest;
                 }
             }, { offset: Number.NEGATIVE_INFINITY }).element;
+        }
+
+        // Consolidated Drag Event Handlers
+        window.handleDragStart = function(e, type, id) {
+            activeDragContext = { type, id: String(id) };
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        };
+
+        window.handleDragEnd = function(e) {
+            e.target.classList.remove('dragging');
+            activeDragContext = null;
+        };
+
+        window.handleDragOver = function(e) {
+            e.preventDefault();
+        };
+
+        // Generic Entity Drop Controller
+        function processGenericDrop({ event, columnSelector, targetKey, collectionName, cardSelector, idPrefix = '', statusAttr = 'status', onUpdate = null }) {
+            event.preventDefault();
+            const column = event.target.closest(columnSelector);
+            if (!column || !activeDragContext) return;
+
+            const newTargetValue = column.dataset[targetKey];
+            const afterElement = calculateDragDropTarget(column, event.clientY, cardSelector);
+            const item = state[collectionName].find(x => String(x.id) === String(activeDragContext.id));
+            if (!item) return;
+
+            item[statusAttr] = newTargetValue;
+            if (onUpdate) onUpdate(item, newTargetValue);
+
+            let columnItems = state[collectionName].filter(x => {
+                const effStatus = collectionName === 'events' ? getEffectiveEventStatus(x) : x[statusAttr];
+                return effStatus === newTargetValue && !x.isArchived && String(x.id) !== String(activeDragContext.id);
+            });
+
+            columnItems.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+            if (afterElement) {
+                const insertId = afterElement.id.replace(idPrefix, '');
+                const insertIndex = columnItems.findIndex(x => String(x.id) === String(insertId));
+                columnItems.splice(insertIndex, 0, item);
+            } else {
+                columnItems.push(item);
+            }
+
+            columnItems.forEach((x, idx) => { x.order = idx; });
+
+            saveDataToFirebase();
+            refreshActiveView();
+        }
+
+        // Generic Entity Deletion
+        function deleteEntity(collection, id, extraCleanup = null) {
+            state[collection] = state[collection].filter(item => item.id !== id);
+            if (typeof extraCleanup === 'function') extraCleanup(id);
+            saveDataToFirebase();
+            window.closeModals();
+            refreshActiveView();
         }
 
         async function saveDataToFirebase() {
@@ -726,6 +788,9 @@
                     loadDummyData();
                 } else {
                     unsubscribeSnapshot = onSnapshot(doc(db, "workspaces", code), (docSnap) => {
+                        // Guard against re-rendering local updates mid-keystroke
+                        if (docSnap.metadata && docSnap.metadata.hasPendingWrites) return;
+
                         if (docSnap.exists()) {
                             const data = docSnap.data();
                             state.fiscalGoals = data.fiscalGoals || {};
@@ -771,6 +836,14 @@
         // ==========================================
         // 5. NAVIGATION & EXPORT/IMPORT
         // ==========================================
+        function refreshActiveView() {
+            if (state.activeSection === 'todos') window.renderTodos();
+            if (state.activeSection === 'proposals') window.renderProposals();
+            if (state.activeSection === 'projects') window.renderProjects();
+            if (state.activeSection === 'kanban') window.renderKanban();
+            if (state.activeSection === 'events') window.renderEvents();
+        }
+
         function refreshAllUI() {
             setupFiscalYearSelector();
             setupEventYearSelector();
@@ -779,23 +852,22 @@
 
         window.switchSection = function(sectionId) {
             state.activeSection = sectionId;
+            const inactiveClass = 'px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-blue-600 hover:bg-white/80 transition-all';
+            const activeClass = 'px-4 py-2 text-sm font-bold rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 transition-all';
+
             ['todos', 'proposals', 'projects', 'kanban', 'events'].forEach(id => {
                 const sec = document.getElementById(`section-${id}`);
                 if (sec) sec.classList.add('hidden');
                 const navBtn = document.getElementById(`nav${id.charAt(0).toUpperCase() + id.slice(1)}`);
-                if(navBtn) navBtn.className = 'px-4 py-2 text-sm font-medium rounded-lg text-gray-600 hover:text-gray-800 hover:bg-white/50 transition-all';
+                if (navBtn) navBtn.className = inactiveClass;
             });
             
             const activeSec = document.getElementById(`section-${sectionId}`);
             if (activeSec) activeSec.classList.remove('hidden');
             const activeNav = document.getElementById(`nav${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}`);
-            if(activeNav) activeNav.className = 'px-4 py-2 text-sm font-semibold rounded-lg bg-white shadow-sm text-gray-800 transition-all';
+            if (activeNav) activeNav.className = activeClass;
 
-            if (sectionId === 'todos') window.renderTodos();
-            if (sectionId === 'proposals') window.renderProposals();
-            if (sectionId === 'projects') window.renderProjects();
-            if (sectionId === 'kanban') window.renderKanban();
-            if (sectionId === 'events') window.renderEvents();
+            refreshActiveView();
         };
 
         window.exportData = function() {
@@ -948,45 +1020,19 @@
         };
 
         window.deleteTodo = function(id) {
-            state.todos = state.todos.filter(t => t.id !== id);
-            saveDataToFirebase();
-            window.renderTodos();
+            deleteEntity('todos', id);
         };
 
-        window.dragTodoStart = function(e) {
-            activeDragContext = { type: 'todo', id: e.target.id.replace('todo_', '') };
-            e.target.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-        };
-        window.dragTodoEnd = function(e) { e.target.classList.remove('dragging'); activeDragContext = null; };
-        window.dragTodoOver = function(e) { e.preventDefault(); };
-        
         window.dropTodoItem = function(e) {
-            e.preventDefault();
-            const column = e.target.closest('.todo-column');
-            if (!column || !activeDragContext || activeDragContext.type !== 'todo') return;
-            
-            const newBucket = column.dataset.bucket;
-            const afterElement = calculateDragDropTarget(column, e.clientY, '.todo-card');
-            const todo = state.todos.find(t => t.id === activeDragContext.id);
-            if (!todo) return;
-            
-            todo.bucket = newBucket;
-            let itemsInBucket = state.todos.filter(t => t.bucket === newBucket && !t.isArchived && t.id !== activeDragContext.id);
-            itemsInBucket.sort((a, b) => (a.order || 0) - (b.order || 0));
-
-            if (afterElement) {
-                const insertId = afterElement.id.replace('todo_', '');
-                const insertIndex = itemsInBucket.findIndex(t => t.id === insertId);
-                itemsInBucket.splice(insertIndex, 0, todo);
-            } else {
-                itemsInBucket.push(todo);
-            }
-
-            itemsInBucket.forEach((t, index) => { t.order = index; });
-
-            saveDataToFirebase();
-            window.renderTodos();
+            processGenericDrop({
+                event: e,
+                columnSelector: '.todo-column',
+                targetKey: 'bucket',
+                collectionName: 'todos',
+                cardSelector: '.todo-card',
+                idPrefix: 'todo_',
+                statusAttr: 'bucket'
+            });
         };
 
         window.renderTodos = function() {
@@ -1025,11 +1071,11 @@
                     }
 
                     return `
-                        <div id="todo_${t.id}" draggable="true" ondragstart="window.dragTodoStart(event)" ondragend="window.dragTodoEnd(event)" class="todo-card group flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm border border-gray-100 border-l-4 ${bucket.accent} hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 ${cardBgClass}">
+                        <div id="todo_${t.id}" draggable="true" ondragstart="window.handleDragStart(event, 'todo', '${t.id}')" ondragend="window.handleDragEnd(event)" class="todo-card group flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm border border-gray-100 border-l-4 ${bucket.accent} hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 ${cardBgClass}">
                             <button onclick="window.toggleTodoCompletion('${t.id}')" class="mt-0.5 transition-colors shrink-0" title="Click to cycle: To Do -> Waiting -> Done">
                                 <i class="${iconClass} text-xl"></i>
                             </button>
-                            <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm font-medium ${textClass} flex-1 leading-tight select-none cursor-pointer hover:text-blue-600 transition-colors">${t.text}</span>
+                            <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm font-medium ${textClass} flex-1 leading-tight select-none cursor-pointer hover:text-blue-600 transition-colors">${escapeHTML(t.text)}</span>
                             ${badgeHtml}
                             <div class="flex items-center gap-1">
                                 ${t.isCompleted ? `
@@ -1051,7 +1097,7 @@
                             <h3 class="font-bold text-sm px-3 py-1 rounded-full ${bucket.header}">${bucket.name}</h3>
                             <span class="text-gray-400 text-xs font-bold">${unarchivedTasks.length}</span>
                         </div>
-                        <div class="todo-column flex-1 overflow-y-auto p-3 flex flex-col gap-3 ${bucket.bg}" data-bucket="${bucket.id}" ondragover="window.dragTodoOver(event)" ondrop="window.dropTodoItem(event)">
+                        <div class="todo-column flex-1 overflow-y-auto p-3 flex flex-col gap-3 ${bucket.bg}" data-bucket="${bucket.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropTodoItem(event)">
                             ${cardsHtml}
                             ${unarchivedTasks.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">Drop tasks here</div>` : ''}
                         </div>
@@ -1071,7 +1117,7 @@
                         <button onclick="window.unarchiveTodo('${t.id}')" class="text-blue-500 hover:text-blue-700 transition-colors shrink-0" title="Unarchive Task">
                             <i class="fa-solid fa-box-open text-base"></i>
                         </button>
-                        <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm text-gray-500 line-through flex-1 select-none cursor-pointer hover:text-blue-600 transition-colors">${t.text}</span>
+                        <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm text-gray-500 line-through flex-1 select-none cursor-pointer hover:text-blue-600 transition-colors">${escapeHTML(t.text)}</span>
                         <button onclick="window.deleteTodo('${t.id}')" class="text-gray-400 hover:text-red-500 p-1" title="Delete Task">
                             <i class="fa-solid fa-trash text-xs"></i>
                         </button>
@@ -1117,42 +1163,17 @@
             window.renderProposals();
         };
 
-        window.dragPropStart = function(e) {
-            activeDragContext = { type: 'proposal', id: e.target.id.replace('propcard_', '') };
-            e.target.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-        };
-        window.dragPropEnd = function(e) { e.target.classList.remove('dragging'); activeDragContext = null; };
-        window.dragPropOver = function(e) { e.preventDefault(); };
-
         window.dropPropItem = function(e) {
-            e.preventDefault();
-            const column = e.target.closest('.prop-column');
-            if (!column || !activeDragContext || activeDragContext.type !== 'proposal') return;
-            const newStatus = column.dataset.status;
-
-            const afterElement = calculateDragDropTarget(column, e.clientY, '.proposal-card');
-            const prop = state.proposals.find(p => p.id === activeDragContext.id);
-            if (!prop) return;
-
-            prop.status = newStatus;
-            const currentYear = document.getElementById('fiscalYearSelect').value;
-            let itemsInCol = state.proposals.filter(p => p.status === newStatus && p.year === currentYear && p.id !== activeDragContext.id);
-            itemsInCol.sort((a, b) => (a.order ?? a.seq ?? 0) - (b.order ?? b.seq ?? 0));
-
-            if (afterElement) {
-                const insertId = afterElement.id.replace('propcard_', '');
-                const insertIndex = itemsInCol.findIndex(p => p.id === insertId);
-                itemsInCol.splice(insertIndex, 0, prop);
-            } else {
-                itemsInCol.push(prop);
-            }
-
-            itemsInCol.forEach((p, idx) => { p.order = idx; });
-
-            saveDataToFirebase();
-            window.renderProposals();
-            window.renderKanban();
+            processGenericDrop({
+                event: e,
+                columnSelector: '.prop-column',
+                targetKey: 'status',
+                collectionName: 'proposals',
+                cardSelector: '.proposal-card',
+                idPrefix: 'propcard_',
+                statusAttr: 'status',
+                onUpdate: () => { window.renderKanban(); }
+            });
         };
 
         window.renderProposals = function() {
@@ -1177,10 +1198,14 @@
                 boardContainer.classList.add('hidden');
             }
 
-            let totalPending = 0, totalWon = 0, totalLost = 0;
+            let totalPipeline = 0, expectedPipeline = 0, totalWon = 0, totalLost = 0;
             yearProps.forEach(p => {
                 const b = parseFloat(p.budget) || 0;
-                if (p.status.includes('Pending') || p.status === 'Upcoming' || p.status === 'In-Progress') totalPending += b;
+                const prob = (parseFloat(p.winProb) || 0) / 100;
+                if (p.status.includes('Pending') || p.status === 'Upcoming' || p.status === 'In-Progress') {
+                    totalPipeline += b;
+                    expectedPipeline += b * prob;
+                }
                 if (p.status === 'Win') totalWon += b;
                 if (p.status === 'Loss') totalLost += b;
             });
@@ -1190,21 +1215,29 @@
 
             document.getElementById('proposalMetrics').innerHTML = `
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
-                    <div class="text-xs font-bold text-gray-500 uppercase mb-1">Pipeline / Pending Value</div>
-                    <div class="text-xl font-extrabold text-yellow-600">${formatCurrency(totalPending)}</div>
+                    <div class="text-xs font-bold text-gray-500 uppercase mb-1">Total Pipeline Value</div>
+                    <div class="text-xl font-extrabold text-amber-600">${formatCurrency(totalPipeline)}</div>
+                    <div class="text-[10px] text-gray-400 font-medium mt-1">Unweighted pipeline</div>
+                </div>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
+                    <div class="text-xs font-bold text-gray-500 uppercase mb-1">Expected Pipeline Value</div>
+                    <div class="text-xl font-extrabold text-indigo-600">${formatCurrency(expectedPipeline)}</div>
+                    <div class="text-[10px] text-gray-400 font-medium mt-1">Win prob. weighted</div>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
                     <div class="text-xs font-bold text-gray-500 uppercase mb-1">Total Won</div>
                     <div class="text-xl font-extrabold text-green-600">${formatCurrency(totalWon)}</div>
+                    <div class="text-[10px] text-gray-400 font-medium mt-1">Booked revenue</div>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
                     <div class="text-xs font-bold text-gray-500 uppercase mb-1">Total Lost</div>
                     <div class="text-xl font-extrabold text-red-600">${formatCurrency(totalLost)}</div>
+                    <div class="text-[10px] text-gray-400 font-medium mt-1">Closed losses</div>
                 </div>
                 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 p-4 rounded-2xl shadow-sm text-white relative overflow-hidden group cursor-pointer" onclick="window.openModal('goalModal')">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
                     <div class="flex justify-between items-center mb-1">
-                        <div class="text-xs font-bold text-blue-200 uppercase">${currentYear} Goal</div>
+                        <div class="text-xs font-bold text-blue-200 uppercase">${escapeHTML(currentYear)} Goal</div>
                         <i class="fa-solid fa-pen text-blue-300 text-xs opacity-0 group-hover:opacity-100 transition-opacity"></i>
                     </div>
                     <div class="text-xl font-extrabold">${formatCurrency(totalWon)} <span class="text-sm font-normal text-blue-200">/ ${formatCurrency(goal)}</span></div>
@@ -1235,17 +1268,17 @@
 
                 tbody.innerHTML += `
                     <tr class="hover:bg-blue-50/50 transition-colors group">
-                        <td class="p-4 text-sm text-gray-500 font-medium">${p.seq || '-'}</td>
+                        <td class="p-4 text-sm text-gray-500 font-medium">${escapeHTML(p.seq) || '-'}</td>
                         <td class="p-4">
-                            <div class="font-bold text-gray-800">${p.name}</div>
-                            ${p.notes ? `<div class="text-xs text-gray-400 mt-1 truncate max-w-xs"><i class="fa-regular fa-comment-dots mr-1"></i>${p.notes}</div>` : ''}
+                            <div class="font-bold text-gray-800">${escapeHTML(p.name)}</div>
+                            ${p.notes ? `<div class="text-xs text-gray-400 mt-1 truncate max-w-xs"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(p.notes)}</div>` : ''}
                         </td>
-                        <td class="p-4 text-sm text-gray-600">${p.role || '-'}</td>
-                        <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${statusBadge}">${p.status}</span></td>
+                        <td class="p-4 text-sm text-gray-600">${escapeHTML(p.role) || '-'}</td>
+                        <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${statusBadge}">${escapeHTML(p.status)}</span></td>
                         <td class="p-4 text-right font-medium text-gray-700">${formatCurrency(p.budget)}</td>
                         <td class="p-4 text-center text-sm font-semibold text-gray-600">${p.winProb || 0}%</td>
                         <td class="p-4 text-center">
-                            <button onclick="window.openModal('proposalModal', '${p.id}')" class="text-gray-400 hover:text-blue-600 transition-colors p-2 hover:bg-white rounded-lg opacity-0 group-hover:opacity-100"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="window.openModal('proposalModal', '${escapeHTML(p.id)}')" class="text-gray-400 hover:text-blue-600 transition-colors p-2 hover:bg-white rounded-lg opacity-0 group-hover:opacity-100"><i class="fa-solid fa-pen"></i></button>
                         </td>
                     </tr>
                 `;
@@ -1266,18 +1299,18 @@
                 const colBudgetTotal = colProps.reduce((sum, p) => sum + (parseFloat(p.budget) || 0), 0);
 
                 let cardsHtml = colProps.map(p => `
-                    <div id="propcard_${p.id}" draggable="true" ondragstart="window.dragPropStart(event)" ondragend="window.dragPropEnd(event)" class="proposal-card bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
-                        <button onclick="window.openModal('proposalModal', '${p.id}')" class="absolute top-2 right-2 text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-blue-50 p-1.5 rounded-lg z-10"><i class="fa-solid fa-pen text-xs"></i></button>
+                    <div id="propcard_${p.id}" draggable="true" ondragstart="window.handleDragStart(event, 'proposal', '${p.id}')" ondragend="window.handleDragEnd(event)" class="proposal-card bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
+                        <button onclick="window.openModal('proposalModal', '${escapeHTML(p.id)}')" class="absolute top-2 right-2 text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-blue-50 p-1.5 rounded-lg z-10"><i class="fa-solid fa-pen text-xs"></i></button>
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="text-[10px] font-extrabold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">#${p.seq || '-'}</span>
-                            ${p.role ? `<span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">${p.role}</span>` : ''}
+                            <span class="text-[10px] font-extrabold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">#${escapeHTML(p.seq) || '-'}</span>
+                            ${p.role ? `<span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">${escapeHTML(p.role)}</span>` : ''}
                         </div>
-                        <h4 class="text-sm font-bold text-gray-800 leading-snug mb-2 pr-6">${p.name}</h4>
+                        <h4 class="text-sm font-bold text-gray-800 leading-snug mb-2 pr-6">${escapeHTML(p.name)}</h4>
                         <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 text-xs">
                             <span class="font-bold text-green-700">${formatCurrency(p.budget)}</span>
                             <span class="font-semibold text-gray-500" title="Win Probability"><i class="fa-solid fa-crosshairs text-blue-500 mr-1"></i>${p.winProb || 0}%</span>
                         </div>
-                        ${p.notes ? `<div class="text-[11px] text-gray-400 mt-2 truncate"><i class="fa-regular fa-comment-dots mr-1"></i>${p.notes}</div>` : ''}
+                        ${p.notes ? `<div class="text-[11px] text-gray-400 mt-2 truncate"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(p.notes)}</div>` : ''}
                     </div>
                 `).join('');
 
@@ -1287,7 +1320,7 @@
                             <h3 class="font-bold text-sm ${col.header}">${col.name} <span class="ml-1 ${col.badge} text-xs px-2 py-0.5 rounded-full font-semibold">${colProps.length}</span></h3>
                             <span class="text-xs font-extrabold ${col.header}">${formatCurrency(colBudgetTotal)}</span>
                         </div>
-                        <div class="prop-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.dragPropOver(event)" ondrop="window.dropPropItem(event)">
+                        <div class="prop-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropPropItem(event)">
                             ${cardsHtml}
                             ${colProps.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-8">Drop proposals here</div>` : ''}
                         </div>
@@ -1309,10 +1342,6 @@
 
         window.dragTagEnd = function(e) { 
             e.currentTarget.classList.remove('dragging-tag'); 
-        };
-
-        window.dragTagOver = function(e) { 
-            e.preventDefault(); 
         };
 
         window.dropTag = function(e, targetTag) {
@@ -1384,10 +1413,10 @@
                     const tagStyle = tag === 'Uncategorized' ? 'text-gray-500 bg-gray-100 border-gray-200' : 'text-blue-700 bg-blue-50 border-blue-200';
                     
                     let groupHtml = `
-                        <div class="tag-group mb-6" data-tag="${tag}" draggable="true" ondragstart="window.dragTagStart(event, '${tag}')" ondragend="window.dragTagEnd(event)" ondragover="window.dragTagOver(event)" ondrop="window.dropTag(event, '${tag}')">
+                        <div class="tag-group mb-6" data-tag="${escapeHTML(tag)}" draggable="true" ondragstart="window.dragTagStart(event, '${escapeHTML(tag)}')" ondragend="window.dragTagEnd(event)" ondragover="window.handleDragOver(event)" ondrop="window.dropTag(event, '${escapeHTML(tag)}')">
                             <div class="mb-3 flex items-center gap-3 cursor-grab opacity-80 hover:opacity-100 group/header transition-opacity" title="Drag to reorder category">
                                 <i class="fa-solid fa-grip-vertical text-gray-300 group-hover/header:text-blue-500 transition-colors"></i>
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md border shadow-sm ${tagStyle}">${tag}</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md border shadow-sm ${tagStyle}">${escapeHTML(tag)}</span>
                                 <div class="h-px bg-gray-200 flex-1 mr-4"></div>
                             </div>
                             <div class="flex flex-col gap-3">
@@ -1402,11 +1431,11 @@
                         if (isExpanded) {
                             const rows = projectDeliverables.map(d => `
                                 <tr class="border-b border-gray-100 last:border-0 hover:bg-white transition-colors group/row">
-                                    <td class="py-2 px-4 text-sm font-medium text-gray-800">${d.name}</td>
-                                    <td class="py-2 px-4 text-xs w-28"><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-bold">${d.status}</span></td>
+                                    <td class="py-2 px-4 text-sm font-medium text-gray-800">${escapeHTML(d.name)}</td>
+                                    <td class="py-2 px-4 text-xs w-28"><span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded font-bold">${escapeHTML(d.status)}</span></td>
                                     <td class="py-2 px-4 text-sm text-gray-600 text-right w-24">${formatCurrency(d.budget)}</td>
                                     <td class="py-2 px-4 text-right w-12">
-                                        <button onclick="window.openModal('deliverableModal', '${d.id}')" class="text-gray-400 hover:text-blue-600 p-1.5 rounded-lg hover:bg-blue-50 transition-colors opacity-0 group-hover/row:opacity-100"><i class="fa-solid fa-pen text-xs"></i></button>
+                                        <button onclick="window.openModal('deliverableModal', '${escapeHTML(d.id)}')" class="text-gray-400 hover:text-blue-600 p-1.5 rounded-lg hover:bg-blue-50 transition-colors opacity-0 group-hover/row:opacity-100"><i class="fa-solid fa-pen text-xs"></i></button>
                                     </td>
                                 </tr>
                             `).join('');
@@ -1415,7 +1444,7 @@
                                 <div class="border-t border-gray-100 bg-gray-50/50 fade-in">
                                     ${rows ? `<table class="w-full text-left"><tbody>${rows}</tbody></table>` : `<div class="p-4 text-sm text-gray-400 italic">No deliverables tracked.</div>`}
                                     <div class="px-4 py-2 bg-gray-50/80 border-t border-gray-100">
-                                        <button onclick="window.openModal('deliverableModal', null, '${p.id}')" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1.5 transition-colors hover:underline"><i class="fa-solid fa-plus"></i> Add Deliverable</button>
+                                        <button onclick="window.openModal('deliverableModal', null, '${escapeHTML(p.id)}')" class="text-xs font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1.5 transition-colors hover:underline"><i class="fa-solid fa-plus"></i> Add Deliverable</button>
                                     </div>
                                 </div>
                             `;
@@ -1423,12 +1452,12 @@
 
                         groupHtml += `
                             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-md hover:border-blue-200">
-                                <div class="p-4 flex justify-between items-center cursor-pointer hover:bg-blue-50/30 transition-colors" onclick="window.toggleExpandedProject('${p.id}')">
+                                <div class="p-4 flex justify-between items-center cursor-pointer hover:bg-blue-50/30 transition-colors" onclick="window.toggleExpandedProject('${escapeHTML(p.id)}')">
                                     <div class="flex items-center gap-4">
                                         <div class="w-4 h-4 rounded-full shadow-sm shrink-0 border border-gray-200/50" style="background-color: ${p.color};"></div>
                                         <div>
-                                            <span class="font-bold text-gray-800 text-lg block leading-tight">${p.name}</span>
-                                            ${p.completedDate ? `<span class="text-xs text-gray-400"><i class="fa-solid fa-check text-green-500 mr-1"></i>Completed: ${p.completedDate}</span>` : ''}
+                                            <span class="font-bold text-gray-800 text-lg block leading-tight">${escapeHTML(p.name)}</span>
+                                            ${p.completedDate ? `<span class="text-xs text-gray-400"><i class="fa-solid fa-check text-green-500 mr-1"></i>Completed: ${escapeHTML(p.completedDate)}</span>` : ''}
                                         </div>
                                     </div>
                                     <div class="flex items-center gap-4">
@@ -1437,7 +1466,7 @@
                                             <div class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">${projectDeliverables.length} Tasks</div>
                                         </div>
                                         <div class="flex gap-1 ml-2">
-                                            <button onclick="event.stopPropagation(); window.openModal('projectModal', '${p.id}')" class="text-gray-300 hover:text-blue-600 p-2 rounded hover:bg-blue-50 transition-colors"><i class="fa-solid fa-pen"></i></button>
+                                            <button onclick="event.stopPropagation(); window.openModal('projectModal', '${escapeHTML(p.id)}')" class="text-gray-300 hover:text-blue-600 p-2 rounded hover:bg-blue-50 transition-colors"><i class="fa-solid fa-pen"></i></button>
                                         </div>
                                         <i class="fa-solid fa-chevron-${isExpanded ? 'up' : 'down'} text-gray-400 ml-2 text-sm w-4"></i>
                                     </div>
@@ -1462,48 +1491,23 @@
         // ==========================================
         // 9. DELIVERABLES / KANBAN MODULE
         // ==========================================
-        window.dragStart = function(e) {
-            activeDragContext = { type: 'deliverable', id: e.target.id.replace('card_', '') };
-            e.target.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-        };
-        
-        window.dragEnd = function(e) { e.target.classList.remove('dragging'); activeDragContext = null; };
-        window.dragOver = function(e) { e.preventDefault(); };
-        
         window.dropItem = function(e) {
-            e.preventDefault();
-            const column = e.target.closest('.kanban-column');
-            if (!column || !activeDragContext || activeDragContext.type !== 'deliverable') return;
-            
-            const newStatus = column.dataset.status;
-            const afterElement = calculateDragDropTarget(column, e.clientY, '.kanban-card');
-            const deliv = state.deliverables.find(d => d.id === activeDragContext.id);
-            if (!deliv) return;
-            
-            if (deliv.status !== newStatus && newStatus === 'Done' && !deliv.completedDate) {
-                const today = new Date();
-                deliv.completedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-            }
-            
-            deliv.status = newStatus;
-
-            let itemsInColumn = state.deliverables.filter(d => d.status === newStatus && !d.isArchived && d.id !== activeDragContext.id);
-            itemsInColumn.sort((a, b) => (a.order || 0) - (b.order || 0));
-
-            if (afterElement) {
-                const insertId = afterElement.id.replace('card_', '');
-                const insertIndex = itemsInColumn.findIndex(d => d.id === insertId);
-                itemsInColumn.splice(insertIndex, 0, deliv);
-            } else {
-                itemsInColumn.push(deliv);
-            }
-
-            itemsInColumn.forEach((d, index) => { d.order = index; });
-
-            saveDataToFirebase();
-            window.renderKanban();
-            window.renderProjects();
+            processGenericDrop({
+                event: e,
+                columnSelector: '.kanban-column',
+                targetKey: 'status',
+                collectionName: 'deliverables',
+                cardSelector: '.kanban-card',
+                idPrefix: 'card_',
+                statusAttr: 'status',
+                onUpdate: (deliv, newStatus) => {
+                    if (newStatus === 'Done' && !deliv.completedDate) {
+                        const today = new Date();
+                        deliv.completedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+                    }
+                    window.renderProjects();
+                }
+            });
         };
 
         window.updateKanbanFilter = function() {
@@ -1525,6 +1529,9 @@
             if (!board) return;
             board.innerHTML = '';
 
+            // O(1) Project Map Lookup
+            const projectMap = new Map(state.projects.map(p => [p.id, p]));
+
             const filterSelect = document.getElementById('kanbanTagFilter');
             const tags = [...new Set(state.projects.map(p => p.tag).filter(Boolean))].sort();
             
@@ -1533,7 +1540,7 @@
             }
             
             filterSelect.innerHTML = `<option value="All">All Projects</option>` + 
-                tags.map(t => `<option value="${t}" ${t === state.currentKanbanFilter ? 'selected' : ''}>${t}</option>`).join('');
+                tags.map(t => `<option value="${escapeHTML(t)}" ${t === state.currentKanbanFilter ? 'selected' : ''}>${escapeHTML(t)}</option>`).join('');
 
             let filteredDeliverables = state.deliverables;
             if (state.currentKanbanFilter !== 'All') {
@@ -1576,25 +1583,25 @@
                 }
 
                 const generateCardHtml = (d) => {
-                    const proj = state.projects.find(p => p.id === d.projectId);
+                    const proj = projectMap.get(d.projectId);
                     const projName = proj ? proj.name : 'Unknown Project';
                     const projColor = proj ? proj.color : '#ccc';
-                    let dateBadge = d.completedDate ? `<div class="text-[10px] text-gray-400 mt-2"><i class="fa-regular fa-calendar-check mr-1"></i>${d.completedDate}</div>` : '';
+                    let dateBadge = d.completedDate ? `<div class="text-[10px] text-gray-400 mt-2"><i class="fa-regular fa-calendar-check mr-1"></i>${escapeHTML(d.completedDate)}</div>` : '';
                     let archiveBtn = '';
                     
                     if(d.status === 'Done') {
-                        if(!d.isArchived) archiveBtn = `<button onclick="window.toggleArchiveDeliverable('${d.id}')" class="absolute bottom-2 right-2 text-gray-300 hover:text-blue-600 transition-colors" title="Archive"><i class="fa-solid fa-box-archive"></i></button>`;
-                        else archiveBtn = `<button onclick="window.toggleArchiveDeliverable('${d.id}')" class="absolute bottom-2 right-2 text-blue-400 hover:text-blue-600 transition-colors" title="Unarchive"><i class="fa-solid fa-box-open"></i></button>`;
+                        if(!d.isArchived) archiveBtn = `<button onclick="window.toggleArchiveDeliverable('${escapeHTML(d.id)}')" class="absolute bottom-2 right-2 text-gray-300 hover:text-blue-600 transition-colors" title="Archive"><i class="fa-solid fa-box-archive"></i></button>`;
+                        else archiveBtn = `<button onclick="window.toggleArchiveDeliverable('${escapeHTML(d.id)}')" class="absolute bottom-2 right-2 text-blue-400 hover:text-blue-600 transition-colors" title="Unarchive"><i class="fa-solid fa-box-open"></i></button>`;
                     }
 
                     return `
-                        <div id="card_${d.id}" draggable="true" ondragstart="window.dragStart(event)" ondragend="window.dragEnd(event)" class="kanban-card bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative ${d.isArchived ? 'opacity-60 bg-gray-50' : ''}">
-                            <button onclick="window.openModal('deliverableModal', '${d.id}')" class="absolute top-2 right-2 text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-blue-50 p-1.5 rounded-lg z-10"><i class="fa-solid fa-pen text-xs"></i></button>
+                        <div id="card_${d.id}" draggable="true" ondragstart="window.handleDragStart(event, 'deliverable', '${d.id}')" ondragend="window.handleDragEnd(event)" class="kanban-card bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative ${d.isArchived ? 'opacity-60 bg-gray-50' : ''}">
+                            <button onclick="window.openModal('deliverableModal', '${escapeHTML(d.id)}')" class="absolute top-2 right-2 text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-blue-50 p-1.5 rounded-lg z-10"><i class="fa-solid fa-pen text-xs"></i></button>
                             <div class="flex items-center gap-2 mb-2">
                                 <div class="w-3 h-3 rounded-full shadow-sm shrink-0" style="background-color: ${projColor};"></div>
-                                <div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider truncate">${projName}</div>
+                                <div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider truncate">${escapeHTML(projName)}</div>
                             </div>
-                            <h4 class="text-sm font-bold text-gray-800 leading-snug mb-2 pr-6">${d.name}</h4>
+                            <h4 class="text-sm font-bold text-gray-800 leading-snug mb-2 pr-6">${escapeHTML(d.name)}</h4>
                             ${d.budget ? `<div class="text-xs text-green-700 font-semibold mb-2 bg-green-50 inline-block px-1.5 py-0.5 rounded border border-green-100">${formatCurrency(d.budget)}</div>` : ''}
                             ${dateBadge}${archiveBtn}
                         </div>
@@ -1635,7 +1642,7 @@
                             <h3 class="font-bold ${colDef.headerText}">${colDef.name} <span class="ml-1 ${colDef.badgeBg} text-xs px-2 py-0.5 rounded-full font-semibold shadow-sm">${colDeliverables.length}</span></h3>
                             <div class="text-xs font-bold ${colDef.headerText} opacity-90 bg-white/60 px-2 py-1 rounded-lg border border-white shadow-sm" title="Total Value">${formatCurrency(totalBudget)}</div>
                         </div>
-                        <div class="kanban-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[50px] p-2 bg-gray-50/30" data-status="${colDef.id}" ondragover="window.dragOver(event)" ondrop="window.dropItem(event)">
+                        <div class="kanban-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[50px] p-2 bg-gray-50/30" data-status="${colDef.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropItem(event)">
                             ${columnInnerHtml}
                         </div>
                     </div>
@@ -1669,50 +1676,22 @@
             window.renderEvents();
         };
 
-        window.dragEventStart = function(e) {
-            activeDragContext = { type: 'event', id: e.target.id.replace('evcard_', '') };
-            e.target.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-        };
-        window.dragEventEnd = function(e) { e.target.classList.remove('dragging'); activeDragContext = null; };
-        window.dragEventOver = function(e) { e.preventDefault(); };
-
         window.dropEventItem = function(e) {
-            e.preventDefault();
-            const column = e.target.closest('.event-column');
-            if (!column || !activeDragContext || activeDragContext.type !== 'event') return;
-
-            const newStatus = column.dataset.status;
-            const afterElement = calculateDragDropTarget(column, e.clientY, '.event-card');
-            const eventItem = state.events.find(ev => ev.id === activeDragContext.id);
-            if (!eventItem) return;
-
-            eventItem.status = newStatus;
-            
-            // If moved to attending and doesn't have a year, default to current year
-            if (newStatus === 'Attending' && !eventItem.year) {
-                eventItem.year = new Date().getFullYear();
-            }
-
-            let itemsInCol = state.events.filter(ev => {
-                const effStatus = getEffectiveEventStatus(ev);
-                return effStatus === newStatus && ev.id !== activeDragContext.id;
+            processGenericDrop({
+                event: e,
+                columnSelector: '.event-column',
+                targetKey: 'status',
+                collectionName: 'events',
+                cardSelector: '.event-card',
+                idPrefix: 'evcard_',
+                statusAttr: 'status',
+                onUpdate: (eventItem, newStatus) => {
+                    if (newStatus === 'Attending' && !eventItem.year) {
+                        eventItem.year = new Date().getFullYear();
+                    }
+                    setupEventYearSelector();
+                }
             });
-            itemsInCol.sort((a, b) => (a.order || 0) - (b.order || 0));
-
-            if (afterElement) {
-                const insertId = afterElement.id.replace('evcard_', '');
-                const insertIndex = itemsInCol.findIndex(ev => ev.id === insertId);
-                itemsInCol.splice(insertIndex, 0, eventItem);
-            } else {
-                itemsInCol.push(eventItem);
-            }
-
-            itemsInCol.forEach((ev, idx) => { ev.order = idx; });
-
-            saveDataToFirebase();
-            setupEventYearSelector();
-            window.renderEvents();
         };
 
         window.renderEvents = function() {
@@ -1722,7 +1701,6 @@
 
             if (!state.events) state.events = [];
 
-            // Filter by calendar year if selected
             let filteredEvents = state.events;
             if (state.currentEventYearFilter !== 'All') {
                 const yr = parseInt(state.currentEventYearFilter);
@@ -1754,18 +1732,18 @@
                     const isUpcomingTiming = isEventInNext3Months(ev.timing);
 
                     return `
-                        <div id="evcard_${ev.id}" draggable="true" ondragstart="window.dragEventStart(event)" ondragend="window.dragEventEnd(event)" class="event-card bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-indigo-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
-                            <button onclick="window.openModal('eventModal', '${ev.id}')" class="absolute top-3 right-3 text-gray-400 hover:text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-indigo-50 p-1.5 rounded-lg z-10" title="Edit Event"><i class="fa-solid fa-pen text-xs"></i></button>
+                        <div id="evcard_${ev.id}" draggable="true" ondragstart="window.handleDragStart(event, 'event', '${ev.id}')" ondragend="window.handleDragEnd(event)" class="event-card bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-indigo-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
+                            <button onclick="window.openModal('eventModal', '${escapeHTML(ev.id)}')" class="absolute top-3 right-3 text-gray-400 hover:text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-indigo-50 p-1.5 rounded-lg z-10" title="Edit Event"><i class="fa-solid fa-pen text-xs"></i></button>
                             
                             <div class="flex items-center gap-2 mb-2 pr-6">
-                                <h4 class="text-sm font-bold text-gray-900 leading-snug">${ev.name}</h4>
+                                <h4 class="text-sm font-bold text-gray-900 leading-snug">${escapeHTML(ev.name)}</h4>
                             </div>
 
                             <div class="space-y-1.5 my-3 text-xs text-gray-600">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-2 text-gray-700">
                                         <i class="fa-regular fa-calendar-days w-4 text-indigo-500 shrink-0"></i>
-                                        <span class="font-medium">Month: <span class="font-bold text-gray-800">${monthDisplay}</span></span>
+                                        <span class="font-medium">Month: <span class="font-bold text-gray-800">${escapeHTML(monthDisplay)}</span></span>
                                     </div>
                                     ${isUpcomingTiming ? `<span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-amber-200 shrink-0"><i class="fa-solid fa-bolt mr-0.5 text-amber-600"></i> Next 3 Mo</span>` : ''}
                                 </div>
@@ -1773,23 +1751,23 @@
                                 ${ev.location ? `
                                     <div class="flex items-center gap-2 text-gray-700">
                                         <i class="fa-solid fa-location-dot w-4 text-rose-500 shrink-0"></i>
-                                        <span class="font-medium">${ev.location}</span>
+                                        <span class="font-medium">${escapeHTML(ev.location)}</span>
                                     </div>
                                 ` : ''}
 
                                 ${ev.abstractDue ? `
                                     <div class="flex items-center gap-2 text-amber-800 bg-amber-50 p-1.5 rounded-lg border border-amber-200">
                                         <i class="fa-regular fa-file-lines w-4 text-amber-600 shrink-0"></i>
-                                        <span class="font-semibold text-[11px]">Abstract Due: ${ev.abstractDue}</span>
+                                        <span class="font-semibold text-[11px]">Abstract Due: ${escapeHTML(ev.abstractDue)}</span>
                                     </div>
                                 ` : ''}
                             </div>
 
                             <div class="flex items-center justify-between pt-2 border-t border-gray-100 text-[11px] text-gray-400">
                                 <div class="flex items-center gap-1.5">
-                                    ${ev.year ? `<span class="bg-gray-100 text-gray-700 font-bold px-2 py-0.5 rounded text-[10px]"><i class="fa-regular fa-calendar mr-1"></i>${ev.year}</span>` : ''}
+                                    ${ev.year ? `<span class="bg-gray-100 text-gray-700 font-bold px-2 py-0.5 rounded text-[10px]"><i class="fa-regular fa-calendar mr-1"></i>${escapeHTML(ev.year)}</span>` : ''}
                                 </div>
-                                ${ev.notes ? `<div class="truncate max-w-[140px] text-gray-500" title="${ev.notes}"><i class="fa-regular fa-comment-dots mr-1"></i>${ev.notes}</div>` : ''}
+                                ${ev.notes ? `<div class="truncate max-w-[140px] text-gray-500" title="${escapeHTML(ev.notes)}"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(ev.notes)}</div>` : ''}
                             </div>
                         </div>
                     `;
@@ -1806,7 +1784,7 @@
                             </div>
                             <span class="${col.badge} text-xs px-2.5 py-0.5 rounded-full font-bold shadow-sm">${colEvents.length}</span>
                         </div>
-                        <div class="event-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.dragEventOver(event)" ondrop="window.dropEventItem(event)">
+                        <div class="event-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropEventItem(event)">
                             ${cardsHtml}
                             ${colEvents.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-8">No events in this view.</div>` : ''}
                         </div>
@@ -1857,7 +1835,7 @@
                 document.getElementById('btnDeleteProj').classList.toggle('hidden', !isEdit);
                 
                 const existingTags = [...new Set(state.projects.map(p => p.tag).filter(Boolean))];
-                document.getElementById('existingTagsList').innerHTML = existingTags.map(t => `<option value="${t}">`).join('');
+                document.getElementById('existingTagsList').innerHTML = existingTags.map(t => `<option value="${escapeHTML(t)}">`).join('');
 
                 if (isEdit) {
                     const p = state.projects.find(x => x.id === itemId);
@@ -1880,7 +1858,7 @@
                 document.getElementById('btnDeleteDeliv').classList.toggle('hidden', !isEdit);
                 
                 const projSelect = document.getElementById('delivProject');
-                projSelect.innerHTML = state.projects.filter(p=>p.status==='Active').map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+                projSelect.innerHTML = state.projects.filter(p=>p.status==='Active').map(p => `<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`).join('');
 
                 if (isEdit) {
                     const d = state.deliverables.find(x => x.id === itemId);
@@ -2079,42 +2057,25 @@
             window.renderEvents();
         });
 
-        // Deletion Functions
+        // Deletion Functions (Unified)
         window.deleteProposal = function() {
-            const id = document.getElementById('propId').value;
-            state.proposals = state.proposals.filter(p => p.id !== id);
-            saveDataToFirebase();
-            window.closeModals();
-            window.renderProposals();
-            window.renderKanban();
+            deleteEntity('proposals', document.getElementById('propId').value, () => window.renderKanban());
         };
         
         window.deleteProject = function() {
             const id = document.getElementById('projId').value;
-            state.projects = state.projects.filter(p => p.id !== id);
-            state.deliverables = state.deliverables.filter(d => d.projectId !== id);
-            saveDataToFirebase();
-            window.closeModals();
-            window.renderProjects();
-            window.renderKanban();
+            deleteEntity('projects', id, (deletedId) => {
+                state.deliverables = state.deliverables.filter(d => d.projectId !== deletedId);
+                window.renderKanban();
+            });
         };
         
         window.deleteDeliverable = function() {
-            const id = document.getElementById('delivId').value;
-            state.deliverables = state.deliverables.filter(d => d.id !== id);
-            saveDataToFirebase();
-            window.closeModals();
-            window.renderKanban();
-            window.renderProjects();
+            deleteEntity('deliverables', document.getElementById('delivId').value, () => window.renderProjects());
         };
 
         window.deleteEvent = function() {
-            const id = document.getElementById('eventId').value;
-            state.events = (state.events || []).filter(ev => ev.id !== id);
-            saveDataToFirebase();
-            window.closeModals();
-            setupEventYearSelector();
-            window.renderEvents();
+            deleteEntity('events', document.getElementById('eventId').value, () => setupEventYearSelector());
         };
 
         document.getElementById('delivStatus').addEventListener('change', function() {
