@@ -129,21 +129,33 @@
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800">My To-Do List</h2>
-                        <p class="text-gray-500 text-sm">Organize and prioritize your daily tasks.</p>
+                        <p class="text-gray-500 text-sm">Organize, prioritize, and track tasks for review.</p>
+                    </div>
+                    <!-- Review Filter Toggle Button -->
+                    <div class="flex items-center gap-2">
+                        <button id="btnToggleReviewFilter" onclick="window.toggleReviewFilter()" class="px-3.5 py-1.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 bg-white text-gray-600 border-gray-200 hover:border-purple-300 hover:text-purple-700 shadow-sm">
+                            <i class="fa-solid fa-clipboard-check text-purple-600"></i>
+                            <span>Needs Review</span>
+                            <span id="reviewCountBadge" class="bg-purple-100 text-purple-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded-md">0</span>
+                        </button>
                     </div>
                 </div>
 
-                <form id="formTodo" class="mb-6 flex gap-3 bg-white p-2 rounded-xl shadow-sm border border-gray-200 w-full max-w-3xl">
+                <form id="formTodo" class="mb-6 flex flex-wrap items-center gap-3 bg-white p-2.5 rounded-2xl shadow-sm border border-gray-200 w-full max-w-4xl">
                     <input type="text" id="newTodoText" placeholder="What needs to get done?" required
-                        class="flex-1 px-4 py-2 bg-transparent focus:outline-none text-gray-800 font-medium placeholder-gray-400">
-                    <select id="newTodoBucket" class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium text-gray-700">
+                        class="flex-1 min-w-[200px] px-4 py-2 bg-transparent focus:outline-none text-gray-800 font-medium placeholder-gray-400">
+                    <select id="newTodoBucket" class="px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium text-gray-700">
                         <option value="today">Today</option>
                         <option value="high">High Priority</option>
                         <option value="low">Lower Priority</option>
                         <option value="personal">Personal</option>
                     </select>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold transition-colors shadow-sm">
-                        <i class="fa-solid fa-plus mr-1"></i> Add
+                    <label class="flex items-center gap-1.5 px-3 py-2 bg-purple-50 hover:bg-purple-100/80 border border-purple-200 rounded-xl cursor-pointer transition-colors text-xs font-bold text-purple-800 select-none" title="Mark this task as needing your review">
+                        <input type="checkbox" id="newTodoNeedsReview" class="w-3.5 h-3.5 text-purple-600 rounded focus:ring-purple-500 cursor-pointer">
+                        <i class="fa-solid fa-clipboard-check text-purple-600"></i> Needs Review
+                    </label>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition-colors shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus text-xs"></i> Add Task
                     </button>
                 </form>
 
@@ -542,7 +554,8 @@
             currentSort: { column: 'seq', direction: 'asc' },
             currentKanbanFilter: 'All',
             currentEventYearFilter: 'All',
-            proposalView: 'board'
+            proposalView: 'board',
+            todoReviewFilter: false // Toggle to only show items needing review
         };
 
         const projectColors = ['#ef4444', '#f97316', '#f59e0b', '#84cc16', '#10b981', '#06b6d4', '#3b82f6', '#8b5cf6', '#d946ef', '#f43f5e'];
@@ -752,8 +765,8 @@
                 { id: 'deliv3', projectId: 'proj2', name: 'Site Survey', status: 'Done', budget: 1500, isArchived: false, completedDate: '2023-11-01', order: 0 }
             ];
             state.todos = [
-                { id: 'todo1', text: 'Call John regarding budget', bucket: 'today', isCompleted: false, order: 0 },
-                { id: 'todo2', text: 'Draft email to Sarah', bucket: 'high', isCompleted: false, order: 1 }
+                { id: 'todo1', text: 'Call John regarding budget', bucket: 'today', isCompleted: false, needsReview: true, order: 0 },
+                { id: 'todo2', text: 'Draft email to Sarah', bucket: 'high', isCompleted: false, needsReview: false, order: 1 }
             ];
             state.events = [
                 { id: 'ev1', name: 'WEFTEC (Water Environment Federation)', status: 'Auto', timing: '10', location: 'New Orleans, LA', abstractDue: 'December 1', year: thisCalYear, notes: 'Submitted abstract on digital twins' },
@@ -918,21 +931,30 @@
         };
 
         // ==========================================
-        // 6. TO-DO LIST MODULE
+        // 6. TO-DO LIST MODULE (WITH REVIEW FEATURE)
         // ==========================================
         document.getElementById('formTodo').addEventListener('submit', (e) => {
             e.preventDefault();
-            const text = document.getElementById('newTodoText').value;
-            const bucket = document.getElementById('newTodoBucket').value;
+            const textInput = document.getElementById('newTodoText');
+            const bucketSelect = document.getElementById('newTodoBucket');
+            const reviewCheck = document.getElementById('newTodoNeedsReview');
+            
+            const text = textInput.value.trim();
+            const bucket = bucketSelect.value;
+            const needsReview = reviewCheck ? reviewCheck.checked : false;
+
             state.todos.push({
                 id: 'todo_' + Date.now(),
                 text: text,
                 bucket: bucket,
                 isCompleted: false,
                 isArchived: false,
+                needsReview: needsReview,
                 order: state.todos.filter(t => t.bucket === bucket && !t.isArchived).length
             });
-            document.getElementById('newTodoText').value = '';
+
+            textInput.value = '';
+            if (reviewCheck) reviewCheck.checked = false;
             saveDataToFirebase();
             window.renderTodos();
         });
@@ -953,6 +975,24 @@
                 saveDataToFirebase();
                 window.renderTodos();
             }
+        };
+
+        // Toggle whether a task needs review
+        window.toggleTodoReview = function(id, event) {
+            if (event) event.stopPropagation();
+            const todo = state.todos.find(t => t.id === id);
+            if (todo) {
+                todo.needsReview = !todo.needsReview;
+                saveDataToFirebase();
+                window.renderTodos();
+                window.showToast(todo.needsReview ? 'Task flagged for review' : 'Review flag removed');
+            }
+        };
+
+        // Toggle header filter to view only items needing review
+        window.toggleReviewFilter = function() {
+            state.todoReviewFilter = !state.todoReviewFilter;
+            window.renderTodos();
         };
 
         window.archiveTodo = function(id) {
@@ -1038,9 +1078,23 @@
         window.renderTodos = function() {
             const activeBoard = document.getElementById('todoActiveBoard');
             const archiveList = document.getElementById('todoArchiveList');
+            const reviewBadge = document.getElementById('reviewCountBadge');
+            const btnReviewFilter = document.getElementById('btnToggleReviewFilter');
             if (!activeBoard || !archiveList) return;
             activeBoard.innerHTML = '';
             archiveList.innerHTML = '';
+
+            // Update Review Filter Button & Count
+            const totalReviewTasks = state.todos.filter(t => !t.isArchived && t.needsReview).length;
+            if (reviewBadge) reviewBadge.innerText = totalReviewTasks;
+
+            if (btnReviewFilter) {
+                if (state.todoReviewFilter) {
+                    btnReviewFilter.className = 'px-3.5 py-1.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 bg-purple-600 text-white border-purple-600 shadow-md shadow-purple-500/20';
+                } else {
+                    btnReviewFilter.className = 'px-3.5 py-1.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 bg-white text-gray-700 border-gray-200 hover:border-purple-300 hover:text-purple-700 shadow-sm';
+                }
+            }
 
             const buckets = [
                 { id: 'today', name: 'Today', color: 'red', bg: 'bg-red-50/50', border: 'border-red-200', header: 'text-red-800 bg-red-100', accent: 'border-l-red-500' },
@@ -1052,7 +1106,13 @@
             state.todos.sort((a, b) => (a.order || 0) - (b.order || 0));
 
             buckets.forEach(bucket => {
-                const unarchivedTasks = state.todos.filter(t => t.bucket === bucket.id && !t.isArchived);
+                let unarchivedTasks = state.todos.filter(t => t.bucket === bucket.id && !t.isArchived);
+                
+                // If filter is active, only show review tasks
+                if (state.todoReviewFilter) {
+                    unarchivedTasks = unarchivedTasks.filter(t => t.needsReview);
+                }
+
                 let cardsHtml = unarchivedTasks.map(t => {
                     let iconClass = 'fa-regular fa-circle text-gray-300 hover:text-amber-500';
                     let cardBgClass = '';
@@ -1063,21 +1123,39 @@
                         iconClass = 'fa-solid fa-clock text-amber-500 hover:text-green-500';
                         cardBgClass = 'bg-amber-50/60 border-amber-200';
                         textClass = 'text-amber-900';
-                        badgeHtml = `<span class="text-[10px] font-extrabold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200 shrink-0">Waiting</span>`;
+                        badgeHtml += `<span class="text-[10px] font-extrabold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200 shrink-0">Waiting</span>`;
                     } else if (t.isCompleted) {
                         iconClass = 'fa-solid fa-circle-check text-green-500 hover:text-gray-400';
                         cardBgClass = 'bg-gray-50/80';
                         textClass = 'text-gray-400 line-through';
                     }
 
+                    // Review Badge / Icon
+                    let reviewBtnHtml = '';
+                    if (t.needsReview) {
+                        reviewBtnHtml = `
+                            <button onclick="window.toggleTodoReview('${t.id}', event)" class="text-[10px] font-extrabold bg-purple-100 hover:bg-purple-200 text-purple-700 px-2 py-0.5 rounded-md border border-purple-300 shrink-0 flex items-center gap-1 transition-colors shadow-xs" title="Click to remove review flag">
+                                <i class="fa-solid fa-clipboard-check text-purple-600"></i> Review
+                            </button>
+                        `;
+                    } else {
+                        reviewBtnHtml = `
+                            <button onclick="window.toggleTodoReview('${t.id}', event)" class="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-purple-600 transition-opacity p-1 bg-gray-50 hover:bg-purple-50 rounded" title="Flag as Needs Review">
+                                <i class="fa-regular fa-clipboard-check text-sm"></i>
+                            </button>
+                        `;
+                    }
+
                     return `
-                        <div id="todo_${t.id}" draggable="true" ondragstart="window.handleDragStart(event, 'todo', '${t.id}')" ondragend="window.handleDragEnd(event)" class="todo-card group flex items-start gap-3 bg-white p-3 rounded-lg shadow-sm border border-gray-100 border-l-4 ${bucket.accent} hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 ${cardBgClass}">
+                        <div id="todo_${t.id}" draggable="true" ondragstart="window.handleDragStart(event, 'todo', '${t.id}')" ondragend="window.handleDragEnd(event)" class="todo-card group flex items-start gap-2.5 bg-white p-3 rounded-xl shadow-sm border border-gray-100 border-l-4 ${bucket.accent} hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 ${cardBgClass} ${t.needsReview ? 'ring-1 ring-purple-300/80 bg-purple-50/20' : ''}">
                             <button onclick="window.toggleTodoCompletion('${t.id}')" class="mt-0.5 transition-colors shrink-0" title="Click to cycle: To Do -> Waiting -> Done">
                                 <i class="${iconClass} text-xl"></i>
                             </button>
-                            <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm font-medium ${textClass} flex-1 leading-tight select-none cursor-pointer hover:text-blue-600 transition-colors">${escapeHTML(t.text)}</span>
-                            ${badgeHtml}
-                            <div class="flex items-center gap-1">
+                            <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm font-medium ${textClass} flex-1 leading-tight select-none cursor-pointer hover:text-blue-600 transition-colors pt-0.5">${escapeHTML(t.text)}</span>
+                            
+                            <div class="flex items-center gap-1 shrink-0">
+                                ${badgeHtml}
+                                ${reviewBtnHtml}
                                 ${t.isCompleted ? `
                                     <button onclick="window.archiveTodo('${t.id}')" class="text-gray-400 hover:text-blue-600 transition-colors p-1 bg-gray-50 hover:bg-blue-50 rounded" title="Archive Task">
                                         <i class="fa-solid fa-box-archive text-xs"></i>
@@ -1099,7 +1177,7 @@
                         </div>
                         <div class="todo-column flex-1 overflow-y-auto p-3 flex flex-col gap-3 ${bucket.bg}" data-bucket="${bucket.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropTodoItem(event)">
                             ${cardsHtml}
-                            ${unarchivedTasks.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">Drop tasks here</div>` : ''}
+                            ${unarchivedTasks.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">${state.todoReviewFilter ? 'No tasks need review here' : 'Drop tasks here'}</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -1118,6 +1196,7 @@
                             <i class="fa-solid fa-box-open text-base"></i>
                         </button>
                         <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm text-gray-500 line-through flex-1 select-none cursor-pointer hover:text-blue-600 transition-colors">${escapeHTML(t.text)}</span>
+                        ${t.needsReview ? `<span class="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded border border-purple-200">Review</span>` : ''}
                         <button onclick="window.deleteTodo('${t.id}')" class="text-gray-400 hover:text-red-500 p-1" title="Delete Task">
                             <i class="fa-solid fa-trash text-xs"></i>
                         </button>
