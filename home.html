@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juggler - Home Maintenance</title>
-    <!-- Tab Favicon: Warm House & Juggling Accents -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='10' cy='32' r='5' fill='%23fdba74'/%3E%3Ccircle cx='20' cy='16' r='5.5' fill='%23fb923c'/%3E%3Ccircle cx='32' cy='9' r='6' fill='%2310b981'/%3E%3Ccircle cx='44' cy='16' r='5.5' fill='%23fb923c'/%3E%3Ccircle cx='54' cy='32' r='5' fill='%23fdba74'/%3E%3Cpath d='M32 20 L12 36 L17 36 L17 56 L47 56 L47 36 L52 36 Z' fill='%23059669'/%3E%3Cpath d='M28 56 L28 40 L36 40 L36 56 Z' fill='%23ecfdf5'/%3E%3C/svg%3E">
+    <!-- Tab Favicon: Emerald Juggler & Warm Accents -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='10' cy='32' r='5' fill='%236ee7b7'/%3E%3Ccircle cx='20' cy='16' r='5.5' fill='%2334d399'/%3E%3Ccircle cx='32' cy='9' r='6' fill='%23f59e0b'/%3E%3Ccircle cx='44' cy='16' r='5.5' fill='%2310b981'/%3E%3Ccircle cx='54' cy='32' r='5' fill='%23059669'/%3E%3Ccircle cx='32' cy='28' r='8' fill='%23059669'/%3E%3Cpath d='M16 58 C16 42 48 42 48 58 Z' fill='%23047857'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -52,7 +52,7 @@
         <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full mx-4 border border-gray-100 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-500 to-teal-600"></div>
             
-            <!-- Injected Home SVG Logo -->
+            <!-- Injected Home Juggler SVG Logo -->
             <div id="loginBrandSvg" class="w-28 h-28 mx-auto mb-3 flex items-center justify-center"></div>
 
             <h1 class="text-3xl font-extrabold mb-1 tracking-tight text-gray-900">Juggler Home</h1>
@@ -99,7 +99,6 @@
 
             <!-- Quick Switch to Work Mode + Utilities -->
             <div class="flex items-center gap-2">
-                <!-- Direct link to work index.html -->
                 <a href="index.html" class="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100/80 border border-blue-200 rounded-xl transition-all shadow-xs" title="Switch to Professional Workspace">
                     <i class="fa-solid fa-briefcase text-blue-600"></i> Work Mode
                 </a>
@@ -206,7 +205,7 @@
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
-                            <span class="text-xs font-bold text-gray-500 uppercase"><i class="fa-regular fa-calendar-check mr-1"></i> Season/Month:</span>
+                            <span class="text-xs font-bold text-gray-500 uppercase"><i class="fa-regular fa-calendar-check mr-1"></i> Interval:</span>
                             <select id="maintTimingFilter" onchange="window.updateMaintFilter()" class="bg-transparent text-gray-800 text-sm font-bold focus:outline-none cursor-pointer">
                                 <option value="All">All Intervals</option>
                                 <option value="Monthly">Monthly</option>
@@ -221,7 +220,7 @@
                     </div>
                 </div>
 
-                <!-- 3-Stage Pipeline: Registry, Due Soon, Completed / Up to Date -->
+                <!-- 3-Stage Pipeline: Due Soon, Up-To-Date, Registry -->
                 <div class="flex gap-6 flex-1 pb-4 w-full overflow-x-auto" id="maintenanceBoard"></div>
             </div>
         </main>
@@ -385,7 +384,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Dedicated Home State (Stored under "home_workspaces/{code}" to preserve work/home isolation)
         let state = {
             todos: [],
             repairs: [],
@@ -399,21 +397,25 @@
         let unsubscribeSnapshot = null;
         let activeDragContext = null;
 
-        // Centralized Brand Home SVG
+        // Exact same Juggler SVG geometry as Work Mode, styled in the Emerald & Teal Home Palette
         const HOME_SVG = `
             <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Arc of Juggling Spheres -->
-                <circle cx="30" cy="95" r="13" fill="#FDBA74" />
-                <circle cx="58" cy="50" r="14" fill="#FB923C" />
-                <circle cx="100" cy="28" r="15" fill="#10B981" />
-                <circle cx="142" cy="50" r="14" fill="#EA580C" />
-                <circle cx="170" cy="95" r="13" fill="#C2410C" />
-                <!-- Modern Home Base -->
-                <path d="M100 68 L36 122 L48 122 L48 184 L152 184 L152 122 L164 122 Z" fill="#059669" />
-                <path d="M100 68 L100 184 L152 184 L152 122 L164 122 Z" fill="#047857" />
-                <!-- Doorway & Chimney -->
-                <rect x="84" y="132" width="32" height="52" rx="4" fill="#ECFDF5" />
-                <path d="M136 80 L136 60 L148 60 L148 90 Z" fill="#047857" />
+                <!-- 5 Juggling Balls in Home Palette -->
+                <circle cx="30" cy="95" r="14" fill="#6EE7B7" />
+                <circle cx="55" cy="48" r="15" fill="#34D399" />
+                <circle cx="100" cy="26" r="16" fill="#F59E0B" />
+                <circle cx="145" cy="48" r="15" fill="#10B981" />
+                <circle cx="170" cy="95" r="14" fill="#0D9488" />
+                
+                <!-- Dual-Tone Emerald Head -->
+                <circle cx="100" cy="90" r="24" fill="#10B981" />
+                <path d="M100 66 A24 24 0 0 1 100 114 Z" fill="#059669" />
+
+                <!-- Left Side Torso & Slim Arm (Light Emerald) -->
+                <path d="M100 122 L76 122 C66 122 58 130 50 138 L32 124 C27 120 20 123 18 128 C16 133 19 139 24 143 L48 160 C55 164 63 158 68 150 L68 192 L100 192 Z" fill="#10B981" />
+                
+                <!-- Right Side Torso & Slim Arm (Deep Emerald) -->
+                <path d="M100 122 L124 122 C134 122 142 130 150 138 L168 124 C173 120 180 123 182 128 C184 133 181 139 176 143 L152 160 C145 164 137 158 132 150 L132 192 L100 192 Z" fill="#059669" />
             </svg>
         `;
 
@@ -510,7 +512,6 @@
             refreshActiveView();
         }
 
-        // Dedicated Home Collection
         async function saveDataToFirebase() {
             if (!state.currentPasscode || state.currentPasscode.toLowerCase() === 'example') return;
             
@@ -550,6 +551,10 @@
 
         async function connectWorkspace(code) {
             state.currentPasscode = code;
+            try {
+                localStorage.setItem('juggler_workspace', code);
+            } catch (e) {}
+
             document.getElementById('workspaceTitle').innerText = 'Workspace: ' + code;
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('appScreen').classList.remove('hidden');
@@ -604,6 +609,9 @@
         document.getElementById('logoutBtn').addEventListener('click', () => {
             if (unsubscribeSnapshot) unsubscribeSnapshot();
             state.currentPasscode = '';
+            try {
+                localStorage.removeItem('juggler_workspace');
+            } catch (e) {}
             document.getElementById('appScreen').classList.add('hidden');
             document.getElementById('appScreen').classList.remove('flex');
             document.getElementById('loginScreen').classList.remove('hidden');
@@ -829,7 +837,6 @@
                 `;
             });
 
-            // Archive list rendering
             const archived = state.todos.filter(t => t.isArchived);
             const btnDeleteAll = document.getElementById('btnDeleteAllArchived');
             if (btnDeleteAll) btnDeleteAll.classList.toggle('hidden', archived.length === 0);
@@ -947,7 +954,6 @@
         function isMaintenanceDue(maint) {
             if (!maint.nextDue && !maint.targetMonth) return false;
             
-            // Check next due date against today (within next 30 days or overdue)
             if (maint.nextDue) {
                 const due = new Date(maint.nextDue).getTime();
                 const now = new Date().getTime();
@@ -955,7 +961,6 @@
                 return (due - now) <= thirtyDays;
             }
 
-            // Check target month
             if (maint.targetMonth) {
                 const currentMonth = new Date().getMonth() + 1;
                 const tm = parseInt(maint.targetMonth);
@@ -985,7 +990,6 @@
             const today = new Date();
             maint.lastDone = today.toISOString().split('T')[0];
 
-            // Auto-advance next due date based on frequency
             if (maint.interval === 'Monthly') {
                 today.setMonth(today.getMonth() + 1);
             } else if (maint.interval === 'Quarterly') {
@@ -1170,7 +1174,6 @@
             });
         };
 
-        // Form Submit Listeners
         document.getElementById('formRepair').addEventListener('submit', (e) => {
             e.preventDefault();
             const existingId = document.getElementById('repairId').value;
@@ -1240,16 +1243,26 @@
             deleteEntity('maintenance', document.getElementById('maintId').value);
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             const loginBox = document.getElementById('loginBrandSvg');
             const headerBox = document.getElementById('headerBrandSvg');
             if (loginBox) loginBox.innerHTML = HOME_SVG;
             if (headerBox) headerBox.innerHTML = HOME_SVG;
 
-            // Seamless session pass-through: if passcode was entered in work workspace, load it
-            const savedWorkspace = localStorage.getItem('juggler_workspace');
+            // Seamless session pass-through: auto-login if passcode is stored
+            let savedWorkspace = null;
+            try {
+                savedWorkspace = localStorage.getItem('juggler_workspace');
+            } catch (e) {}
+
             if (savedWorkspace) {
                 document.getElementById('passcodeInput').value = savedWorkspace;
+                try {
+                    await signInAnonymously(auth);
+                    connectWorkspace(savedWorkspace);
+                } catch (err) {
+                    console.error("Auto-connect failed:", err);
+                }
             }
         });
     </script>

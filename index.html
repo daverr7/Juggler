@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juggler</title>
-    <!-- Tab Favicon: High-visibility Juggling Arc -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='9' cy='34' r='5.5' fill='%23fdba74'/%3E%3Ccircle cx='19' cy='18' r='6' fill='%23fb923c'/%3E%3Ccircle cx='32' cy='11' r='6.5' fill='%23f97316'/%3E%3Ccircle cx='45' cy='18' r='6' fill='%23ea580c'/%3E%3Ccircle cx='55' cy='34' r='5.5' fill='%23c2410c'/%3E%3Ccircle cx='32' cy='33' r='7.5' fill='%2338bdf8'/%3E%3Cpath d='M32 25.5 A7.5 7.5 0 0 1 32 40.5 Z' fill='%232563eb'/%3E%3Cpath d='M32 44 C28 44 24 46 20 49 L9 46 C7 46 6 48 7 50 L11 55 C13 56 16 54 18 53 L24 53 L24 64 L32 64 Z' fill='%2338bdf8'/%3E%3Cpath d='M32 44 C36 44 40 46 44 49 L55 46 C57 46 58 48 57 50 L53 55 C51 56 48 54 46 53 L40 53 L40 64 L32 64 Z' fill='%232563eb'/%3E%3C/svg%3E">
+    <!-- Tab Favicon: Custom Juggling Arc & Figure SVG -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='10' cy='32' r='5' fill='%23fdba74'/%3E%3Ccircle cx='20' cy='16' r='5.5' fill='%23fb923c'/%3E%3Ccircle cx='32' cy='9' r='6' fill='%23f97316'/%3E%3Ccircle cx='44' cy='16' r='5.5' fill='%23ea580c'/%3E%3Ccircle cx='54' cy='32' r='5' fill='%23c2410c'/%3E%3Ccircle cx='32' cy='28' r='8' fill='%232563eb'/%3E%3Cpath d='M16 58 C16 42 48 42 48 58 Z' fill='%231d4ed8'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,24 +14,24 @@
             font-family: 'Inter', sans-serif;
             background-color: #f3f4f6;
         }
-        /* Custom Scrollbars */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
-        /* Fade Transitions */
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        /* Smooth Fade Animations */
+        .fade-in { animation: fadeIn 0.25s ease-in-out; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Drag and Drop Styling */
-        .kanban-column, .todo-column, .prop-column, .event-column { min-height: 200px; }
+        /* Unified Drag and Drop Styling */
+        .kanban-column, .todo-column, .prop-column, .event-column { min-height: 220px; }
         .kanban-card, .todo-card, .proposal-card, .event-card { cursor: grab; }
         .kanban-card:active, .todo-card:active, .proposal-card:active, .event-card:active { cursor: grabbing; }
-        .dragging { opacity: 0.5; border: 2px dashed #3b82f6 !important; transform: scale(0.98); }
+        .dragging { opacity: 0.45; border: 2px dashed #3b82f6 !important; transform: scale(0.98); }
 
         /* Tag Group Dragging */
         .tag-group.dragging-tag { opacity: 0.5; border: 2px dashed #3b82f6; border-radius: 12px; padding: 4px; transform: scale(0.99); }
@@ -56,11 +56,11 @@
         <div class="bg-white p-8 rounded-3xl shadow-2xl max-w-md w-full mx-4 border border-gray-100 text-center relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
             
-            <!-- Injected Juggler SVG Brand Illustration -->
-            <div id="loginBrandSvg" class="w-32 h-32 mx-auto mb-4 relative flex items-center justify-center"></div>
+            <!-- Dynamically Injected Juggler SVG Logo -->
+            <div id="loginBrandSvg" class="w-28 h-28 mx-auto mb-3 flex items-center justify-center"></div>
 
             <h1 class="text-3xl font-extrabold mb-1 tracking-tight text-gray-900">Juggler</h1>
-            <p class="text-gray-500 mb-6 text-sm font-medium">Proposals, Projects, Deliverables, & Events</p>
+            <p class="text-gray-500 mb-6 text-sm font-medium">Proposals, Projects, Pipeline, & Events</p>
             
             <form id="loginForm" class="space-y-4">
                 <input type="text" id="passcodeInput" required placeholder="e.g., example" 
@@ -78,7 +78,7 @@
         <!-- Header & Navigation -->
         <header class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center shrink-0 shadow-sm z-10 relative">
             <div class="flex items-center gap-4">
-                <div id="headerBrandSvg" class="w-10 h-10 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100/80 rounded-xl flex items-center justify-center shadow-sm p-1"></div>
+                <div id="headerBrandSvg" class="w-10 h-10 bg-gradient-to-br from-blue-50 to-orange-50 border border-blue-100 rounded-xl flex items-center justify-center shadow-sm p-1"></div>
                 <div>
                     <h1 class="text-xl font-extrabold tracking-tight text-gray-900 leading-tight">Juggler</h1>
                     <p class="text-[11px] text-gray-500 font-semibold tracking-wider" id="workspaceTitle">Workspace: Default</p>
@@ -94,8 +94,8 @@
             </nav>
 
             <div class="flex items-center gap-2">
-                <!-- Direct Switch to Home Mode -->
-                <a href="home.html" class="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 rounded-xl transition-all shadow-xs" title="Switch to Home Maintenance Workspace">
+                <!-- Quick Switch to Home Mode -->
+                <a href="home.html" class="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 rounded-xl transition-all shadow-xs" title="Switch to Home Maintenance">
                     <i class="fa-solid fa-house-chimney text-emerald-600"></i> Home Mode
                 </a>
 
@@ -134,33 +134,32 @@
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-2xl font-bold text-gray-800">My To-Do List</h2>
-                        <p class="text-gray-500 text-sm">Organize, prioritize, and track tasks for review.</p>
+                        <p class="text-gray-500 text-sm">Organize and prioritize your daily tasks.</p>
                     </div>
-                    <!-- Review Filter Toggle Button -->
                     <div class="flex items-center gap-2">
-                        <button id="btnToggleReviewFilter" onclick="window.toggleReviewFilter()" class="px-3.5 py-1.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 bg-white text-gray-600 border-gray-200 hover:border-purple-300 hover:text-purple-700 shadow-sm">
+                        <button id="btnFilterReview" onclick="window.toggleReviewFilter()" class="px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2 bg-white text-gray-600 border-gray-200 hover:border-purple-300 shadow-sm">
                             <i class="fa-solid fa-clipboard-check text-purple-600"></i>
                             <span>Needs Review</span>
-                            <span id="reviewCountBadge" class="bg-purple-100 text-purple-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded-md">0</span>
+                            <span id="reviewCountBadge" class="bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-[10px]">0</span>
                         </button>
                     </div>
                 </div>
 
-                <form id="formTodo" class="mb-6 flex flex-wrap items-center gap-3 bg-white p-2.5 rounded-2xl shadow-sm border border-gray-200 w-full max-w-4xl">
+                <form id="formTodo" class="mb-6 flex flex-wrap items-center gap-3 bg-white p-2 rounded-xl shadow-sm border border-gray-200 w-full max-w-4xl">
                     <input type="text" id="newTodoText" placeholder="What needs to get done?" required
                         class="flex-1 min-w-[200px] px-4 py-2 bg-transparent focus:outline-none text-gray-800 font-medium placeholder-gray-400">
-                    <select id="newTodoBucket" class="px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium text-gray-700">
+                    <label class="flex items-center gap-1.5 px-3 py-2 bg-purple-50/60 hover:bg-purple-100/70 text-purple-800 rounded-lg cursor-pointer border border-purple-200/80 text-xs font-bold transition-colors select-none">
+                        <input type="checkbox" id="newTodoReview" class="rounded text-purple-600 focus:ring-purple-500">
+                        <i class="fa-solid fa-clipboard-check text-purple-600"></i> Needs Review
+                    </label>
+                    <select id="newTodoBucket" class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium text-gray-700">
                         <option value="today">Today</option>
                         <option value="high">High Priority</option>
                         <option value="low">Lower Priority</option>
                         <option value="personal">Personal</option>
                     </select>
-                    <label class="flex items-center gap-1.5 px-3 py-2 bg-purple-50 hover:bg-purple-100/80 border border-purple-200 rounded-xl cursor-pointer transition-colors text-xs font-bold text-purple-800 select-none" title="Mark this task as needing your review">
-                        <input type="checkbox" id="newTodoNeedsReview" class="w-3.5 h-3.5 text-purple-600 rounded focus:ring-purple-500 cursor-pointer">
-                        <i class="fa-solid fa-clipboard-check text-purple-600"></i> Needs Review
-                    </label>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl font-semibold transition-colors shadow-sm flex items-center gap-1.5">
-                        <i class="fa-solid fa-plus text-xs"></i> Add Task
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold transition-colors shadow-sm">
+                        <i class="fa-solid fa-plus mr-1"></i> Add
                     </button>
                 </form>
 
@@ -291,11 +290,11 @@
                             <h2 class="text-2xl font-bold text-gray-800">Conferences & Events</h2>
                             <div class="bg-indigo-100 text-indigo-800 border border-indigo-200 text-xs font-extrabold px-2.5 py-1 rounded-md shadow-sm" id="eventsCountBadge"></div>
                         </div>
-                        <p class="text-gray-500 text-sm mt-1">Track annual conferences, submission deadlines, and past/future attendance.</p>
+                        <p class="text-gray-500 text-sm mt-1">Events in the next 3 months automatically populate into Upcoming based on their Typical Month.</p>
                     </div>
                     <div class="flex items-center gap-3">
                         <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
-                            <span class="text-xs font-bold text-gray-500 uppercase"><i class="fa-regular fa-calendar mr-1"></i> Year:</span>
+                            <span class="text-xs font-bold text-gray-500 uppercase"><i class="fa-regular fa-calendar mr-1"></i> Calendar Year:</span>
                             <select id="eventYearFilter" onchange="window.updateEventYearFilter()" class="bg-transparent text-gray-800 text-sm font-bold focus:outline-none cursor-pointer"></select>
                         </div>
                         <button onclick="window.openModal('eventModal')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm flex items-center gap-2">
@@ -468,23 +467,8 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Status / Column</label>
-                        <select id="eventStatus" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
-                            <option value="Auto">Auto (By Typical Month)</option>
-                            <option value="Registry">All Events (Registry)</option>
-                            <option value="Upcoming">Upcoming (Next 3 Mo)</option>
-                            <option value="Attending">Attending</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Attended Year</label>
-                        <input type="number" id="eventYear" placeholder="e.g. 2026" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Typical Month</label>
-                        <select id="eventTiming" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500" required>
+                        <select id="eventMonth" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
                             <option value="">Select Month...</option>
                             <option value="1">January</option>
                             <option value="2">February</option>
@@ -501,13 +485,28 @@
                         </select>
                     </div>
                     <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Pipeline Status</label>
+                        <select id="eventStatus" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                            <option value="Auto">Auto (By Typical Month)</option>
+                            <option value="Registry">All Events (Pin)</option>
+                            <option value="Upcoming">Upcoming (Pin)</option>
+                            <option value="Attending">Attending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
                         <input type="text" id="eventLocation" placeholder="e.g., Denver, CO" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Calendar Year</label>
+                        <input type="number" id="eventYear" placeholder="e.g., 2026" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                    </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Abstract Due Date</label>
-                    <input type="text" id="eventAbstractDue" placeholder="e.g., Late October (or YYYY-MM-DD)" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Typical Abstract Due Date</label>
+                    <input type="text" id="eventAbstractDue" placeholder="e.g., November 15" class="w-full px-4 py-2 border rounded-xl focus:ring-blue-500 focus:border-blue-500">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Notes / Links</label>
@@ -543,7 +542,7 @@
         const db = getFirestore(app);
 
         // ==========================================
-        // 2. APPLICATION STATE
+        // 2. APPLICATION STATE & CENTRALIZED ASSETS
         // ==========================================
         let state = {
             fiscalGoals: {},
@@ -560,35 +559,31 @@
             currentKanbanFilter: 'All',
             currentEventYearFilter: 'All',
             proposalView: 'board',
-            todoReviewFilter: false // Toggle to only show items needing review
+            filterTodoReviewOnly: false
         };
 
         const projectColors = ['#ef4444', '#f97316', '#f59e0b', '#84cc16', '#10b981', '#06b6d4', '#3b82f6', '#8b5cf6', '#d946ef', '#f43f5e'];
         let unsubscribeSnapshot = null;
         let activeDragContext = null;
 
-        // ==========================================
-        // 3. UTILITY & SECURITY HELPERS
-        // ==========================================
-        const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const shortMonthNames = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        // Centralized SVG Markup
+        // Centralized Juggler Brand SVG
         const JUGGLER_SVG = `
             <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="28" cy="104" r="15" fill="#FDBA74" />
-                <circle cx="56" cy="52" r="15.5" fill="#FB923C" />
-                <circle cx="100" cy="28" r="16" fill="#F97316" />
-                <circle cx="144" cy="52" r="15.5" fill="#EA580C" />
-                <circle cx="172" cy="104" r="15" fill="#C2410C" />
-                <path d="M100 70 A24 24 0 0 0 100 118 Z" fill="#38BDF8" />
-                <path d="M100 70 A24 24 0 0 1 100 118 Z" fill="#2563EB" />
-                <path d="M100 126 C88 126 74 133 60 142 C52 147 42 153 32 147 L22 133 C17 127 11 133 14 140 L24 158 C28 167 36 173 46 168 L68 158 C72 158 74 162 74 168 L74 200 L100 200 Z" fill="#38BDF8" />
-                <path d="M100 126 C112 126 126 133 140 142 C148 147 158 153 168 147 L178 133 C183 127 189 133 186 140 L176 158 C172 167 164 173 154 168 L132 158 C128 158 126 162 126 168 L126 200 L100 200 Z" fill="#2563EB" />
+                <circle cx="30" cy="95" r="14" fill="#FDBA74" />
+                <circle cx="55" cy="48" r="15" fill="#FB923C" />
+                <circle cx="100" cy="26" r="16" fill="#F97316" />
+                <circle cx="145" cy="48" r="15" fill="#EA580C" />
+                <circle cx="170" cy="95" r="14" fill="#C2410C" />
+                <circle cx="100" cy="90" r="24" fill="#3B82F6" />
+                <path d="M100 66 A24 24 0 0 1 100 114 Z" fill="#1D4ED8" />
+                <path d="M100 122 L76 122 C66 122 58 130 50 138 L32 124 C27 120 20 123 18 128 C16 133 19 139 24 143 L48 160 C55 164 63 158 68 150 L68 192 L100 192 Z" fill="#3B82F6" />
+                <path d="M100 122 L124 122 C134 122 142 130 150 138 L168 124 C173 120 180 123 182 128 C184 133 181 139 176 143 L152 160 C145 164 137 158 132 150 L132 192 L100 192 Z" fill="#1D4ED8" />
             </svg>
         `;
 
-        // Escape HTML to prevent string interpolation syntax breakages & XSS
+        // ==========================================
+        // 3. UTILITIES, SANITIZATION & GENERIC HELPERS
+        // ==========================================
         function escapeHTML(str) {
             if (str == null) return '';
             return String(str).replace(/[&<>'"]/g, tag => ({
@@ -598,44 +593,6 @@
                 "'": '&#39;',
                 '"': '&quot;'
             }[tag]));
-        }
-
-        // Initialize SVGs on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            const loginBox = document.getElementById('loginBrandSvg');
-            const headerBox = document.getElementById('headerBrandSvg');
-            if (loginBox) loginBox.innerHTML = JUGGLER_SVG;
-            if (headerBox) headerBox.innerHTML = JUGGLER_SVG;
-        });
-
-        function getUpcomingMonthNumbers() {
-            const currentMonth = new Date().getMonth() + 1; // 1 to 12
-            return [
-                currentMonth,
-                ((currentMonth) % 12) + 1,
-                ((currentMonth + 1) % 12) + 1
-            ];
-        }
-
-        function parseMonthValue(val) {
-            if (!val) return null;
-            if (!isNaN(val)) return parseInt(val);
-            const lower = String(val).toLowerCase();
-            const idx = monthNames.findIndex((m, i) => i > 0 && lower.includes(m.toLowerCase()));
-            return idx > 0 ? idx : null;
-        }
-
-        function isEventInNext3Months(timingVal) {
-            const m = parseMonthValue(timingVal);
-            if (!m) return false;
-            return getUpcomingMonthNumbers().includes(m);
-        }
-
-        function getEffectiveEventStatus(ev) {
-            if (ev.status === 'Attending') return 'Attending';
-            if (ev.status === 'Upcoming') return 'Upcoming';
-            if (ev.status === 'Registry') return 'Registry';
-            return isEventInNext3Months(ev.timing) ? 'Upcoming' : 'Registry';
         }
 
         window.showToast = function(msg) {
@@ -650,11 +607,10 @@
         };
 
         const formatCurrency = (num) => {
-            if(!num) return '$0';
+            if (!num) return '$0';
             return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
         };
 
-        // Unified Drag and Drop Calculations
         function calculateDragDropTarget(container, mouseY, itemSelector) {
             const draggableElements = [...container.querySelectorAll(`${itemSelector}:not(.dragging)`)];
             return draggableElements.reduce((closest, child) => {
@@ -668,7 +624,6 @@
             }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
 
-        // Consolidated Drag Event Handlers
         window.handleDragStart = function(e, type, id) {
             activeDragContext = { type, id: String(id) };
             e.target.classList.add('dragging');
@@ -684,8 +639,7 @@
             e.preventDefault();
         };
 
-        // Generic Entity Drop Controller
-        function processGenericDrop({ event, columnSelector, targetKey, collectionName, cardSelector, idPrefix = '', statusAttr = 'status', onUpdate = null }) {
+        function processGenericDrop({ event, columnSelector, targetKey, collectionName, cardSelector, idPrefix, statusAttr = 'status', filterFn = null, onUpdate = null }) {
             event.preventDefault();
             const column = event.target.closest(columnSelector);
             if (!column || !activeDragContext) return;
@@ -695,15 +649,19 @@
             const item = state[collectionName].find(x => String(x.id) === String(activeDragContext.id));
             if (!item) return;
 
+            const prevValue = item[statusAttr];
             item[statusAttr] = newTargetValue;
-            if (onUpdate) onUpdate(item, newTargetValue);
+            if (onUpdate) onUpdate(item, newTargetValue, prevValue);
 
             let columnItems = state[collectionName].filter(x => {
-                const effStatus = collectionName === 'events' ? getEffectiveEventStatus(x) : x[statusAttr];
-                return effStatus === newTargetValue && !x.isArchived && String(x.id) !== String(activeDragContext.id);
+                const matchesTarget = collectionName === 'events'
+                    ? getEffectiveEventStatus(x) === newTargetValue
+                    : x[statusAttr] === newTargetValue;
+                const extraPass = filterFn ? filterFn(x) : true;
+                return matchesTarget && extraPass && String(x.id) !== String(activeDragContext.id);
             });
 
-            columnItems.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+            columnItems.sort((a, b) => (a.order ?? a.seq ?? 0) - (b.order ?? b.seq ?? 0));
 
             if (afterElement) {
                 const insertId = afterElement.id.replace(idPrefix, '');
@@ -719,13 +677,32 @@
             refreshActiveView();
         }
 
-        // Generic Entity Deletion
         function deleteEntity(collection, id, extraCleanup = null) {
-            state[collection] = state[collection].filter(item => item.id !== id);
+            state[collection] = (state[collection] || []).filter(item => item.id !== id);
             if (typeof extraCleanup === 'function') extraCleanup(id);
             saveDataToFirebase();
             window.closeModals();
             refreshActiveView();
+        }
+
+        function refreshActiveView() {
+            if (state.activeSection === 'todos') window.renderTodos();
+            if (state.activeSection === 'proposals') {
+                window.renderProposals();
+                window.renderKanban();
+            }
+            if (state.activeSection === 'projects') {
+                window.renderProjects();
+                window.renderKanban();
+            }
+            if (state.activeSection === 'kanban') {
+                window.renderKanban();
+                window.renderProjects();
+            }
+            if (state.activeSection === 'events') {
+                setupEventYearSelector();
+                window.renderEvents();
+            }
         }
 
         async function saveDataToFirebase() {
@@ -754,7 +731,11 @@
         // ==========================================
         function loadDummyData() {
             const currentYear = 'FY' + (new Date().getFullYear() + 1).toString().slice(-2);
-            const thisCalYear = new Date().getFullYear();
+            const now = new Date();
+            const thisCalYear = now.getFullYear();
+            const nextMonthNum = ((now.getMonth() + 1) % 12) + 1;
+            const laterMonthNum = ((now.getMonth() + 5) % 12) + 1;
+
             state.fiscalGoals = { [currentYear]: 100000 };
             state.projects = [
                 { id: 'proj1', name: 'Example Project Alpha', status: 'Active', tag: 'Asset Management', color: '#3b82f6', completedDate: '' },
@@ -774,13 +755,81 @@
                 { id: 'todo2', text: 'Draft email to Sarah', bucket: 'high', isCompleted: false, needsReview: false, order: 1 }
             ];
             state.events = [
-                { id: 'ev1', name: 'WEFTEC (Water Environment Federation)', status: 'Auto', timing: '10', location: 'New Orleans, LA', abstractDue: 'December 1', year: thisCalYear, notes: 'Submitted abstract on digital twins' },
-                { id: 'ev2', name: 'AWWA Annual Conference (ACE)', status: 'Attending', timing: '6', location: 'Denver, CO', abstractDue: 'Late October', year: thisCalYear, notes: 'Co-presenting with client' },
-                { id: 'ev3', name: 'APWA PWX Public Works Expo', status: 'Auto', timing: '8', location: 'Chicago, IL', abstractDue: 'January 15', year: thisCalYear, notes: 'Annual municipal networking' },
-                { id: 'ev4', name: 'ASCE Annual Convention', status: 'Attending', timing: '10', location: 'Orlando, FL', abstractDue: 'March 1', year: thisCalYear - 1, notes: 'Attended technical workshops' }
+                { id: 'ev1', name: 'WEFTEC (Water Environment Federation)', status: 'Auto', timingMonth: String(nextMonthNum), location: 'New Orleans, LA', abstractDue: 'December 1', year: thisCalYear, notes: 'Auto-populated into Upcoming because month is within 3 months' },
+                { id: 'ev2', name: 'AWWA Annual Conference (ACE)', status: 'Attending', timingMonth: '6', location: 'Denver, CO', abstractDue: 'Late October', year: thisCalYear, notes: 'Co-presenting with client' },
+                { id: 'ev3', name: 'APWA PWX Public Works Expo', status: 'Auto', timingMonth: String(laterMonthNum), location: 'Chicago, IL', abstractDue: 'January 15', year: thisCalYear, notes: 'Annual municipal networking' },
+                { id: 'ev4', name: 'ASCE Annual Convention', status: 'Attending', timingMonth: '10', location: 'Orlando, FL', abstractDue: 'March 1', year: thisCalYear - 1, notes: 'Attended technical workshops' }
             ];
             refreshAllUI();
         }
+
+        async function connectWorkWorkspace(code) {
+            state.currentPasscode = code;
+            try {
+                localStorage.setItem('juggler_workspace', code);
+            } catch (e) {}
+
+            document.getElementById('workspaceTitle').innerText = 'Workspace: ' + code;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appScreen').classList.remove('hidden');
+            document.getElementById('appScreen').classList.add('flex');
+
+            if (unsubscribeSnapshot) unsubscribeSnapshot();
+
+            if (code.toLowerCase() === 'example') {
+                loadDummyData();
+            } else {
+                unsubscribeSnapshot = onSnapshot(doc(db, "workspaces", code), (docSnap) => {
+                    if (docSnap.metadata && docSnap.metadata.hasPendingWrites) return;
+
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        state.fiscalGoals = data.fiscalGoals || {};
+                        state.projects = data.projects || [];
+                        state.proposals = data.proposals || [];
+                        state.deliverables = data.deliverables || [];
+                        state.todos = data.todos || [];
+                        state.events = data.events || [];
+                        state.tagOrder = data.tagOrder || [];
+                    } else {
+                        state.fiscalGoals = {};
+                        state.projects = [];
+                        state.proposals = [];
+                        state.deliverables = [];
+                        state.todos = [];
+                        state.events = [];
+                        state.tagOrder = [];
+                    }
+                    refreshAllUI();
+                }, (err) => {
+                    console.error("Snapshot error:", err);
+                    window.showToast("Error connecting to database.");
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const loginBox = document.getElementById('loginBrandSvg');
+            const headerBox = document.getElementById('headerBrandSvg');
+            if (loginBox) loginBox.innerHTML = JUGGLER_SVG;
+            if (headerBox) headerBox.innerHTML = JUGGLER_SVG;
+
+            // Seamless session pass-through: auto-login if passcode is stored
+            let savedWorkspace = null;
+            try {
+                savedWorkspace = localStorage.getItem('juggler_workspace');
+            } catch (e) {}
+
+            if (savedWorkspace) {
+                document.getElementById('passcodeInput').value = savedWorkspace;
+                try {
+                    await signInAnonymously(auth);
+                    connectWorkWorkspace(savedWorkspace);
+                } catch (err) {
+                    console.error("Auto-connect failed:", err);
+                }
+            }
+        });
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -790,52 +839,10 @@
             btn.disabled = true;
 
             const code = document.getElementById('passcodeInput').value.trim();
-            state.currentPasscode = code;
-            try {
-                localStorage.setItem('juggler_workspace', code);
-            } catch (e) {}
 
             try {
                 await signInAnonymously(auth);
-                
-                document.getElementById('workspaceTitle').innerText = 'Workspace: ' + code;
-                document.getElementById('loginScreen').classList.add('hidden');
-                document.getElementById('appScreen').classList.remove('hidden');
-                document.getElementById('appScreen').classList.add('flex');
-
-                if (unsubscribeSnapshot) unsubscribeSnapshot();
-
-                if (code.toLowerCase() === 'example') {
-                    loadDummyData();
-                } else {
-                    unsubscribeSnapshot = onSnapshot(doc(db, "workspaces", code), (docSnap) => {
-                        // Guard against re-rendering local updates mid-keystroke
-                        if (docSnap.metadata && docSnap.metadata.hasPendingWrites) return;
-
-                        if (docSnap.exists()) {
-                            const data = docSnap.data();
-                            state.fiscalGoals = data.fiscalGoals || {};
-                            state.projects = data.projects || [];
-                            state.proposals = data.proposals || [];
-                            state.deliverables = data.deliverables || [];
-                            state.todos = data.todos || [];
-                            state.events = data.events || [];
-                            state.tagOrder = data.tagOrder || [];
-                        } else {
-                            state.fiscalGoals = {};
-                            state.projects = [];
-                            state.proposals = [];
-                            state.deliverables = [];
-                            state.todos = [];
-                            state.events = [];
-                            state.tagOrder = [];
-                        }
-                        refreshAllUI();
-                    }, (err) => {
-                        console.error("Snapshot error:", err);
-                        window.showToast("Error connecting to database.");
-                    });
-                }
+                connectWorkWorkspace(code);
             } catch (err) {
                 console.error("Login failed:", err);
                 window.showToast("Failed to authenticate with server.");
@@ -848,6 +855,9 @@
         document.getElementById('logoutBtn').addEventListener('click', () => {
             if (unsubscribeSnapshot) unsubscribeSnapshot();
             state.currentPasscode = '';
+            try {
+                localStorage.removeItem('juggler_workspace');
+            } catch (e) {}
             document.getElementById('appScreen').classList.add('hidden');
             document.getElementById('appScreen').classList.remove('flex');
             document.getElementById('loginScreen').classList.remove('hidden');
@@ -857,14 +867,6 @@
         // ==========================================
         // 5. NAVIGATION & EXPORT/IMPORT
         // ==========================================
-        function refreshActiveView() {
-            if (state.activeSection === 'todos') window.renderTodos();
-            if (state.activeSection === 'proposals') window.renderProposals();
-            if (state.activeSection === 'projects') window.renderProjects();
-            if (state.activeSection === 'kanban') window.renderKanban();
-            if (state.activeSection === 'events') window.renderEvents();
-        }
-
         function refreshAllUI() {
             setupFiscalYearSelector();
             setupEventYearSelector();
@@ -873,22 +875,26 @@
 
         window.switchSection = function(sectionId) {
             state.activeSection = sectionId;
-            const inactiveClass = 'px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-blue-600 hover:bg-white/80 transition-all';
-            const activeClass = 'px-4 py-2 text-sm font-bold rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 transition-all';
+            const inactiveNavClass = 'px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-blue-600 hover:bg-white/80 transition-all';
+            const activeNavClass = 'px-4 py-2 text-sm font-bold rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/20 transition-all';
 
             ['todos', 'proposals', 'projects', 'kanban', 'events'].forEach(id => {
                 const sec = document.getElementById(`section-${id}`);
                 if (sec) sec.classList.add('hidden');
                 const navBtn = document.getElementById(`nav${id.charAt(0).toUpperCase() + id.slice(1)}`);
-                if (navBtn) navBtn.className = inactiveClass;
+                if (navBtn) navBtn.className = inactiveNavClass;
             });
             
             const activeSec = document.getElementById(`section-${sectionId}`);
             if (activeSec) activeSec.classList.remove('hidden');
             const activeNav = document.getElementById(`nav${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}`);
-            if (activeNav) activeNav.className = activeClass;
+            if (activeNav) activeNav.className = activeNavClass;
 
-            refreshActiveView();
+            if (sectionId === 'todos') window.renderTodos();
+            if (sectionId === 'proposals') window.renderProposals();
+            if (sectionId === 'projects') window.renderProjects();
+            if (sectionId === 'kanban') window.renderKanban();
+            if (sectionId === 'events') window.renderEvents();
         };
 
         window.exportData = function() {
@@ -939,37 +945,45 @@
         };
 
         // ==========================================
-        // 6. TO-DO LIST MODULE (WITH REVIEW FEATURE)
+        // 6. TO-DO LIST MODULE
         // ==========================================
         document.getElementById('formTodo').addEventListener('submit', (e) => {
             e.preventDefault();
             const textInput = document.getElementById('newTodoText');
-            const bucketSelect = document.getElementById('newTodoBucket');
-            const reviewCheck = document.getElementById('newTodoNeedsReview');
-            
-            const text = textInput.value.trim();
-            const bucket = bucketSelect.value;
-            const needsReview = reviewCheck ? reviewCheck.checked : false;
-
+            const bucketInput = document.getElementById('newTodoBucket');
+            const reviewInput = document.getElementById('newTodoReview');
             state.todos.push({
                 id: 'todo_' + Date.now(),
-                text: text,
-                bucket: bucket,
+                text: textInput.value.trim(),
+                bucket: bucketInput.value,
                 isCompleted: false,
                 isArchived: false,
-                needsReview: needsReview,
-                order: state.todos.filter(t => t.bucket === bucket && !t.isArchived).length
+                needsReview: reviewInput ? reviewInput.checked : false,
+                order: state.todos.filter(t => t.bucket === bucketInput.value && !t.isArchived).length
             });
-
             textInput.value = '';
-            if (reviewCheck) reviewCheck.checked = false;
+            if (reviewInput) reviewInput.checked = false;
             saveDataToFirebase();
             window.renderTodos();
         });
 
+        window.toggleTodoReview = function(id) {
+            const todo = state.todos.find(t => t.id === id);
+            if (todo) {
+                todo.needsReview = !todo.needsReview;
+                saveDataToFirebase();
+                window.renderTodos();
+            }
+        };
+
+        window.toggleReviewFilter = function() {
+            state.filterTodoReviewOnly = !state.filterTodoReviewOnly;
+            window.renderTodos();
+        };
+
         window.toggleTodoCompletion = function(id) {
             const todo = state.todos.find(t => t.id === id);
-            if(todo) {
+            if (todo) {
                 if (!todo.isWaiting && !todo.isCompleted) {
                     todo.isWaiting = true;
                     todo.isCompleted = false;
@@ -985,27 +999,9 @@
             }
         };
 
-        // Toggle whether a task needs review
-        window.toggleTodoReview = function(id, event) {
-            if (event) event.stopPropagation();
-            const todo = state.todos.find(t => t.id === id);
-            if (todo) {
-                todo.needsReview = !todo.needsReview;
-                saveDataToFirebase();
-                window.renderTodos();
-                window.showToast(todo.needsReview ? 'Task flagged for review' : 'Review flag removed');
-            }
-        };
-
-        // Toggle header filter to view only items needing review
-        window.toggleReviewFilter = function() {
-            state.todoReviewFilter = !state.todoReviewFilter;
-            window.renderTodos();
-        };
-
         window.archiveTodo = function(id) {
             const todo = state.todos.find(t => t.id === id);
-            if(todo) {
+            if (todo) {
                 todo.isArchived = true;
                 saveDataToFirebase();
                 window.renderTodos();
@@ -1014,7 +1010,7 @@
 
         window.unarchiveTodo = function(id) {
             const todo = state.todos.find(t => t.id === id);
-            if(todo) {
+            if (todo) {
                 todo.isArchived = false;
                 saveDataToFirebase();
                 window.renderTodos();
@@ -1079,28 +1075,30 @@
                 collectionName: 'todos',
                 cardSelector: '.todo-card',
                 idPrefix: 'todo_',
-                statusAttr: 'bucket'
+                statusAttr: 'bucket',
+                filterFn: (t) => !t.isArchived
             });
         };
 
         window.renderTodos = function() {
             const activeBoard = document.getElementById('todoActiveBoard');
             const archiveList = document.getElementById('todoArchiveList');
-            const reviewBadge = document.getElementById('reviewCountBadge');
-            const btnReviewFilter = document.getElementById('btnToggleReviewFilter');
             if (!activeBoard || !archiveList) return;
             activeBoard.innerHTML = '';
             archiveList.innerHTML = '';
 
-            // Update Review Filter Button & Count
-            const totalReviewTasks = state.todos.filter(t => !t.isArchived && t.needsReview).length;
-            if (reviewBadge) reviewBadge.innerText = totalReviewTasks;
-
-            if (btnReviewFilter) {
-                if (state.todoReviewFilter) {
-                    btnReviewFilter.className = 'px-3.5 py-1.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 bg-purple-600 text-white border-purple-600 shadow-md shadow-purple-500/20';
-                } else {
-                    btnReviewFilter.className = 'px-3.5 py-1.5 text-xs font-bold rounded-xl border transition-all flex items-center gap-2 bg-white text-gray-700 border-gray-200 hover:border-purple-300 hover:text-purple-700 shadow-sm';
+            const reviewCount = state.todos.filter(t => !t.isArchived && t.needsReview).length;
+            const reviewBadge = document.getElementById('reviewCountBadge');
+            const btnFilterReview = document.getElementById('btnFilterReview');
+            if (reviewBadge) reviewBadge.innerText = reviewCount;
+            if (btnFilterReview) {
+                btnFilterReview.className = state.filterTodoReviewOnly
+                    ? 'px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2 bg-purple-600 text-white border-purple-600 shadow-md shadow-purple-500/20'
+                    : 'px-3.5 py-2 rounded-xl text-xs font-bold border transition-all flex items-center gap-2 bg-white text-gray-600 border-gray-200 hover:border-purple-300 shadow-sm';
+                if (reviewBadge) {
+                    reviewBadge.className = state.filterTodoReviewOnly
+                        ? 'bg-white text-purple-700 px-2 py-0.5 rounded-full text-[10px] font-extrabold'
+                        : 'bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-[10px] font-bold';
                 }
             }
 
@@ -1114,13 +1112,11 @@
             state.todos.sort((a, b) => (a.order || 0) - (b.order || 0));
 
             buckets.forEach(bucket => {
-                let unarchivedTasks = state.todos.filter(t => t.bucket === bucket.id && !t.isArchived);
-                
-                // If filter is active, only show review tasks
-                if (state.todoReviewFilter) {
-                    unarchivedTasks = unarchivedTasks.filter(t => t.needsReview);
-                }
-
+                const unarchivedTasks = state.todos.filter(t => {
+                    const matchBucket = t.bucket === bucket.id && !t.isArchived;
+                    const matchReview = state.filterTodoReviewOnly ? !!t.needsReview : true;
+                    return matchBucket && matchReview;
+                });
                 let cardsHtml = unarchivedTasks.map(t => {
                     let iconClass = 'fa-regular fa-circle text-gray-300 hover:text-amber-500';
                     let cardBgClass = '';
@@ -1138,32 +1134,28 @@
                         textClass = 'text-gray-400 line-through';
                     }
 
-                    // Review Badge / Icon
-                    let reviewBtnHtml = '';
                     if (t.needsReview) {
-                        reviewBtnHtml = `
-                            <button onclick="window.toggleTodoReview('${t.id}', event)" class="text-[10px] font-extrabold bg-purple-100 hover:bg-purple-200 text-purple-700 px-2 py-0.5 rounded-md border border-purple-300 shrink-0 flex items-center gap-1 transition-colors shadow-xs" title="Click to remove review flag">
-                                <i class="fa-solid fa-clipboard-check text-purple-600"></i> Review
-                            </button>
-                        `;
-                    } else {
-                        reviewBtnHtml = `
-                            <button onclick="window.toggleTodoReview('${t.id}', event)" class="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-purple-600 transition-opacity p-1 bg-gray-50 hover:bg-purple-50 rounded" title="Flag as Needs Review">
-                                <i class="fa-regular fa-clipboard-check text-sm"></i>
-                            </button>
-                        `;
+                        badgeHtml += `<span onclick="window.toggleTodoReview('${t.id}')" class="cursor-pointer text-[10px] font-extrabold bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded border border-purple-200 shrink-0 flex items-center gap-1 hover:bg-purple-200 transition-colors" title="Click to clear Needs Review"><i class="fa-solid fa-clipboard-check text-[9px]"></i>Review</span>`;
+                        if (!t.isCompleted && !t.isWaiting) {
+                            cardBgClass = 'bg-purple-50/30 ring-1 ring-purple-200/60';
+                        }
                     }
 
+                    const reviewBtnClass = t.needsReview
+                        ? 'text-purple-600 bg-purple-50 hover:bg-purple-100 opacity-100'
+                        : 'opacity-0 group-hover:opacity-100 text-gray-300 hover:text-purple-600 bg-gray-50 hover:bg-purple-50';
+
                     return `
-                        <div id="todo_${t.id}" draggable="true" ondragstart="window.handleDragStart(event, 'todo', '${t.id}')" ondragend="window.handleDragEnd(event)" class="todo-card group flex items-start gap-2.5 bg-white p-3 rounded-xl shadow-sm border border-gray-100 border-l-4 ${bucket.accent} hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 ${cardBgClass} ${t.needsReview ? 'ring-1 ring-purple-300/80 bg-purple-50/20' : ''}">
+                        <div id="todo_${t.id}" draggable="true" ondragstart="window.handleDragStart(event, 'todo', '${t.id}')" ondragend="window.handleDragEnd(event)" class="todo-card group flex items-start gap-2.5 bg-white p-3 rounded-lg shadow-sm border border-gray-100 border-l-4 ${bucket.accent} hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 ${cardBgClass}">
                             <button onclick="window.toggleTodoCompletion('${t.id}')" class="mt-0.5 transition-colors shrink-0" title="Click to cycle: To Do -> Waiting -> Done">
                                 <i class="${iconClass} text-xl"></i>
                             </button>
-                            <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm font-medium ${textClass} flex-1 leading-tight select-none cursor-pointer hover:text-blue-600 transition-colors pt-0.5">${escapeHTML(t.text)}</span>
-                            
-                            <div class="flex items-center gap-1 shrink-0">
+                            <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm font-medium ${textClass} flex-1 leading-tight select-none cursor-pointer hover:text-blue-600 transition-colors">${escapeHTML(t.text)}</span>
+                            <div class="flex items-center gap-1 shrink-0 flex-wrap justify-end">
                                 ${badgeHtml}
-                                ${reviewBtnHtml}
+                                <button onclick="window.toggleTodoReview('${t.id}')" class="${reviewBtnClass} transition-all p-1 rounded" title="${t.needsReview ? 'Remove Needs Review' : 'Mark as Needs Review'}">
+                                    <i class="fa-solid fa-clipboard-check text-xs"></i>
+                                </button>
                                 ${t.isCompleted ? `
                                     <button onclick="window.archiveTodo('${t.id}')" class="text-gray-400 hover:text-blue-600 transition-colors p-1 bg-gray-50 hover:bg-blue-50 rounded" title="Archive Task">
                                         <i class="fa-solid fa-box-archive text-xs"></i>
@@ -1185,7 +1177,7 @@
                         </div>
                         <div class="todo-column flex-1 overflow-y-auto p-3 flex flex-col gap-3 ${bucket.bg}" data-bucket="${bucket.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropTodoItem(event)">
                             ${cardsHtml}
-                            ${unarchivedTasks.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">${state.todoReviewFilter ? 'No tasks need review here' : 'Drop tasks here'}</div>` : ''}
+                            ${unarchivedTasks.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">Drop tasks here</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -1204,14 +1196,13 @@
                             <i class="fa-solid fa-box-open text-base"></i>
                         </button>
                         <span id="todo_text_${t.id}" ondblclick="window.startEditTodo('${t.id}', event)" title="Double-click to edit text" class="text-sm text-gray-500 line-through flex-1 select-none cursor-pointer hover:text-blue-600 transition-colors">${escapeHTML(t.text)}</span>
-                        ${t.needsReview ? `<span class="text-[10px] font-bold bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded border border-purple-200">Review</span>` : ''}
                         <button onclick="window.deleteTodo('${t.id}')" class="text-gray-400 hover:text-red-500 p-1" title="Delete Task">
                             <i class="fa-solid fa-trash text-xs"></i>
                         </button>
                     </div>
                 `;
             });
-            if(archivedTasks.length === 0) archiveList.innerHTML = `<div class="text-sm text-gray-400 italic">No archived tasks.</div>`;
+            if (archivedTasks.length === 0) archiveList.innerHTML = `<div class="text-sm text-gray-400 italic">No archived tasks.</div>`;
         };
 
         // ==========================================
@@ -1251,6 +1242,7 @@
         };
 
         window.dropPropItem = function(e) {
+            const currentYear = document.getElementById('fiscalYearSelect').value;
             processGenericDrop({
                 event: e,
                 columnSelector: '.prop-column',
@@ -1259,7 +1251,7 @@
                 cardSelector: '.proposal-card',
                 idPrefix: 'propcard_',
                 statusAttr: 'status',
-                onUpdate: () => { window.renderKanban(); }
+                filterFn: (p) => p.year === currentYear
             });
         };
 
@@ -1288,10 +1280,10 @@
             let totalPipeline = 0, expectedPipeline = 0, totalWon = 0, totalLost = 0;
             yearProps.forEach(p => {
                 const b = parseFloat(p.budget) || 0;
-                const prob = (parseFloat(p.winProb) || 0) / 100;
-                if (p.status.includes('Pending') || p.status === 'Upcoming' || p.status === 'In-Progress') {
+                const prob = parseFloat(p.winProb) || 0;
+                if (p.status === 'Pending Decision' || p.status.includes('Pending') || p.status === 'Upcoming' || p.status === 'In-Progress') {
                     totalPipeline += b;
-                    expectedPipeline += b * prob;
+                    expectedPipeline += b * (prob / 100);
                 }
                 if (p.status === 'Win') totalWon += b;
                 if (p.status === 'Loss') totalLost += b;
@@ -1304,22 +1296,20 @@
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
                     <div class="text-xs font-bold text-gray-500 uppercase mb-1">Total Pipeline Value</div>
                     <div class="text-xl font-extrabold text-amber-600">${formatCurrency(totalPipeline)}</div>
-                    <div class="text-[10px] text-gray-400 font-medium mt-1">Unweighted pipeline</div>
+                    <div class="text-[10px] text-gray-400 font-medium mt-0.5">Upcoming, In-Progress & Pending</div>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
                     <div class="text-xs font-bold text-gray-500 uppercase mb-1">Expected Pipeline Value</div>
                     <div class="text-xl font-extrabold text-indigo-600">${formatCurrency(expectedPipeline)}</div>
-                    <div class="text-[10px] text-gray-400 font-medium mt-1">Win prob. weighted</div>
+                    <div class="text-[10px] text-gray-400 font-medium mt-0.5">Weighted by Win Prob %</div>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
                     <div class="text-xs font-bold text-gray-500 uppercase mb-1">Total Won</div>
                     <div class="text-xl font-extrabold text-green-600">${formatCurrency(totalWon)}</div>
-                    <div class="text-[10px] text-gray-400 font-medium mt-1">Booked revenue</div>
                 </div>
                 <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-200">
                     <div class="text-xs font-bold text-gray-500 uppercase mb-1">Total Lost</div>
                     <div class="text-xl font-extrabold text-red-600">${formatCurrency(totalLost)}</div>
-                    <div class="text-[10px] text-gray-400 font-medium mt-1">Closed losses</div>
                 </div>
                 <div class="bg-gradient-to-br from-blue-600 to-indigo-700 p-4 rounded-2xl shadow-sm text-white relative overflow-hidden group cursor-pointer" onclick="window.openModal('goalModal')">
                     <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
@@ -1335,8 +1325,8 @@
             yearProps.sort((a, b) => {
                 let valA = a[state.currentSort.column]; 
                 let valB = b[state.currentSort.column];
-                if(typeof valA === 'string') valA = valA.toLowerCase();
-                if(typeof valB === 'string') valB = valB.toLowerCase();
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
                 if (valA < valB) return state.currentSort.direction === 'asc' ? -1 : 1;
                 if (valA > valB) return state.currentSort.direction === 'asc' ? 1 : -1;
                 return 0;
@@ -1347,23 +1337,23 @@
 
             yearProps.forEach(p => {
                 let statusBadge = '';
-                if(p.status === 'Win') statusBadge = 'bg-green-100 text-green-800';
-                else if(p.status === 'Loss') statusBadge = 'bg-red-100 text-red-800';
-                else if(p.status.includes('Pending')) statusBadge = 'bg-yellow-100 text-yellow-800';
-                else if(p.status === 'In-Progress') statusBadge = 'bg-blue-100 text-blue-800';
+                if (p.status === 'Win') statusBadge = 'bg-green-100 text-green-800';
+                else if (p.status === 'Loss') statusBadge = 'bg-red-100 text-red-800';
+                else if (p.status.includes('Pending')) statusBadge = 'bg-yellow-100 text-yellow-800';
+                else if (p.status === 'In-Progress') statusBadge = 'bg-blue-100 text-blue-800';
                 else statusBadge = 'bg-gray-100 text-gray-800';
 
                 tbody.innerHTML += `
                     <tr class="hover:bg-blue-50/50 transition-colors group">
-                        <td class="p-4 text-sm text-gray-500 font-medium">${escapeHTML(p.seq) || '-'}</td>
+                        <td class="p-4 text-sm text-gray-500 font-medium">${escapeHTML(p.seq || '-')}</td>
                         <td class="p-4">
                             <div class="font-bold text-gray-800">${escapeHTML(p.name)}</div>
                             ${p.notes ? `<div class="text-xs text-gray-400 mt-1 truncate max-w-xs"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(p.notes)}</div>` : ''}
                         </td>
-                        <td class="p-4 text-sm text-gray-600">${escapeHTML(p.role) || '-'}</td>
+                        <td class="p-4 text-sm text-gray-600">${escapeHTML(p.role || '-')}</td>
                         <td class="p-4"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${statusBadge}">${escapeHTML(p.status)}</span></td>
                         <td class="p-4 text-right font-medium text-gray-700">${formatCurrency(p.budget)}</td>
-                        <td class="p-4 text-center text-sm font-semibold text-gray-600">${p.winProb || 0}%</td>
+                        <td class="p-4 text-center text-sm font-semibold text-gray-600">${escapeHTML(p.winProb || 0)}%</td>
                         <td class="p-4 text-center">
                             <button onclick="window.openModal('proposalModal', '${escapeHTML(p.id)}')" class="text-gray-400 hover:text-blue-600 transition-colors p-2 hover:bg-white rounded-lg opacity-0 group-hover:opacity-100"><i class="fa-solid fa-pen"></i></button>
                         </td>
@@ -1389,13 +1379,13 @@
                     <div id="propcard_${p.id}" draggable="true" ondragstart="window.handleDragStart(event, 'proposal', '${p.id}')" ondragend="window.handleDragEnd(event)" class="proposal-card bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
                         <button onclick="window.openModal('proposalModal', '${escapeHTML(p.id)}')" class="absolute top-2 right-2 text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-blue-50 p-1.5 rounded-lg z-10"><i class="fa-solid fa-pen text-xs"></i></button>
                         <div class="flex items-center gap-2 mb-2">
-                            <span class="text-[10px] font-extrabold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">#${escapeHTML(p.seq) || '-'}</span>
+                            <span class="text-[10px] font-extrabold text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">#${escapeHTML(p.seq || '-')}</span>
                             ${p.role ? `<span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded border border-blue-100">${escapeHTML(p.role)}</span>` : ''}
                         </div>
                         <h4 class="text-sm font-bold text-gray-800 leading-snug mb-2 pr-6">${escapeHTML(p.name)}</h4>
                         <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 text-xs">
                             <span class="font-bold text-green-700">${formatCurrency(p.budget)}</span>
-                            <span class="font-semibold text-gray-500" title="Win Probability"><i class="fa-solid fa-crosshairs text-blue-500 mr-1"></i>${p.winProb || 0}%</span>
+                            <span class="font-semibold text-gray-500" title="Win Probability"><i class="fa-solid fa-crosshairs text-blue-500 mr-1"></i>${escapeHTML(p.winProb || 0)}%</span>
                         </div>
                         ${p.notes ? `<div class="text-[11px] text-gray-400 mt-2 truncate"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(p.notes)}</div>` : ''}
                     </div>
@@ -1498,12 +1488,13 @@
 
                 sortedTags.forEach(tag => {
                     const tagStyle = tag === 'Uncategorized' ? 'text-gray-500 bg-gray-100 border-gray-200' : 'text-blue-700 bg-blue-50 border-blue-200';
+                    const safeTag = escapeHTML(tag);
                     
                     let groupHtml = `
-                        <div class="tag-group mb-6" data-tag="${escapeHTML(tag)}" draggable="true" ondragstart="window.dragTagStart(event, '${escapeHTML(tag)}')" ondragend="window.dragTagEnd(event)" ondragover="window.handleDragOver(event)" ondrop="window.dropTag(event, '${escapeHTML(tag)}')">
+                        <div class="tag-group mb-6" data-tag="${safeTag}" draggable="true" ondragstart="window.dragTagStart(event, '${safeTag}')" ondragend="window.dragTagEnd(event)" ondragover="window.handleDragOver(event)" ondrop="window.dropTag(event, '${safeTag}')">
                             <div class="mb-3 flex items-center gap-3 cursor-grab opacity-80 hover:opacity-100 group/header transition-opacity" title="Drag to reorder category">
                                 <i class="fa-solid fa-grip-vertical text-gray-300 group-hover/header:text-blue-500 transition-colors"></i>
-                                <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md border shadow-sm ${tagStyle}">${escapeHTML(tag)}</span>
+                                <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md border shadow-sm ${tagStyle}">${safeTag}</span>
                                 <div class="h-px bg-gray-200 flex-1 mr-4"></div>
                             </div>
                             <div class="flex flex-col gap-3">
@@ -1541,7 +1532,7 @@
                             <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-md hover:border-blue-200">
                                 <div class="p-4 flex justify-between items-center cursor-pointer hover:bg-blue-50/30 transition-colors" onclick="window.toggleExpandedProject('${escapeHTML(p.id)}')">
                                     <div class="flex items-center gap-4">
-                                        <div class="w-4 h-4 rounded-full shadow-sm shrink-0 border border-gray-200/50" style="background-color: ${p.color};"></div>
+                                        <div class="w-4 h-4 rounded-full shadow-sm shrink-0 border border-gray-200/50" style="background-color: ${escapeHTML(p.color)};"></div>
                                         <div>
                                             <span class="font-bold text-gray-800 text-lg block leading-tight">${escapeHTML(p.name)}</span>
                                             ${p.completedDate ? `<span class="text-xs text-gray-400"><i class="fa-solid fa-check text-green-500 mr-1"></i>Completed: ${escapeHTML(p.completedDate)}</span>` : ''}
@@ -1587,12 +1578,12 @@
                 cardSelector: '.kanban-card',
                 idPrefix: 'card_',
                 statusAttr: 'status',
-                onUpdate: (deliv, newStatus) => {
-                    if (newStatus === 'Done' && !deliv.completedDate) {
+                filterFn: (d) => !d.isArchived,
+                onUpdate: (deliv, newStatus, prevStatus) => {
+                    if (prevStatus !== newStatus && newStatus === 'Done' && !deliv.completedDate) {
                         const today = new Date();
                         deliv.completedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
                     }
-                    window.renderProjects();
                 }
             });
         };
@@ -1604,7 +1595,7 @@
 
         window.toggleArchiveDeliverable = function(id) {
             const deliv = state.deliverables.find(d => d.id === id);
-            if(deliv) {
+            if (deliv) {
                 deliv.isArchived = !deliv.isArchived;
                 saveDataToFirebase();
                 window.renderKanban();
@@ -1616,7 +1607,6 @@
             if (!board) return;
             board.innerHTML = '';
 
-            // O(1) Project Map Lookup
             const projectMap = new Map(state.projects.map(p => [p.id, p]));
 
             const filterSelect = document.getElementById('kanbanTagFilter');
@@ -1631,8 +1621,8 @@
 
             let filteredDeliverables = state.deliverables;
             if (state.currentKanbanFilter !== 'All') {
-                const validProjectIds = state.projects.filter(p => p.tag === state.currentKanbanFilter).map(p => p.id);
-                filteredDeliverables = state.deliverables.filter(d => validProjectIds.includes(d.projectId));
+                const validProjectIds = new Set(state.projects.filter(p => p.tag === state.currentKanbanFilter).map(p => p.id));
+                filteredDeliverables = state.deliverables.filter(d => validProjectIds.has(d.projectId));
             }
 
             const activeKanbanBudget = filteredDeliverables
@@ -1653,7 +1643,7 @@
 
             let pendingExpectedValue = 0, pendingCount = 0;
             state.proposals.forEach(p => {
-                if(p.status === 'Pending Decision' || p.status === 'Pending' || p.status === 'In-Progress') {
+                if (p.status === 'Pending Decision' || p.status === 'Pending' || p.status === 'In-Progress') {
                     pendingCount++;
                     pendingExpectedValue += (p.budget || 0) * ((p.winProb || 0) / 100);
                 }
@@ -1676,8 +1666,8 @@
                     let dateBadge = d.completedDate ? `<div class="text-[10px] text-gray-400 mt-2"><i class="fa-regular fa-calendar-check mr-1"></i>${escapeHTML(d.completedDate)}</div>` : '';
                     let archiveBtn = '';
                     
-                    if(d.status === 'Done') {
-                        if(!d.isArchived) archiveBtn = `<button onclick="window.toggleArchiveDeliverable('${escapeHTML(d.id)}')" class="absolute bottom-2 right-2 text-gray-300 hover:text-blue-600 transition-colors" title="Archive"><i class="fa-solid fa-box-archive"></i></button>`;
+                    if (d.status === 'Done') {
+                        if (!d.isArchived) archiveBtn = `<button onclick="window.toggleArchiveDeliverable('${escapeHTML(d.id)}')" class="absolute bottom-2 right-2 text-gray-300 hover:text-blue-600 transition-colors" title="Archive"><i class="fa-solid fa-box-archive"></i></button>`;
                         else archiveBtn = `<button onclick="window.toggleArchiveDeliverable('${escapeHTML(d.id)}')" class="absolute bottom-2 right-2 text-blue-400 hover:text-blue-600 transition-colors" title="Unarchive"><i class="fa-solid fa-box-open"></i></button>`;
                     }
 
@@ -1685,7 +1675,7 @@
                         <div id="card_${d.id}" draggable="true" ondragstart="window.handleDragStart(event, 'deliverable', '${d.id}')" ondragend="window.handleDragEnd(event)" class="kanban-card bg-white p-3.5 rounded-xl shadow-sm border border-gray-200 hover:border-blue-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative ${d.isArchived ? 'opacity-60 bg-gray-50' : ''}">
                             <button onclick="window.openModal('deliverableModal', '${escapeHTML(d.id)}')" class="absolute top-2 right-2 text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-blue-50 p-1.5 rounded-lg z-10"><i class="fa-solid fa-pen text-xs"></i></button>
                             <div class="flex items-center gap-2 mb-2">
-                                <div class="w-3 h-3 rounded-full shadow-sm shrink-0" style="background-color: ${projColor};"></div>
+                                <div class="w-3 h-3 rounded-full shadow-sm shrink-0" style="background-color: ${escapeHTML(projColor)};"></div>
                                 <div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider truncate">${escapeHTML(projName)}</div>
                             </div>
                             <h4 class="text-sm font-bold text-gray-800 leading-snug mb-2 pr-6">${escapeHTML(d.name)}</h4>
@@ -1740,6 +1730,34 @@
         // ==========================================
         // 10. EVENTS / CONFERENCES MODULE
         // ==========================================
+        const monthNames = [
+            "", "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        function getUpcomingMonthNumbers() {
+            const currentMonth = new Date().getMonth() + 1;
+            return [
+                currentMonth,
+                (currentMonth % 12) + 1,
+                ((currentMonth + 1) % 12) + 1,
+                ((currentMonth + 2) % 12) + 1
+            ];
+        }
+
+        function isMonthUpcoming(monthVal) {
+            const m = parseInt(monthVal);
+            if (!m || m < 1 || m > 12) return false;
+            return getUpcomingMonthNumbers().includes(m);
+        }
+
+        function getEffectiveEventStatus(ev) {
+            if (ev.status === 'Attending') return 'Attending';
+            if (ev.status === 'Upcoming') return 'Upcoming';
+            if (ev.status === 'Registry') return 'Registry';
+            return isMonthUpcoming(ev.timingMonth) ? 'Upcoming' : 'Registry';
+        }
+
         function setupEventYearSelector() {
             const select = document.getElementById('eventYearFilter');
             if (!select) return;
@@ -1776,7 +1794,6 @@
                     if (newStatus === 'Attending' && !eventItem.year) {
                         eventItem.year = new Date().getFullYear();
                     }
-                    setupEventYearSelector();
                 }
             });
         };
@@ -1794,19 +1811,17 @@
                 filteredEvents = state.events.filter(ev => !ev.year || parseInt(ev.year) === yr);
             }
 
-            const attendingCount = state.events.filter(ev => ev.status === 'Attending').length;
+            const attendingCount = filteredEvents.filter(ev => getEffectiveEventStatus(ev) === 'Attending').length;
+            const upcomingCount = filteredEvents.filter(ev => getEffectiveEventStatus(ev) === 'Upcoming').length;
             const badge = document.getElementById('eventsCountBadge');
             if (badge) {
-                badge.innerHTML = `<i class="fa-solid fa-ticket mr-1"></i> Attending: ${attendingCount} | Total: ${state.events.length}`;
+                badge.innerHTML = `<i class="fa-solid fa-calendar-check mr-1"></i> Upcoming: ${upcomingCount} | Attending: ${attendingCount}`;
             }
 
-            const next3Months = getUpcomingMonthNumbers();
-            const next3Label = next3Months.map(m => shortMonthNames[m]).join(', ');
-
             const columnsData = [
-                { id: 'Registry', name: 'All Events (Registry)', subtitle: 'Annual Directory', bg: 'bg-gray-50', header: 'text-gray-700', badge: 'bg-gray-200 text-gray-700', icon: 'fa-list-check' },
-                { id: 'Upcoming', name: 'Upcoming Events', subtitle: `Next 3 Mo (${next3Label})`, bg: 'bg-amber-50/50', header: 'text-amber-800', badge: 'bg-amber-200 text-amber-800', icon: 'fa-calendar-day' },
-                { id: 'Attending', name: 'Attending', subtitle: 'Targeted / Registered', bg: 'bg-emerald-50/50', header: 'text-emerald-800', badge: 'bg-emerald-200 text-emerald-800', icon: 'fa-square-check' }
+                { id: 'Registry', name: '1) All Events', subtitle: 'Master conference list', bg: 'bg-gray-50', header: 'text-gray-700', badge: 'bg-gray-200 text-gray-700', icon: 'fa-list-ul' },
+                { id: 'Upcoming', name: '2) Upcoming Events', subtitle: 'Next 3 months (Auto-populated)', bg: 'bg-amber-50/50', header: 'text-amber-800', badge: 'bg-amber-200 text-amber-800', icon: 'fa-bolt' },
+                { id: 'Attending', name: '3) Attending', subtitle: 'Confirmed conferences', bg: 'bg-emerald-50/50', header: 'text-emerald-800', badge: 'bg-emerald-200 text-emerald-800', icon: 'fa-circle-check' }
             ];
 
             columnsData.forEach(col => {
@@ -1814,26 +1829,30 @@
                 colEvents.sort((a, b) => (a.order || 0) - (b.order || 0));
 
                 let cardsHtml = colEvents.map(ev => {
-                    const monthNum = parseMonthValue(ev.timing);
-                    const monthDisplay = monthNum ? monthNames[monthNum] : (ev.timing || 'Unspecified');
-                    const isUpcomingTiming = isEventInNext3Months(ev.timing);
+                    const monthDisplay = ev.timingMonth ? monthNames[parseInt(ev.timingMonth)] : (ev.timing || '');
+                    const isAutoUpcoming = (!ev.status || ev.status === 'Auto') && col.id === 'Upcoming';
 
                     return `
                         <div id="evcard_${ev.id}" draggable="true" ondragstart="window.handleDragStart(event, 'event', '${ev.id}')" ondragend="window.handleDragEnd(event)" class="event-card bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-indigo-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
                             <button onclick="window.openModal('eventModal', '${escapeHTML(ev.id)}')" class="absolute top-3 right-3 text-gray-400 hover:text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-indigo-50 p-1.5 rounded-lg z-10" title="Edit Event"><i class="fa-solid fa-pen text-xs"></i></button>
                             
-                            <div class="flex items-center gap-2 mb-2 pr-6">
+                            <div class="flex items-start justify-between gap-2 mb-2 pr-6">
                                 <h4 class="text-sm font-bold text-gray-900 leading-snug">${escapeHTML(ev.name)}</h4>
                             </div>
 
-                            <div class="space-y-1.5 my-3 text-xs text-gray-600">
-                                <div class="flex items-center justify-between">
+                            ${isAutoUpcoming ? `
+                                <div class="mb-2 inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wider bg-amber-100 text-amber-800 px-2 py-0.5 rounded-md border border-amber-200">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Upcoming (Next 3 Mo)
+                                </div>
+                            ` : ''}
+
+                            <div class="space-y-1.5 my-2.5 text-xs text-gray-600">
+                                ${monthDisplay ? `
                                     <div class="flex items-center gap-2 text-gray-700">
                                         <i class="fa-regular fa-calendar-days w-4 text-indigo-500 shrink-0"></i>
-                                        <span class="font-medium">Month: <span class="font-bold text-gray-800">${escapeHTML(monthDisplay)}</span></span>
+                                        <span class="font-medium">Typical Month: <span class="font-bold text-indigo-900 bg-indigo-50 px-1.5 py-0.5 rounded">${escapeHTML(monthDisplay)}</span></span>
                                     </div>
-                                    ${isUpcomingTiming ? `<span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-1.5 py-0.5 rounded border border-amber-200 shrink-0"><i class="fa-solid fa-bolt mr-0.5 text-amber-600"></i> Next 3 Mo</span>` : ''}
-                                </div>
+                                ` : ''}
 
                                 ${ev.location ? `
                                     <div class="flex items-center gap-2 text-gray-700">
@@ -1843,7 +1862,7 @@
                                 ` : ''}
 
                                 ${ev.abstractDue ? `
-                                    <div class="flex items-center gap-2 text-amber-800 bg-amber-50 p-1.5 rounded-lg border border-amber-200">
+                                    <div class="flex items-center gap-2 text-amber-900 bg-amber-50/70 p-1.5 rounded-lg border border-amber-200/80">
                                         <i class="fa-regular fa-file-lines w-4 text-amber-600 shrink-0"></i>
                                         <span class="font-semibold text-[11px]">Abstract Due: ${escapeHTML(ev.abstractDue)}</span>
                                     </div>
@@ -1854,7 +1873,7 @@
                                 <div class="flex items-center gap-1.5">
                                     ${ev.year ? `<span class="bg-gray-100 text-gray-700 font-bold px-2 py-0.5 rounded text-[10px]"><i class="fa-regular fa-calendar mr-1"></i>${escapeHTML(ev.year)}</span>` : ''}
                                 </div>
-                                ${ev.notes ? `<div class="truncate max-w-[140px] text-gray-500" title="${escapeHTML(ev.notes)}"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(ev.notes)}</div>` : ''}
+                                ${ev.notes ? `<div class="truncate max-w-[160px] text-gray-500" title="${escapeHTML(ev.notes)}"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(ev.notes)}</div>` : ''}
                             </div>
                         </div>
                     `;
@@ -1865,15 +1884,15 @@
                         <div class="${col.bg} mb-2 px-4 py-3 flex justify-between items-center rounded-t-xl border-b border-gray-100">
                             <div>
                                 <h3 class="font-bold text-sm ${col.header} flex items-center gap-2">
-                                    <i class="fa-solid ${col.icon} opacity-70"></i> ${col.name}
+                                    <i class="fa-solid ${col.icon} opacity-75"></i> ${col.name}
                                 </h3>
-                                <p class="text-[10px] font-semibold text-gray-400 mt-0.5">${col.subtitle}</p>
+                                <p class="text-[10px] text-gray-400 font-medium mt-0.5">${col.subtitle}</p>
                             </div>
                             <span class="${col.badge} text-xs px-2.5 py-0.5 rounded-full font-bold shadow-sm">${colEvents.length}</span>
                         </div>
                         <div class="event-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropEventItem(event)">
                             ${cardsHtml}
-                            ${colEvents.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-8">No events in this view.</div>` : ''}
+                            ${colEvents.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-8">No events in this stage.</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -1881,7 +1900,7 @@
         };
 
         // ==========================================
-        // 11. MODALS MANAGEMENT
+        // 11. MODALS MANAGEMENT & FORM SUBMISSIONS
         // ==========================================
         window.openModal = function(modalId, itemId = null, extraData = null) {
             document.getElementById('modalOverlay').classList.remove('hidden');
@@ -1945,7 +1964,7 @@
                 document.getElementById('btnDeleteDeliv').classList.toggle('hidden', !isEdit);
                 
                 const projSelect = document.getElementById('delivProject');
-                projSelect.innerHTML = state.projects.filter(p=>p.status==='Active').map(p => `<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`).join('');
+                projSelect.innerHTML = state.projects.filter(p => p.status === 'Active').map(p => `<option value="${escapeHTML(p.id)}">${escapeHTML(p.name)}</option>`).join('');
 
                 if (isEdit) {
                     const d = state.deliverables.find(x => x.id === itemId);
@@ -1974,8 +1993,7 @@
                     document.getElementById('eventName').value = ev.name;
                     document.getElementById('eventStatus').value = ev.status || 'Auto';
                     document.getElementById('eventYear').value = ev.year || '';
-                    const parsedM = parseMonthValue(ev.timing);
-                    document.getElementById('eventTiming').value = parsedM ? String(parsedM) : '';
+                    document.getElementById('eventMonth').value = ev.timingMonth || '';
                     document.getElementById('eventLocation').value = ev.location || '';
                     document.getElementById('eventAbstractDue').value = ev.abstractDue || '';
                     document.getElementById('eventNotes').value = ev.notes || '';
@@ -1983,7 +2001,7 @@
                     document.getElementById('formEvent').reset();
                     document.getElementById('eventId').value = '';
                     document.getElementById('eventStatus').value = 'Auto';
-                    document.getElementById('eventTiming').value = String(new Date().getMonth() + 1);
+                    document.getElementById('eventMonth').value = '';
                     document.getElementById('eventYear').value = new Date().getFullYear();
                 }
             }
@@ -1997,7 +2015,6 @@
             });
         };
 
-        // Form Submissions
         document.getElementById('formGoal').addEventListener('submit', (e) => {
             e.preventDefault();
             state.fiscalGoals[document.getElementById('goalYear').value] = parseFloat(document.getElementById('goalAmount').value) || 0;
@@ -2025,15 +2042,14 @@
             
             if (existingId) {
                 const index = state.proposals.findIndex(p => p.id === existingId);
-                if(index > -1) state.proposals[index] = data;
+                if (index > -1) state.proposals[index] = data;
             } else {
                 state.proposals.push(data);
             }
             
             saveDataToFirebase();
             window.closeModals();
-            window.renderProposals();
-            window.renderKanban(); 
+            refreshActiveView();
         });
 
         document.getElementById('formProject').addEventListener('submit', (e) => {
@@ -2066,8 +2082,7 @@
             
             saveDataToFirebase();
             window.closeModals();
-            window.renderProjects();
-            window.renderKanban(); 
+            refreshActiveView();
         });
 
         document.getElementById('formDeliverable').addEventListener('submit', (e) => {
@@ -2103,8 +2118,7 @@
             
             saveDataToFirebase();
             window.closeModals();
-            window.renderKanban();
-            window.renderProjects();
+            refreshActiveView();
         });
 
         document.getElementById('formEvent').addEventListener('submit', (e) => {
@@ -2112,23 +2126,18 @@
             if (!state.events) state.events = [];
             
             const existingId = document.getElementById('eventId').value;
-            let chosenStatus = document.getElementById('eventStatus').value;
-            const chosenMonth = document.getElementById('eventTiming').value;
-
-            if (chosenStatus === 'Auto') {
-                chosenStatus = isEventInNext3Months(chosenMonth) ? 'Upcoming' : 'Registry';
-            }
-
+            const newStatus = document.getElementById('eventStatus').value;
+            const selectedMonth = document.getElementById('eventMonth').value;
             const eventData = {
                 id: existingId || 'ev_' + Date.now(),
                 name: document.getElementById('eventName').value,
-                status: chosenStatus,
+                status: newStatus,
                 year: document.getElementById('eventYear').value ? parseInt(document.getElementById('eventYear').value) : null,
-                timing: chosenMonth,
+                timingMonth: selectedMonth,
                 location: document.getElementById('eventLocation').value,
                 abstractDue: document.getElementById('eventAbstractDue').value,
                 notes: document.getElementById('eventNotes').value,
-                order: state.events.filter(ev => ev.status === chosenStatus).length
+                order: state.events.length
             };
 
             if (existingId) {
@@ -2140,29 +2149,27 @@
 
             saveDataToFirebase();
             window.closeModals();
-            setupEventYearSelector();
-            window.renderEvents();
+            refreshActiveView();
         });
 
-        // Deletion Functions (Unified)
+        // Unified Deletions
         window.deleteProposal = function() {
-            deleteEntity('proposals', document.getElementById('propId').value, () => window.renderKanban());
+            deleteEntity('proposals', document.getElementById('propId').value);
         };
         
         window.deleteProject = function() {
             const id = document.getElementById('projId').value;
-            deleteEntity('projects', id, (deletedId) => {
-                state.deliverables = state.deliverables.filter(d => d.projectId !== deletedId);
-                window.renderKanban();
+            deleteEntity('projects', id, (deletedProjId) => {
+                state.deliverables = state.deliverables.filter(d => d.projectId !== deletedProjId);
             });
         };
         
         window.deleteDeliverable = function() {
-            deleteEntity('deliverables', document.getElementById('delivId').value, () => window.renderProjects());
+            deleteEntity('deliverables', document.getElementById('delivId').value);
         };
 
         window.deleteEvent = function() {
-            deleteEntity('events', document.getElementById('eventId').value, () => setupEventYearSelector());
+            deleteEntity('events', document.getElementById('eventId').value);
         };
 
         document.getElementById('delivStatus').addEventListener('change', function() {
