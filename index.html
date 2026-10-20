@@ -94,6 +94,11 @@
             </nav>
 
             <div class="flex items-center gap-2">
+                <!-- Direct Switch to Home Mode -->
+                <a href="home.html" class="flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 rounded-xl transition-all shadow-xs" title="Switch to Home Maintenance Workspace">
+                    <i class="fa-solid fa-house-chimney text-emerald-600"></i> Home Mode
+                </a>
+
                 <!-- Data Management Dropdown -->
                 <div class="relative group">
                     <button class="text-gray-400 hover:text-blue-600 transition-colors p-2.5 rounded-xl hover:bg-blue-50" title="Workspace Settings & Data">
@@ -786,6 +791,9 @@
 
             const code = document.getElementById('passcodeInput').value.trim();
             state.currentPasscode = code;
+            try {
+                localStorage.setItem('juggler_workspace', code);
+            } catch (e) {}
 
             try {
                 await signInAnonymously(auth);
