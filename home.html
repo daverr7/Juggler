@@ -21,28 +21,31 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
         
         /* Fade Transitions */
-        .fade-in { animation: fadeIn 0.25s ease-in-out; }
+        .fade-in { animation: fadeIn 0.22s ease-in-out; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         /* Drag and Drop Styling */
-        .todo-column, .repair-column, .maint-column { min-height: 220px; }
+        .todo-column, .repair-column, .maint-column { min-height: 200px; }
         .todo-card, .repair-card, .maint-card { cursor: grab; }
         .todo-card:active, .repair-card:active, .maint-card:active { cursor: grabbing; }
         .dragging { opacity: 0.45; border: 2px dashed #059669 !important; transform: scale(0.98); }
 
-        /* Progress Bar Styling */
-        progress::-webkit-progress-bar { background-color: #e5e7eb; border-radius: 9999px; }
-        progress::-webkit-progress-value { background-color: #059669; border-radius: 9999px; }
-        progress::-moz-progress-bar { background-color: #059669; border-radius: 9999px; }
+        /* Month Pill Checkboxes */
+        .month-pill input:checked + span {
+            background-color: #059669;
+            color: #ffffff;
+            border-color: #059669;
+            box-shadow: 0 1px 2px rgba(5, 150, 105, 0.25);
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased h-screen flex flex-col overflow-hidden">
 
     <!-- Toast Notification -->
-    <div id="toastNotification" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-6 py-3 rounded-full shadow-lg transition-all duration-300 -translate-y-20 opacity-0 z-[100] font-medium text-sm flex items-center gap-3">
+    <div id="toastNotification" class="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-5 py-2.5 rounded-full shadow-lg transition-all duration-300 -translate-y-20 opacity-0 z-[100] font-medium text-sm flex items-center gap-2.5">
         <i class="fa-solid fa-circle-check text-emerald-400"></i>
         <span id="toastMessage">Notification</span>
     </div>
@@ -72,8 +75,8 @@
     <!-- Main Application Container -->
     <div id="appScreen" class="hidden h-full flex-col">
         <!-- Header & Cross-Nav -->
-        <header class="bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center shrink-0 shadow-sm z-10 relative">
-            <div class="flex items-center gap-4">
+        <header class="bg-white border-b border-gray-200 px-6 py-3.5 flex justify-between items-center shrink-0 shadow-sm z-10 relative">
+            <div class="flex items-center gap-3.5">
                 <div id="headerBrandSvg" class="w-10 h-10 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-xl flex items-center justify-center shadow-sm p-1"></div>
                 <div>
                     <div class="flex items-center gap-2">
@@ -86,13 +89,13 @@
             
             <!-- Module Switcher -->
             <nav class="flex space-x-1.5 bg-slate-100 p-1.5 rounded-xl border border-slate-200/80 shadow-inner">
-                <button onclick="window.switchSection('todos')" id="navTodos" class="px-4 py-2 text-sm font-bold rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/20 transition-all">
+                <button onclick="window.switchSection('todos')" id="navTodos" class="px-4 py-1.5 text-sm font-bold rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/20 transition-all">
                     <i class="fa-solid fa-list-check mr-1.5"></i> To Do
                 </button>
-                <button onclick="window.switchSection('repairs')" id="navRepairs" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-white/80 transition-all">
+                <button onclick="window.switchSection('repairs')" id="navRepairs" class="px-4 py-1.5 text-sm font-semibold rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-white/80 transition-all">
                     <i class="fa-solid fa-wrench mr-1.5"></i> Repairs
                 </button>
-                <button onclick="window.switchSection('maintenance')" id="navMaintenance" class="px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-white/80 transition-all">
+                <button onclick="window.switchSection('maintenance')" id="navMaintenance" class="px-4 py-1.5 text-sm font-semibold rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-white/80 transition-all">
                     <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Maintenance
                 </button>
             </nav>
@@ -105,7 +108,7 @@
 
                 <!-- Data Backup Dropdown -->
                 <div class="relative group">
-                    <button class="text-gray-400 hover:text-emerald-700 transition-colors p-2.5 rounded-xl hover:bg-emerald-50" title="Workspace Data">
+                    <button class="text-gray-400 hover:text-emerald-700 transition-colors p-2 rounded-xl hover:bg-emerald-50" title="Workspace Data">
                         <i class="fa-solid fa-gear"></i>
                     </button>
                     <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right scale-95 group-hover:scale-100 z-50 overflow-hidden">
@@ -124,104 +127,106 @@
 
                 <div class="w-px h-6 bg-gray-200 mx-1"></div>
 
-                <button id="logoutBtn" class="text-gray-500 hover:text-red-600 transition-colors p-2.5 rounded-xl hover:bg-red-50 text-sm font-medium flex items-center gap-2">
+                <button id="logoutBtn" class="text-gray-500 hover:text-red-600 transition-colors p-2 rounded-xl hover:bg-red-50 text-sm font-medium flex items-center gap-1.5">
                     <i class="fa-solid fa-right-from-bracket"></i> Exit
                 </button>
             </div>
         </header>
 
+        <!-- Main Workspace Content -->
         <main class="flex-1 overflow-hidden relative">
             
-            <!-- SECTION 1: HOME TO-DO (High, Med, Low Priority) -->
-            <div id="section-todos" class="absolute inset-0 p-6 overflow-y-auto fade-in flex flex-col hidden">
-                <div class="flex justify-between items-center mb-6">
+            <!-- SECTION 1: HOME TO-DO (Visible by default so it loads immediately) -->
+            <div id="section-todos" class="absolute inset-0 p-5 overflow-y-auto fade-in flex flex-col">
+                <div class="flex justify-between items-center mb-4">
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-800">Home Tasks & Chores</h2>
-                        <p class="text-gray-500 text-sm">Prioritize quick tasks, errands, and odd jobs around the house.</p>
+                        <h2 class="text-xl font-bold text-gray-800">Home Tasks & Chores</h2>
+                        <p class="text-gray-500 text-xs">Prioritize quick tasks, errands, and odd jobs around the house.</p>
                     </div>
                 </div>
 
-                <form id="formTodo" class="mb-6 flex flex-wrap items-center gap-3 bg-white p-2.5 rounded-2xl shadow-sm border border-gray-200 w-full max-w-4xl">
+                <form id="formTodo" class="mb-5 flex flex-wrap items-center gap-2.5 bg-white p-2 rounded-xl shadow-sm border border-gray-200 w-full max-w-4xl">
                     <input type="text" id="newTodoText" placeholder="What needs to get done around the house?" required
-                        class="flex-1 min-w-[220px] px-4 py-2 bg-transparent focus:outline-none text-gray-800 font-medium placeholder-gray-400">
-                    <select id="newTodoPriority" class="px-3.5 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-medium text-gray-700">
+                        class="flex-1 min-w-[220px] px-3 py-1.5 bg-transparent focus:outline-none text-gray-800 text-sm font-medium placeholder-gray-400">
+                    <select id="newTodoPriority" class="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs font-semibold text-gray-700">
                         <option value="high">High Priority</option>
                         <option value="med" selected>Medium Priority</option>
                         <option value="low">Low Priority</option>
                     </select>
-                    <input type="text" id="newTodoTag" placeholder="Area (e.g., Yard, Kitchen)" class="px-3 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm w-36 focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-xl font-semibold transition-colors shadow-sm flex items-center gap-1.5">
-                        <i class="fa-solid fa-plus text-xs"></i> Add Task
+                    <input type="text" id="newTodoTag" placeholder="Area (e.g., Yard, Kitchen)" class="px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg text-xs w-36 focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition-colors shadow-sm flex items-center gap-1.5">
+                        <i class="fa-solid fa-plus"></i> Add Task
                     </button>
                 </form>
 
                 <!-- Priority Kanban Columns -->
-                <div id="todoActiveBoard" class="flex gap-5 mb-8 min-h-[300px]"></div>
+                <div id="todoActiveBoard" class="flex gap-4 mb-6 min-h-[260px]"></div>
 
                 <!-- Archived Items -->
-                <div class="mt-4 pt-6 border-t-2 border-gray-200 border-dashed relative">
-                    <div class="flex justify-between items-center mb-3">
-                        <div class="bg-gray-100 px-3 py-1 rounded text-xs font-bold text-gray-500 uppercase tracking-wider">Completed / Archived Tasks</div>
-                        <button id="btnDeleteAllArchived" onclick="window.deleteAllArchivedTodos()" class="text-xs font-semibold text-red-600 hover:text-red-800 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 hidden border border-red-200">
+                <div class="mt-2 pt-4 border-t-2 border-gray-200 border-dashed relative">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <div class="bg-gray-100 px-2.5 py-1 rounded text-[11px] font-bold text-gray-500 uppercase tracking-wider">Completed / Archived Tasks</div>
+                        <button id="btnDeleteAllArchived" onclick="window.deleteAllArchivedTodos()" class="text-xs font-semibold text-red-600 hover:text-red-800 hover:bg-red-50 px-2.5 py-1 rounded-lg transition-colors flex items-center gap-1.5 hidden border border-red-200">
                             <i class="fa-solid fa-trash-can"></i> Delete All Archived
                         </button>
                     </div>
-                    <div id="todoArchiveList" class="flex flex-col gap-2 max-w-3xl opacity-80"></div>
+                    <div id="todoArchiveList" class="flex flex-col gap-1.5 max-w-3xl opacity-80"></div>
                 </div>
             </div>
 
             <!-- SECTION 2: REPAIRS TRACKER (Upcoming, In Progress, Complete) -->
-            <div id="section-repairs" class="absolute inset-0 p-6 overflow-x-auto fade-in hidden bg-gray-100/50 flex flex-col">
-                <div class="flex justify-between items-center mb-6 shrink-0">
+            <div id="section-repairs" class="absolute inset-0 p-5 overflow-x-auto fade-in hidden bg-gray-100/50 flex flex-col">
+                <div class="flex justify-between items-center mb-4 shrink-0">
                     <div>
                         <div class="flex items-center gap-3">
-                            <h2 class="text-2xl font-bold text-gray-800">Repairs & Projects</h2>
-                            <div class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-extrabold px-2.5 py-1 rounded-md shadow-sm" id="repairEstimatedCostBadge">Est. Cost: $0</div>
+                            <h2 class="text-xl font-bold text-gray-800">Repairs & Projects</h2>
+                            <div class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-extrabold px-2.5 py-0.5 rounded-md shadow-sm" id="repairEstimatedCostBadge">Est. Cost: $0</div>
                         </div>
-                        <p class="text-gray-500 text-sm mt-1">Track active home fixes, contractor work, DIY quotes, and completed repairs.</p>
+                        <p class="text-gray-500 text-xs mt-0.5">Track active home fixes, contractor work, DIY quotes, and completed repairs.</p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <select id="repairCategoryFilter" onchange="window.updateRepairFilter()" class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block p-2 font-semibold shadow-sm">
+                    <div class="flex items-center gap-2.5">
+                        <select id="repairCategoryFilter" onchange="window.updateRepairFilter()" class="bg-white border border-gray-300 text-gray-700 text-xs rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block px-3 py-2 font-semibold shadow-sm">
                             <option value="All">All Categories</option>
                         </select>
-                        <button onclick="window.openModal('repairModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm flex items-center gap-2">
+                        <button onclick="window.openModal('repairModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-1.5">
                             <i class="fa-solid fa-wrench"></i> New Repair
                         </button>
                     </div>
                 </div>
 
-                <div class="flex gap-6 flex-1 pb-4 w-full" id="repairsBoard"></div>
+                <div class="flex gap-5 flex-1 pb-3 w-full" id="repairsBoard"></div>
             </div>
 
             <!-- SECTION 3: RECURRING MAINTENANCE TRACKER -->
-            <div id="section-maintenance" class="absolute inset-0 p-6 overflow-x-auto fade-in hidden bg-gray-100/50 flex flex-col">
-                <div class="flex justify-between items-center mb-6 shrink-0">
+            <div id="section-maintenance" class="absolute inset-0 p-5 overflow-x-auto fade-in hidden bg-gray-100/50 flex flex-col">
+                <div class="flex justify-between items-center mb-4 shrink-0 flex-wrap gap-3">
                     <div>
-                        <div class="flex items-center gap-3">
-                            <h2 class="text-2xl font-bold text-gray-800">Recurring Maintenance</h2>
-                            <div class="bg-teal-100 text-teal-800 border border-teal-200 text-xs font-extrabold px-2.5 py-1 rounded-md shadow-sm" id="maintCountBadge">0 Recurring Tasks</div>
+                        <div class="flex items-center gap-2.5">
+                            <h2 class="text-xl font-bold text-gray-800">Recurring Maintenance</h2>
+                            <span class="bg-teal-100 text-teal-800 border border-teal-200 text-xs font-extrabold px-2.5 py-0.5 rounded-md shadow-sm" id="maintCurrentWindowBadge"></span>
                         </div>
-                        <p class="text-gray-500 text-sm mt-1">Track seasonal checklists, appliance servicing, and filter changes over time.</p>
+                        <p class="text-gray-500 text-xs mt-0.5">Tasks anchored to the current or next month automatically flow into <strong>Due Soon</strong> until marked complete.</p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shadow-sm">
-                            <span class="text-xs font-bold text-gray-500 uppercase"><i class="fa-regular fa-calendar-check mr-1"></i> Interval:</span>
-                            <select id="maintTimingFilter" onchange="window.updateMaintFilter()" class="bg-transparent text-gray-800 text-sm font-bold focus:outline-none cursor-pointer">
-                                <option value="All">All Intervals</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Quarterly">Quarterly</option>
-                                <option value="Seasonal">Seasonal / Bi-Annual</option>
-                                <option value="Annual">Annual</option>
-                            </select>
-                        </div>
-                        <button onclick="window.openModal('maintModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all shadow-sm flex items-center gap-2">
+                    <div class="flex items-center gap-2.5">
+                        <!-- Filter by Area/Category -->
+                        <select id="maintCategoryFilter" onchange="window.updateMaintFilter()" class="bg-white border border-gray-200 text-gray-700 text-xs font-bold rounded-lg px-3 py-2 shadow-sm focus:outline-none">
+                            <option value="All">All Areas</option>
+                        </select>
+
+                        <!-- Completion History Log Button -->
+                        <button onclick="window.openModal('maintLogModal')" class="bg-white hover:bg-teal-50 text-teal-800 border border-teal-200 px-3.5 py-2 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-clock-rotate-left text-teal-600"></i> Maintenance Log
+                            <span id="maintLogCountBadge" class="bg-teal-100 text-teal-800 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
+                        </button>
+
+                        <button onclick="window.openModal('maintModal')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-lg text-xs font-bold transition-all shadow-sm flex items-center gap-1.5">
                             <i class="fa-solid fa-plus"></i> New Recurring Task
                         </button>
                     </div>
                 </div>
 
-                <!-- 3-Stage Pipeline: Due Soon, Up-To-Date, Registry -->
-                <div class="flex gap-6 flex-1 pb-4 w-full overflow-x-auto" id="maintenanceBoard"></div>
+                <!-- 3-Stage Pipeline: 1) Master Home Directory (Left), 2) Due Soon (Middle), 3) Up-To-Date (Right) -->
+                <div class="flex gap-5 flex-1 pb-3 w-full overflow-x-auto" id="maintenanceBoard"></div>
             </div>
         </main>
     </div>
@@ -232,25 +237,25 @@
         <!-- Repair Modal -->
         <div id="repairModal" class="hidden bg-white p-6 rounded-3xl shadow-2xl max-w-md w-full mx-4 relative transform transition-all max-h-[90vh] overflow-y-auto">
             <button onclick="window.closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-xl font-bold mb-4" id="repairModalTitle">Add Repair Project</h3>
-            <form id="formRepair" class="space-y-4">
+            <h3 class="text-lg font-bold mb-4" id="repairModalTitle">Add Repair Project</h3>
+            <form id="formRepair" class="space-y-3.5">
                 <input type="hidden" id="repairId">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Repair Title</label>
-                    <input type="text" id="repairTitle" placeholder="e.g., Fix Leaking Kitchen Sink Valve" class="w-full px-4 py-2 border rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Repair Title</label>
+                    <input type="text" id="repairTitle" placeholder="e.g., Fix Leaking Kitchen Sink Valve" class="w-full px-3.5 py-2 border rounded-xl text-sm focus:ring-emerald-500 focus:border-emerald-500" required>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                        <select id="repairStatus" class="w-full px-4 py-2 border rounded-xl focus:ring-emerald-500 focus:border-emerald-500" onchange="document.getElementById('repairDateContainer').classList.toggle('hidden', this.value !== 'Complete')">
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Status</label>
+                        <select id="repairStatus" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-emerald-500 focus:border-emerald-500" onchange="document.getElementById('repairDateContainer').classList.toggle('hidden', this.value !== 'Complete')">
                             <option value="Upcoming">Upcoming</option>
                             <option value="In Progress">In Progress</option>
                             <option value="Complete">Complete</option>
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Category / Trade</label>
-                        <input type="text" id="repairCategory" list="repairCategoryList" placeholder="e.g., Plumbing" class="w-full px-4 py-2 border rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Category / Trade</label>
+                        <input type="text" id="repairCategory" list="repairCategoryList" placeholder="e.g., Plumbing" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-emerald-500 focus:border-emerald-500">
                         <datalist id="repairCategoryList">
                             <option value="Plumbing">
                             <option value="HVAC">
@@ -261,110 +266,135 @@
                         </datalist>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Est. Cost ($)</label>
-                        <input type="number" id="repairCost" placeholder="0" class="w-full px-4 py-2 border rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Est. Cost ($)</label>
+                        <input type="number" id="repairCost" placeholder="0" class="w-full px-3 py-2 border rounded-xl text-sm focus:ring-emerald-500 focus:border-emerald-500">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Do It Yourself?</label>
-                        <select id="repairType" class="w-full px-4 py-2 border rounded-xl">
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Who's Doing It?</label>
+                        <select id="repairType" class="w-full px-3 py-2 border rounded-xl text-sm">
                             <option value="DIY">DIY</option>
                             <option value="Contractor / Pro">Contractor / Pro</option>
                         </select>
                     </div>
                 </div>
                 <div id="repairDateContainer" class="hidden">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Date Finished</label>
-                    <input type="date" id="repairCompletedDate" class="w-full px-4 py-2 border rounded-xl">
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Date Finished</label>
+                    <input type="date" id="repairCompletedDate" class="w-full px-3 py-2 border rounded-xl text-sm">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Notes, Parts or Contractor Info</label>
-                    <textarea id="repairNotes" rows="2" placeholder="e.g., Part #1234, Call plumber John @ 555-0192" class="w-full px-4 py-2 border rounded-xl text-sm"></textarea>
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Notes / Parts / Contractor</label>
+                    <textarea id="repairNotes" rows="2" placeholder="e.g., Part #1234, Call plumber John @ 555-0192" class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" id="btnDeleteRepair" onclick="window.deleteRepair()" class="hidden px-4 py-2 text-red-600 hover:bg-red-50 rounded-xl font-medium">Delete</button>
-                    <button type="submit" class="bg-emerald-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-emerald-700">Save Repair</button>
+                    <button type="button" id="btnDeleteRepair" onclick="window.deleteRepair()" class="hidden px-4 py-2 text-red-600 hover:bg-red-50 rounded-xl text-sm font-medium">Delete</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-emerald-700">Save Repair</button>
                 </div>
             </form>
         </div>
 
-        <!-- Recurring Maintenance Modal -->
+        <!-- Streamlined Recurring Maintenance Modal -->
         <div id="maintModal" class="hidden bg-white p-6 rounded-3xl shadow-2xl max-w-md w-full mx-4 relative transform transition-all max-h-[90vh] overflow-y-auto">
             <button onclick="window.closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-xl font-bold mb-4" id="maintModalTitle">Add Recurring Maintenance</h3>
+            <h3 class="text-lg font-bold mb-1" id="maintModalTitle">Recurring Maintenance Task</h3>
+            <p class="text-xs text-gray-400 mb-4">Check off typical months to auto-move into <strong>Due Soon</strong>, or leave blank to keep in the Master Directory.</p>
+
             <form id="formMaint" class="space-y-4">
                 <input type="hidden" id="maintId">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Task Name</label>
-                    <input type="text" id="maintName" placeholder="e.g., Replace Furnace Filter 16x25x1" class="w-full px-4 py-2 border rounded-xl focus:ring-emerald-500 focus:border-emerald-500" required>
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Task Name</label>
+                    <input type="text" id="maintName" placeholder="e.g., Replace Furnace Filter (16x25x1)" class="w-full px-3.5 py-2 border rounded-xl text-sm focus:ring-emerald-500 focus:border-emerald-500" required>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Frequency</label>
-                        <select id="maintInterval" class="w-full px-4 py-2 border rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
-                            <option value="Monthly">Monthly</option>
-                            <option value="Quarterly">Every 3 Months</option>
-                            <option value="Seasonal">Seasonal (Spring/Fall)</option>
-                            <option value="Annual">Annual (Once a Year)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Status / Bucket</label>
-                        <select id="maintStatus" class="w-full px-4 py-2 border rounded-xl focus:ring-emerald-500 focus:border-emerald-500">
-                            <option value="Auto">Auto (Check Next Due)</option>
-                            <option value="Registry">All Tasks (Registry)</option>
-                            <option value="Due">Due / Upcoming</option>
-                            <option value="Up-To-Date">Up-To-Date</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Category / Area</label>
-                        <input type="text" id="maintCategory" placeholder="e.g., HVAC, Lawn, Roof" class="w-full px-4 py-2 border rounded-xl">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Target / Typical Month</label>
-                        <select id="maintTargetMonth" class="w-full px-4 py-2 border rounded-xl">
-                            <option value="">Any / As Needed</option>
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Last Completed</label>
-                        <input type="date" id="maintLastDone" class="w-full px-4 py-2 border rounded-xl text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Next Due Date</label>
-                        <input type="date" id="maintNextDue" class="w-full px-4 py-2 border rounded-xl text-sm">
-                    </div>
-                </div>
+
+                <!-- Interactive Typical Months Selector -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Notes / Specs / Manual Info</label>
-                    <textarea id="maintNotes" rows="2" placeholder="e.g., Filter size: 16x25x1 MERV 11, shutoff valve behind panel" class="w-full px-4 py-2 border rounded-xl text-sm"></textarea>
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label class="block text-xs font-bold text-gray-600 uppercase">Typical Months Due <span class="text-gray-400 font-normal">(Anchor Rhythm)</span></label>
+                        <div class="flex gap-1">
+                            <button type="button" onclick="window.applyMonthPreset([1,4,7,10])" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-100 hover:bg-emerald-50 text-gray-600 hover:text-emerald-700 transition-colors">Quarterly</button>
+                            <button type="button" onclick="window.applyMonthPreset([4,10])" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-100 hover:bg-emerald-50 text-gray-600 hover:text-emerald-700 transition-colors">Spring/Fall</button>
+                            <button type="button" onclick="window.applyMonthPreset([1,2,3,4,5,6,7,8,9,10,11,12])" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-100 hover:bg-emerald-50 text-gray-600 hover:text-emerald-700 transition-colors">Monthly</button>
+                            <button type="button" onclick="window.applyMonthPreset([])" class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-gray-100 hover:bg-red-50 text-gray-400 hover:text-red-600 transition-colors">Clear</button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-6 gap-1.5" id="maintMonthCheckboxes">
+                        <!-- Populated dynamically with Jan - Dec pills -->
+                    </div>
                 </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Area / System <span class="text-gray-400 font-normal">(Opt)</span></label>
+                        <input type="text" id="maintCategory" list="maintCategoryList" placeholder="e.g., HVAC, Exterior" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                        <datalist id="maintCategoryList">
+                            <option value="HVAC">
+                            <option value="Plumbing">
+                            <option value="Exterior / Roof">
+                            <option value="Appliances">
+                            <option value="Yard & Lawn">
+                            <option value="Safety">
+                        </datalist>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Last Completed <span class="text-gray-400 font-normal">(Opt)</span></label>
+                        <input type="date" id="maintLastDone" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Specs / Filter Size / Notes <span class="text-gray-400 font-normal">(Opt)</span></label>
+                    <input type="text" id="maintNotes" placeholder="e.g., 16x25x1 MERV 11, shutoff valve behind panel" class="w-full px-3 py-1.5 border rounded-xl text-xs">
+                </div>
+
+                <!-- Hidden/Advanced Override Reset -->
+                <input type="hidden" id="maintManualStatus" value="Auto">
+
                 <div class="flex justify-end gap-2 pt-2">
-                    <button type="button" id="btnDeleteMaint" onclick="window.deleteMaint()" class="hidden px-4 py-2 text-red-600 hover:bg-red-50 rounded-xl font-medium">Delete</button>
-                    <button type="submit" class="bg-emerald-600 text-white px-6 py-2 rounded-xl font-semibold hover:bg-emerald-700">Save Task</button>
+                    <button type="button" id="btnDeleteMaint" onclick="window.deleteMaint()" class="hidden px-4 py-2 text-red-600 hover:bg-red-50 rounded-xl text-sm font-medium">Delete</button>
+                    <button type="submit" class="bg-emerald-600 text-white px-5 py-2 rounded-xl text-sm font-semibold hover:bg-emerald-700">Save Task</button>
                 </div>
             </form>
         </div>
+
+        <!-- Maintenance Completion History Log Modal -->
+        <div id="maintLogModal" class="hidden bg-white p-6 rounded-3xl shadow-2xl max-w-2xl w-full mx-4 relative transform transition-all max-h-[85vh] flex flex-col">
+            <button onclick="window.closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 w-8 h-8 rounded-full flex items-center justify-center transition-colors"><i class="fa-solid fa-xmark"></i></button>
+            <div class="flex items-center gap-2.5 mb-1">
+                <i class="fa-solid fa-clock-rotate-left text-teal-600 text-lg"></i>
+                <h3 class="text-lg font-bold text-gray-900">Completed Maintenance Log</h3>
+            </div>
+            <p class="text-xs text-gray-500 mb-4">Historical record of every recurring maintenance check-off over time.</p>
+
+            <!-- Quick manual log entry -->
+            <form id="formAddManualLog" class="flex flex-wrap items-center gap-2 bg-gray-50 p-2.5 rounded-xl border border-gray-200 mb-4">
+                <select id="logTaskSelect" required class="flex-1 min-w-[160px] px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-700"></select>
+                <input type="date" id="logDateInput" required class="px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-700">
+                <input type="text" id="logNoteInput" placeholder="Optional note (e.g., Replaced anode rod)" class="flex-1 min-w-[150px] px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs">
+                <button type="submit" class="bg-teal-600 hover:bg-teal-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition-colors shrink-0">
+                    + Log Past Entry
+                </button>
+            </form>
+
+            <!-- Log Table -->
+            <div class="flex-1 overflow-y-auto border border-gray-200 rounded-xl">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200 text-[10px] font-bold uppercase text-gray-500 tracking-wider">
+                            <th class="py-2.5 px-3">Date Completed</th>
+                            <th class="py-2.5 px-3">Task</th>
+                            <th class="py-2.5 px-3">Area</th>
+                            <th class="py-2.5 px-3">Notes</th>
+                            <th class="py-2.5 px-3 w-10 text-center"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="maintLogTableBody" class="divide-y divide-gray-100 text-xs"></tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
+    <!-- Application Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -388,6 +418,7 @@
             todos: [],
             repairs: [],
             maintenance: [],
+            maintenanceLogs: [],
             currentPasscode: '',
             activeSection: 'todos',
             currentRepairFilter: 'All',
@@ -397,24 +428,19 @@
         let unsubscribeSnapshot = null;
         let activeDragContext = null;
 
+        const shortMonths = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
         // Exact same Juggler SVG geometry as Work Mode, styled in the Emerald & Teal Home Palette
         const HOME_SVG = `
             <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-sm" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- 5 Juggling Balls in Home Palette -->
                 <circle cx="30" cy="95" r="14" fill="#6EE7B7" />
                 <circle cx="55" cy="48" r="15" fill="#34D399" />
                 <circle cx="100" cy="26" r="16" fill="#F59E0B" />
                 <circle cx="145" cy="48" r="15" fill="#10B981" />
                 <circle cx="170" cy="95" r="14" fill="#0D9488" />
-                
-                <!-- Dual-Tone Emerald Head -->
                 <circle cx="100" cy="90" r="24" fill="#10B981" />
                 <path d="M100 66 A24 24 0 0 1 100 114 Z" fill="#059669" />
-
-                <!-- Left Side Torso & Slim Arm (Light Emerald) -->
                 <path d="M100 122 L76 122 C66 122 58 130 50 138 L32 124 C27 120 20 123 18 128 C16 133 19 139 24 143 L48 160 C55 164 63 158 68 150 L68 192 L100 192 Z" fill="#10B981" />
-                
-                <!-- Right Side Torso & Slim Arm (Deep Emerald) -->
                 <path d="M100 122 L124 122 C134 122 142 130 150 138 L168 124 C173 120 180 123 182 128 C184 133 181 139 176 143 L152 160 C145 164 137 158 132 150 L132 192 L100 192 Z" fill="#059669" />
             </svg>
         `;
@@ -441,6 +467,85 @@
                 t.classList.remove('translate-y-0', 'opacity-100');
             }, 3000);
         };
+
+        // Build Month Pill Checkboxes in the Maintenance Modal
+        function initMonthPills() {
+            const container = document.getElementById('maintMonthCheckboxes');
+            if (!container) return;
+            container.innerHTML = '';
+            for (let m = 1; m <= 12; m++) {
+                container.innerHTML += `
+                    <label class="month-pill cursor-pointer select-none">
+                        <input type="checkbox" name="maintMonth" value="${m}" class="hidden">
+                        <span class="block text-center text-xs font-bold py-1.5 rounded-lg border border-gray-200 bg-gray-50 text-gray-600 hover:border-emerald-300 transition-all">${shortMonths[m]}</span>
+                    </label>
+                `;
+            }
+        }
+
+        window.applyMonthPreset = function(monthsArray) {
+            const checkboxes = document.querySelectorAll('input[name="maintMonth"]');
+            checkboxes.forEach(cb => {
+                cb.checked = monthsArray.includes(parseInt(cb.value));
+            });
+        };
+
+        // Normalize legacy single targetMonth or array of months
+        function getTaskMonths(m) {
+            if (Array.isArray(m.months) && m.months.length > 0) {
+                return m.months.map(Number).filter(n => n >= 1 && n <= 12).sort((a, b) => a - b);
+            }
+            if (m.targetMonth) {
+                const parsed = parseInt(m.targetMonth);
+                if (parsed >= 1 && parsed <= 12) return [parsed];
+            }
+            return [];
+        }
+
+        // Determine if task was completed recently (within the last 45 days)
+        function wasCompletedRecently(lastDoneStr) {
+            if (!lastDoneStr) return false;
+            const doneDate = new Date(lastDoneStr + 'T00:00:00');
+            if (isNaN(doneDate.getTime())) return false;
+            const now = new Date();
+            const diffDays = (now - doneDate) / (1000 * 60 * 60 * 24);
+            return diffDays >= -1 && diffDays <= 45;
+        }
+
+        // Auto-Bucket Logic for Recurring Maintenance:
+        // 1) Registry (Master Home Directory) - Left column
+        // 2) Due (Due Soon / Needs Service) - Middle column
+        // 3) Up-To-Date (Completed / On Schedule) - Right column
+        function getEffectiveMaintStatus(m) {
+            // Respect explicit manual drag override if set to Registry, Due, or Up-To-Date
+            if (m.manualStatus && m.manualStatus !== 'Auto') {
+                return m.manualStatus;
+            }
+
+            const months = getTaskMonths(m);
+            const now = new Date();
+            const currMonth = now.getMonth() + 1; // 1..12
+            const nextMonth = (currMonth % 12) + 1;
+
+            // If no anchor months are checked yet:
+            // Stay in Master Home Directory ('Registry') unless completed recently
+            if (months.length === 0) {
+                return wasCompletedRecently(m.lastDone) ? 'Up-To-Date' : 'Registry';
+            }
+
+            const isDueWindow = months.includes(currMonth) || months.includes(nextMonth);
+
+            if (isDueWindow) {
+                // If already completed during this window (within last 45 days), move to Up-To-Date!
+                if (wasCompletedRecently(m.lastDone)) {
+                    return 'Up-To-Date';
+                }
+                return 'Due';
+            }
+
+            // Outside the current/next month window -> if it has a completion record or scheduled for later in the year, show in Up-To-Date or Registry
+            return m.lastDone ? 'Up-To-Date' : 'Registry';
+        }
 
         function calculateDragDropTarget(container, mouseY, itemSelector) {
             const draggableElements = [...container.querySelectorAll(`${itemSelector}:not(.dragging)`)];
@@ -480,7 +585,12 @@
             const item = state[collectionName].find(x => String(x.id) === String(activeDragContext.id));
             if (!item) return;
 
-            item[statusAttr] = newTargetValue;
+            if (collectionName === 'maintenance') {
+                item.manualStatus = newTargetValue;
+            } else {
+                item[statusAttr] = newTargetValue;
+            }
+
             if (onUpdate) onUpdate(item, newTargetValue);
 
             let columnItems = state[collectionName].filter(x => {
@@ -518,7 +628,8 @@
             const dataToSave = {
                 todos: state.todos || [],
                 repairs: state.repairs || [],
-                maintenance: state.maintenance || []
+                maintenance: state.maintenance || [],
+                maintenanceLogs: state.maintenanceLogs || []
             };
             
             try {
@@ -530,7 +641,12 @@
         }
 
         function loadDummyHomeData() {
-            const today = new Date().toISOString().split('T')[0];
+            const now = new Date();
+            const today = now.toISOString().split('T')[0];
+            const currM = now.getMonth() + 1;
+            const nextM = (currM % 12) + 1;
+            const offM = ((currM + 4) % 12) + 1;
+
             state.todos = [
                 { id: 'ht1', text: 'Replace weatherstripping on front door', priority: 'high', tag: 'Exterior', isCompleted: false, order: 0 },
                 { id: 'ht2', text: 'Clean dryer exhaust vent', priority: 'med', tag: 'Laundry', isCompleted: false, order: 1 },
@@ -538,15 +654,21 @@
             ];
             state.repairs = [
                 { id: 'hr1', title: 'Re-grout master bath shower tile', status: 'Upcoming', category: 'Plumbing', cost: 180, type: 'DIY', notes: 'Get waterproof grout and silicone', order: 0 },
-                { id: 'hr2', title: 'Service Central AC Condenser', status: 'In Progress', category: 'HVAC', cost: 350, type: 'Contractor / Pro', notes: 'Scheduled for next Tuesday 10am', order: 0 },
+                { id: 'hr2', title: 'Service Central AC Condenser', status: 'In Progress', category: 'HVAC', cost: 350, type: 'Contractor / Pro', notes: 'Scheduled for Tuesday 10am', order: 0 },
                 { id: 'hr3', title: 'Replace kitchen disposal unit', status: 'Complete', category: 'Appliances', cost: 220, type: 'DIY', completedDate: today, notes: 'Installed InSinkErator Badger 5', order: 0 }
             ];
             state.maintenance = [
-                { id: 'hm1', name: 'Replace Furnace Filters (16x25x1)', interval: 'Quarterly', status: 'Auto', category: 'HVAC', targetMonth: '4', lastDone: '2026-07-01', nextDue: '2026-10-15', notes: 'MERV 11 filter box in basement', order: 0 },
-                { id: 'hm2', name: 'Clean & Flush Gutters / Downspouts', interval: 'Seasonal', status: 'Auto', category: 'Roof / Exterior', targetMonth: '11', lastDone: '2026-05-15', nextDue: '2026-11-01', notes: 'Check rear corner elbow for blockages', order: 1 },
-                { id: 'hm3', name: 'Test Smoke & CO Detectors', interval: 'Monthly', status: 'Up-To-Date', category: 'Safety', targetMonth: '', lastDone: today, nextDue: '2026-11-01', notes: 'Test button on all 3 floors', order: 0 }
+                { id: 'hm1', name: 'Replace Furnace Filters (16x25x1)', months: [1, 4, 7, 10], manualStatus: 'Auto', category: 'HVAC', lastDone: '2026-07-10', notes: 'MERV 11 filter box in basement', order: 0 },
+                { id: 'hm2', name: 'Clean & Flush Gutters / Downspouts', months: [5, nextM], manualStatus: 'Auto', category: 'Exterior / Roof', lastDone: '2026-05-15', notes: 'Check rear corner elbow for blockages', order: 1 },
+                { id: 'hm3', name: 'Flush Tankless Water Heater', months: [offM], manualStatus: 'Auto', category: 'Plumbing', lastDone: '', notes: '2 gallons white vinegar + submersible pump', order: 2 },
+                { id: 'hm4', name: 'Test Smoke & CO Detectors', months: [currM], manualStatus: 'Auto', category: 'Safety', lastDone: today, notes: 'All 3 floors tested good', order: 0 }
             ];
-            refreshActiveView();
+            state.maintenanceLogs = [
+                { id: 'log1', taskId: 'hm4', taskName: 'Test Smoke & CO Detectors', category: 'Safety', completedDate: today, notes: 'Tested all 3 floors' },
+                { id: 'log2', taskId: 'hm1', taskName: 'Replace Furnace Filters (16x25x1)', category: 'HVAC', completedDate: '2026-07-10', notes: 'Installed MERV 11' },
+                { id: 'log3', taskId: 'hm2', taskName: 'Clean & Flush Gutters / Downspouts', category: 'Exterior / Roof', completedDate: '2026-05-15', notes: 'Spring cleaning complete' }
+            ];
+            window.switchSection(state.activeSection);
         }
 
         async function connectWorkspace(code) {
@@ -559,6 +681,9 @@
             document.getElementById('loginScreen').classList.add('hidden');
             document.getElementById('appScreen').classList.remove('hidden');
             document.getElementById('appScreen').classList.add('flex');
+
+            // Immediately show active section & render so user never has to click "To Do"
+            window.switchSection(state.activeSection || 'todos');
 
             if (unsubscribeSnapshot) unsubscribeSnapshot();
 
@@ -573,10 +698,12 @@
                         state.todos = data.todos || [];
                         state.repairs = data.repairs || [];
                         state.maintenance = data.maintenance || [];
+                        state.maintenanceLogs = data.maintenanceLogs || [];
                     } else {
                         state.todos = [];
                         state.repairs = [];
                         state.maintenance = [];
+                        state.maintenanceLogs = [];
                     }
                     refreshActiveView();
                 }, (err) => {
@@ -626,8 +753,8 @@
 
         window.switchSection = function(sectionId) {
             state.activeSection = sectionId;
-            const inactiveClass = 'px-4 py-2 text-sm font-semibold rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-white/80 transition-all';
-            const activeClass = 'px-4 py-2 text-sm font-bold rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/20 transition-all';
+            const inactiveClass = 'px-4 py-1.5 text-sm font-semibold rounded-lg text-slate-600 hover:text-emerald-700 hover:bg-white/80 transition-all';
+            const activeClass = 'px-4 py-1.5 text-sm font-bold rounded-lg bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-500/20 transition-all';
 
             ['todos', 'repairs', 'maintenance'].forEach(id => {
                 const sec = document.getElementById(`section-${id}`);
@@ -648,7 +775,8 @@
             const dataStr = JSON.stringify({
                 todos: state.todos,
                 repairs: state.repairs,
-                maintenance: state.maintenance
+                maintenance: state.maintenance,
+                maintenanceLogs: state.maintenanceLogs
             }, null, 2);
             const blob = new Blob([dataStr], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
@@ -671,6 +799,7 @@
                     if (data.todos) state.todos = data.todos;
                     if (data.repairs) state.repairs = data.repairs;
                     if (data.maintenance) state.maintenance = data.maintenance;
+                    if (data.maintenanceLogs) state.maintenanceLogs = data.maintenanceLogs;
                     saveDataToFirebase();
                     refreshActiveView();
                     document.getElementById('importFile').value = '';
@@ -772,9 +901,9 @@
             archiveList.innerHTML = '';
 
             const columns = [
-                { id: 'high', name: 'High Priority', color: 'red', bg: 'bg-red-50/50', border: 'border-red-200', header: 'text-red-800 bg-red-100', accent: 'border-l-red-500' },
-                { id: 'med', name: 'Medium Priority', color: 'amber', bg: 'bg-amber-50/50', border: 'border-amber-200', header: 'text-amber-800 bg-amber-100', accent: 'border-l-amber-500' },
-                { id: 'low', name: 'Low Priority', color: 'blue', bg: 'bg-blue-50/50', border: 'border-blue-200', header: 'text-blue-800 bg-blue-100', accent: 'border-l-blue-500' }
+                { id: 'high', name: 'High Priority', bg: 'bg-red-50/40', border: 'border-red-200', header: 'text-red-800 bg-red-100', accent: 'border-l-red-500' },
+                { id: 'med', name: 'Medium Priority', bg: 'bg-amber-50/40', border: 'border-amber-200', header: 'text-amber-800 bg-amber-100', accent: 'border-l-amber-500' },
+                { id: 'low', name: 'Low Priority', bg: 'bg-blue-50/40', border: 'border-blue-200', header: 'text-blue-800 bg-blue-100', accent: 'border-l-blue-500' }
             ];
 
             state.todos.sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -792,7 +921,7 @@
                         iconClass = 'fa-solid fa-clock text-amber-500 hover:text-green-500';
                         cardBg = 'bg-amber-50/60 border-amber-200';
                         textClass = 'text-amber-900';
-                        badgeHtml += `<span class="text-[10px] font-extrabold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200 shrink-0">Waiting / Parts</span>`;
+                        badgeHtml += `<span class="text-[10px] font-extrabold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200 shrink-0">Waiting</span>`;
                     } else if (t.isCompleted) {
                         iconClass = 'fa-solid fa-circle-check text-emerald-500 hover:text-gray-400';
                         cardBg = 'bg-gray-50/80';
@@ -800,23 +929,21 @@
                     }
 
                     return `
-                        <div id="htodo_${t.id}" draggable="true" ondragstart="window.handleDragStart(event, 'todo', '${t.id}')" ondragend="window.handleDragEnd(event)" class="todo-card group flex items-start gap-2.5 bg-white p-3 rounded-xl shadow-sm border border-gray-100 border-l-4 ${col.accent} hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 ${cardBg}">
-                            <button onclick="window.toggleTodoCycle('${t.id}')" class="mt-0.5 transition-colors shrink-0" title="Cycle: To Do -> Waiting -> Completed">
-                                <i class="${iconClass} text-lg"></i>
+                        <div id="htodo_${t.id}" draggable="true" ondragstart="window.handleDragStart(event, 'todo', '${t.id}')" ondragend="window.handleDragEnd(event)" class="todo-card group flex items-center gap-2 bg-white px-2.5 py-2 rounded-lg shadow-xs border border-gray-100 border-l-4 ${col.accent} hover:shadow-sm transition-all duration-150 ${cardBg}">
+                            <button onclick="window.toggleTodoCycle('${t.id}')" class="transition-colors shrink-0" title="Cycle: To Do -> Waiting -> Completed">
+                                <i class="${iconClass} text-base"></i>
                             </button>
-                            <div class="flex-1 min-w-0 pt-0.5">
-                                <span class="text-sm font-medium ${textClass} block leading-tight">${escapeHTML(t.text)}</span>
-                                ${t.tag ? `<span class="inline-block mt-1 text-[10px] font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded uppercase tracking-wider">${escapeHTML(t.tag)}</span>` : ''}
-                            </div>
-                            <div class="flex items-center gap-1 shrink-0">
-                                ${badgeHtml}
+                            <span class="text-xs font-medium ${textClass} flex-1 leading-snug truncate">${escapeHTML(t.text)}</span>
+                            ${t.tag ? `<span class="text-[9px] font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded uppercase tracking-wider shrink-0">${escapeHTML(t.tag)}</span>` : ''}
+                            ${badgeHtml}
+                            <div class="flex items-center gap-0.5 shrink-0">
                                 ${t.isCompleted ? `
                                     <button onclick="window.archiveTodo('${t.id}')" class="text-gray-400 hover:text-emerald-600 transition-colors p-1 bg-gray-50 hover:bg-emerald-50 rounded" title="Archive">
-                                        <i class="fa-solid fa-box-archive text-xs"></i>
+                                        <i class="fa-solid fa-box-archive text-[11px]"></i>
                                     </button>
                                 ` : ''}
-                                <button onclick="window.deleteTodo('${t.id}')" class="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-500 transition-opacity p-1 bg-gray-50 hover:bg-red-50 rounded" title="Delete">
-                                    <i class="fa-solid fa-xmark text-sm"></i>
+                                <button onclick="window.deleteTodo('${t.id}')" class="opacity-0 group-hover:opacity-100 text-gray-300 hover:text-red-500 transition-opacity p-1 rounded" title="Delete">
+                                    <i class="fa-solid fa-xmark text-xs"></i>
                                 </button>
                             </div>
                         </div>
@@ -825,13 +952,13 @@
 
                 activeBoard.innerHTML += `
                     <div class="flex-1 flex flex-col bg-white rounded-2xl overflow-hidden border ${col.border} shadow-sm">
-                        <div class="px-4 py-3 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                            <h3 class="font-bold text-sm px-3 py-1 rounded-full ${col.header}">${col.name}</h3>
+                        <div class="px-3.5 py-2.5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                            <h3 class="font-bold text-xs px-2.5 py-0.5 rounded-full ${col.header}">${col.name}</h3>
                             <span class="text-gray-400 text-xs font-bold">${unarchived.length}</span>
                         </div>
-                        <div class="todo-column flex-1 overflow-y-auto p-3 flex flex-col gap-3 ${col.bg}" data-priority="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropTodoItem(event)">
+                        <div class="todo-column flex-1 overflow-y-auto p-2.5 flex flex-col gap-2 ${col.bg}" data-priority="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropTodoItem(event)">
                             ${cardsHtml}
-                            ${unarchived.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-8">Drop tasks here</div>` : ''}
+                            ${unarchived.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">Drop tasks here</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -843,19 +970,19 @@
 
             archived.forEach(t => {
                 archiveList.innerHTML += `
-                    <div class="flex items-center gap-3 bg-gray-50 p-2.5 rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-2.5 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">
                         <button onclick="window.unarchiveTodo('${t.id}')" class="text-emerald-500 hover:text-emerald-700 transition-colors shrink-0" title="Restore Task">
-                            <i class="fa-solid fa-box-open text-base"></i>
+                            <i class="fa-solid fa-box-open text-xs"></i>
                         </button>
-                        <span class="text-sm text-gray-500 line-through flex-1">${escapeHTML(t.text)}</span>
-                        ${t.tag ? `<span class="text-[10px] font-bold text-gray-400 bg-gray-200 px-1.5 py-0.5 rounded">${escapeHTML(t.tag)}</span>` : ''}
+                        <span class="text-xs text-gray-500 line-through flex-1">${escapeHTML(t.text)}</span>
+                        ${t.tag ? `<span class="text-[9px] font-bold text-gray-400 bg-gray-200 px-1.5 py-0.5 rounded">${escapeHTML(t.tag)}</span>` : ''}
                         <button onclick="window.deleteTodo('${t.id}')" class="text-gray-400 hover:text-red-500 p-1" title="Delete Task">
-                            <i class="fa-solid fa-trash text-xs"></i>
+                            <i class="fa-solid fa-trash text-[11px]"></i>
                         </button>
                     </div>
                 `;
             });
-            if (archived.length === 0) archiveList.innerHTML = `<div class="text-sm text-gray-400 italic">No archived tasks.</div>`;
+            if (archived.length === 0) archiveList.innerHTML = `<div class="text-xs text-gray-400 italic">No archived tasks.</div>`;
         };
 
         window.updateRepairFilter = function() {
@@ -915,70 +1042,46 @@
                 const colCost = colItems.reduce((sum, r) => sum + (parseFloat(r.cost) || 0), 0);
 
                 let cardsHtml = colItems.map(r => `
-                    <div id="repair_${r.id}" draggable="true" ondragstart="window.handleDragStart(event, 'repair', '${r.id}')" ondragend="window.handleDragEnd(event)" class="repair-card bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-emerald-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
-                        <button onclick="window.openModal('repairModal', '${escapeHTML(r.id)}')" class="absolute top-3 right-3 text-gray-400 hover:text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-emerald-50 p-1.5 rounded-lg z-10" title="Edit Repair"><i class="fa-solid fa-pen text-xs"></i></button>
-                        
-                        <div class="flex items-center gap-2 mb-2 pr-6">
-                            ${r.category ? `<span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">${escapeHTML(r.category)}</span>` : ''}
-                            <span class="text-[10px] font-semibold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">${escapeHTML(r.type || 'DIY')}</span>
+                    <div id="repair_${r.id}" draggable="true" ondragstart="window.handleDragStart(event, 'repair', '${r.id}')" ondragend="window.handleDragEnd(event)" class="repair-card bg-white px-3 py-2.5 rounded-xl shadow-xs border border-gray-200 hover:border-emerald-400 hover:shadow-sm transition-all duration-150 group relative">
+                        <div class="flex items-center justify-between gap-2 mb-1">
+                            <div class="flex items-center gap-1.5 min-w-0">
+                                ${r.category ? `<span class="text-[9px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 shrink-0">${escapeHTML(r.category)}</span>` : ''}
+                                <span class="text-[9px] font-semibold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded shrink-0">${escapeHTML(r.type || 'DIY')}</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <span class="text-xs font-extrabold text-emerald-700">${formatCurrency(r.cost)}</span>
+                                <button onclick="window.openModal('repairModal', '${escapeHTML(r.id)}')" class="text-gray-300 hover:text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded" title="Edit Repair"><i class="fa-solid fa-pen text-[10px]"></i></button>
+                            </div>
                         </div>
 
-                        <h4 class="text-sm font-bold text-gray-900 leading-snug mb-2">${escapeHTML(r.title)}</h4>
+                        <h4 class="text-xs font-bold text-gray-900 leading-snug">${escapeHTML(r.title)}</h4>
 
-                        <div class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 text-xs">
-                            <span class="font-extrabold text-emerald-700">${formatCurrency(r.cost)}</span>
-                            ${r.completedDate ? `<span class="text-[11px] text-gray-400"><i class="fa-regular fa-calendar-check mr-1 text-emerald-500"></i>${escapeHTML(r.completedDate)}</span>` : ''}
-                        </div>
-
-                        ${r.notes ? `<div class="text-[11px] text-gray-400 mt-2 truncate"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(r.notes)}</div>` : ''}
+                        ${(r.notes || r.completedDate) ? `
+                            <div class="flex items-center justify-between gap-2 mt-1.5 pt-1.5 border-t border-gray-50 text-[10px] text-gray-400">
+                                <span class="truncate">${r.notes ? `<i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(r.notes)}` : ''}</span>
+                                ${r.completedDate ? `<span class="shrink-0 text-emerald-600 font-medium"><i class="fa-solid fa-check mr-0.5"></i>${escapeHTML(r.completedDate)}</span>` : ''}
+                            </div>
+                        ` : ''}
                     </div>
                 `).join('');
 
                 board.innerHTML += `
-                    <div class="flex-1 min-w-[300px] flex flex-col bg-white rounded-2xl p-1 border border-gray-200 shadow-sm overflow-hidden">
-                        <div class="${col.bg} mb-2 px-4 py-3 flex justify-between items-center rounded-t-xl border-b border-gray-100">
-                            <h3 class="font-bold text-sm ${col.header}">${col.name} <span class="ml-1 ${col.badge} text-xs px-2 py-0.5 rounded-full font-semibold">${colItems.length}</span></h3>
+                    <div class="flex-1 min-w-[290px] flex flex-col bg-white rounded-2xl p-1 border border-gray-200 shadow-sm overflow-hidden">
+                        <div class="${col.bg} mb-1.5 px-3.5 py-2.5 flex justify-between items-center rounded-t-xl border-b border-gray-100">
+                            <h3 class="font-bold text-xs ${col.header}">${col.name} <span class="ml-1 ${col.badge} text-[11px] px-2 py-0.5 rounded-full font-semibold">${colItems.length}</span></h3>
                             <span class="text-xs font-extrabold ${col.header}">${formatCurrency(colCost)}</span>
                         </div>
-                        <div class="repair-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropRepairItem(event)">
+                        <div class="repair-column flex-1 flex flex-col gap-2 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropRepairItem(event)">
                             ${cardsHtml}
-                            ${colItems.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-8">Drop repairs here</div>` : ''}
+                            ${colItems.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">Drop repairs here</div>` : ''}
                         </div>
                     </div>
                 `;
             });
         };
 
-        const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-        function isMaintenanceDue(maint) {
-            if (!maint.nextDue && !maint.targetMonth) return false;
-            
-            if (maint.nextDue) {
-                const due = new Date(maint.nextDue).getTime();
-                const now = new Date().getTime();
-                const thirtyDays = 30 * 24 * 60 * 60 * 1000;
-                return (due - now) <= thirtyDays;
-            }
-
-            if (maint.targetMonth) {
-                const currentMonth = new Date().getMonth() + 1;
-                const tm = parseInt(maint.targetMonth);
-                return tm === currentMonth || tm === ((currentMonth % 12) + 1);
-            }
-
-            return false;
-        }
-
-        function getEffectiveMaintStatus(maint) {
-            if (maint.status === 'Up-To-Date') return 'Up-To-Date';
-            if (maint.status === 'Due') return 'Due';
-            if (maint.status === 'Registry') return 'Registry';
-            return isMaintenanceDue(maint) ? 'Due' : 'Up-To-Date';
-        }
-
         window.updateMaintFilter = function() {
-            state.currentMaintFilter = document.getElementById('maintTimingFilter').value;
+            state.currentMaintFilter = document.getElementById('maintCategoryFilter').value;
             window.renderMaintenance();
         };
 
@@ -987,24 +1090,99 @@
             const maint = state.maintenance.find(m => m.id === id);
             if (!maint) return;
 
-            const today = new Date();
-            maint.lastDone = today.toISOString().split('T')[0];
+            const today = new Date().toISOString().split('T')[0];
+            maint.lastDone = today;
+            // Reset manual pin to Auto so it flows into Up-To-Date naturally
+            maint.manualStatus = 'Auto';
 
-            if (maint.interval === 'Monthly') {
-                today.setMonth(today.getMonth() + 1);
-            } else if (maint.interval === 'Quarterly') {
-                today.setMonth(today.getMonth() + 3);
-            } else if (maint.interval === 'Seasonal') {
-                today.setMonth(today.getMonth() + 6);
-            } else if (maint.interval === 'Annual') {
-                today.setFullYear(today.getFullYear() + 1);
-            }
-            maint.nextDue = today.toISOString().split('T')[0];
-            maint.status = 'Up-To-Date';
+            if (!state.maintenanceLogs) state.maintenanceLogs = [];
+            state.maintenanceLogs.unshift({
+                id: 'mlog_' + Date.now(),
+                taskId: maint.id,
+                taskName: maint.name,
+                category: maint.category || '',
+                completedDate: today,
+                notes: maint.notes || ''
+            });
 
             saveDataToFirebase();
             window.renderMaintenance();
-            window.showToast(`Marked "${maint.name}" completed! Next due: ${maint.nextDue}`);
+            window.showToast(`Logged "${maint.name}" as completed on ${today}!`);
+        };
+
+        window.deleteMaintLog = function(logId) {
+            state.maintenanceLogs = (state.maintenanceLogs || []).filter(l => l.id !== logId);
+            saveDataToFirebase();
+            window.renderMaintLogsModal();
+            window.renderMaintenance();
+        };
+
+        document.getElementById('formAddManualLog').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const taskId = document.getElementById('logTaskSelect').value;
+            const dateVal = document.getElementById('logDateInput').value;
+            const noteVal = document.getElementById('logNoteInput').value.trim();
+
+            const task = state.maintenance.find(m => m.id === taskId);
+            if (!task || !dateVal) return;
+
+            if (!state.maintenanceLogs) state.maintenanceLogs = [];
+            state.maintenanceLogs.push({
+                id: 'mlog_' + Date.now(),
+                taskId: task.id,
+                taskName: task.name,
+                category: task.category || '',
+                completedDate: dateVal,
+                notes: noteVal
+            });
+
+            // Update task's lastDone if this date is newer
+            if (!task.lastDone || dateVal > task.lastDone) {
+                task.lastDone = dateVal;
+            }
+
+            document.getElementById('logNoteInput').value = '';
+            saveDataToFirebase();
+            window.renderMaintLogsModal();
+            window.renderMaintenance();
+            window.showToast("Added entry to Maintenance Log.");
+        });
+
+        window.renderMaintLogsModal = function() {
+            const tbody = document.getElementById('maintLogTableBody');
+            const taskSelect = document.getElementById('logTaskSelect');
+            const dateInput = document.getElementById('logDateInput');
+            if (!tbody) return;
+
+            if (taskSelect) {
+                taskSelect.innerHTML = state.maintenance.length
+                    ? state.maintenance.map(m => `<option value="${escapeHTML(m.id)}">${escapeHTML(m.name)}</option>`).join('')
+                    : `<option value="">No recurring tasks created yet</option>`;
+            }
+            if (dateInput && !dateInput.value) {
+                dateInput.value = new Date().toISOString().split('T')[0];
+            }
+
+            const logs = [...(state.maintenanceLogs || [])].sort((a, b) => (b.completedDate || '').localeCompare(a.completedDate || ''));
+
+            if (logs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-gray-400 italic">No completed maintenance entries logged yet. Click the check button on any task card to log completions.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = logs.map(l => `
+                <tr class="hover:bg-teal-50/30 transition-colors">
+                    <td class="py-2 px-3 font-bold text-emerald-700 whitespace-nowrap"><i class="fa-regular fa-calendar-check mr-1.5"></i>${escapeHTML(l.completedDate)}</td>
+                    <td class="py-2 px-3 font-semibold text-gray-800">${escapeHTML(l.taskName)}</td>
+                    <td class="py-2 px-3 text-gray-500">${l.category ? `<span class="bg-gray-100 px-1.5 py-0.5 rounded text-[10px] font-bold">${escapeHTML(l.category)}</span>` : '-'}</td>
+                    <td class="py-2 px-3 text-gray-500 max-w-[200px] truncate" title="${escapeHTML(l.notes)}">${escapeHTML(l.notes || '-')}</td>
+                    <td class="py-2 px-3 text-center">
+                        <button onclick="window.deleteMaintLog('${escapeHTML(l.id)}')" class="text-gray-300 hover:text-red-500 transition-colors p-1" title="Remove Log Entry">
+                            <i class="fa-solid fa-trash-can text-[11px]"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
         };
 
         window.dropMaintItem = function(e) {
@@ -1015,12 +1193,7 @@
                 collectionName: 'maintenance',
                 cardSelector: '.maint-card',
                 idPrefix: 'maint_',
-                statusAttr: 'status',
-                onUpdate: (item, newStatus) => {
-                    if (newStatus === 'Up-To-Date') {
-                        item.lastDone = new Date().toISOString().split('T')[0];
-                    }
-                }
+                statusAttr: 'manualStatus'
             });
         };
 
@@ -1029,18 +1202,42 @@
             if (!board) return;
             board.innerHTML = '';
 
-            let filtered = state.maintenance;
-            if (state.currentMaintFilter !== 'All') {
-                filtered = filtered.filter(m => m.interval === state.currentMaintFilter);
+            const now = new Date();
+            const currM = now.getMonth() + 1;
+            const nextM = (currM % 12) + 1;
+
+            // Update Window Badge & Log Counter
+            const windowBadge = document.getElementById('maintCurrentWindowBadge');
+            if (windowBadge) {
+                windowBadge.innerHTML = `<i class="fa-regular fa-calendar mr-1"></i> Active Window: ${shortMonths[currM]} & ${shortMonths[nextM]}`;
             }
 
-            const countBadge = document.getElementById('maintCountBadge');
-            if (countBadge) countBadge.innerHTML = `<i class="fa-solid fa-list-check mr-1"></i> ${state.maintenance.length} Recurring Tasks`;
+            const logCountBadge = document.getElementById('maintLogCountBadge');
+            if (logCountBadge) {
+                logCountBadge.innerText = (state.maintenanceLogs || []).length;
+            }
 
+            // Populate Category Filter
+            const categories = [...new Set(state.maintenance.map(m => m.category).filter(Boolean))].sort();
+            const catSelect = document.getElementById('maintCategoryFilter');
+            if (catSelect) {
+                catSelect.innerHTML = `<option value="All">All Areas (${state.maintenance.length})</option>` +
+                    categories.map(c => `<option value="${escapeHTML(c)}" ${c === state.currentMaintFilter ? 'selected' : ''}>${escapeHTML(c)}</option>`).join('');
+            }
+
+            let filtered = state.maintenance;
+            if (state.currentMaintFilter !== 'All') {
+                filtered = filtered.filter(m => m.category === state.currentMaintFilter);
+            }
+
+            // Left-to-Right Intuitive Flow:
+            // 1) Master Home Directory (Left)
+            // 2) Due Soon / Needs Service (Middle)
+            // 3) Up-To-Date / Completed (Right)
             const columns = [
-                { id: 'Due', name: 'Due Soon / Needs Service', subtitle: 'Overdue or due in 30 days', bg: 'bg-amber-50/50', header: 'text-amber-800', badge: 'bg-amber-200 text-amber-800', icon: 'fa-triangle-exclamation' },
-                { id: 'Up-To-Date', name: 'Up-To-Date / Completed', subtitle: 'Healthy & on schedule', bg: 'bg-emerald-50/50', header: 'text-emerald-800', badge: 'bg-emerald-200 text-emerald-800', icon: 'fa-circle-check' },
-                { id: 'Registry', name: 'All Recurring Tasks', subtitle: 'Master home directory', bg: 'bg-gray-50', header: 'text-gray-700', badge: 'bg-gray-200 text-gray-700', icon: 'fa-list-ul' }
+                { id: 'Registry', name: '1) Master Home Directory', subtitle: 'New & off-season recurring tasks', bg: 'bg-gray-50', header: 'text-gray-700', badge: 'bg-gray-200 text-gray-700', icon: 'fa-book-bookmark' },
+                { id: 'Due', name: '2) Due Soon (${shortMonths[currM]}–${shortMonths[nextM]})'.replace('${shortMonths[currM]}', shortMonths[currM]).replace('${shortMonths[nextM]}', shortMonths[nextM]), subtitle: 'Auto-populated from anchor months', bg: 'bg-amber-50/50', header: 'text-amber-800', badge: 'bg-amber-200 text-amber-800', icon: 'fa-bell' },
+                { id: 'Up-To-Date', name: '3) Completed / Up-To-Date', subtitle: 'Checked off for current cycle', bg: 'bg-emerald-50/50', header: 'text-emerald-800', badge: 'bg-emerald-200 text-emerald-800', icon: 'fa-circle-check' }
             ];
 
             columns.forEach(col => {
@@ -1048,68 +1245,66 @@
                 colItems.sort((a, b) => (a.order || 0) - (b.order || 0));
 
                 let cardsHtml = colItems.map(m => {
-                    const monthDisplay = m.targetMonth ? monthNames[parseInt(m.targetMonth)] : '';
-                    const isDueFlag = isMaintenanceDue(m);
+                    const months = getTaskMonths(m);
+                    const monthPillsHtml = months.length > 0
+                        ? months.map(num => {
+                            const isWindow = (num === currM || num === nextM);
+                            const pillClass = isWindow
+                                ? 'bg-amber-100 text-amber-800 border-amber-300 font-extrabold'
+                                : 'bg-teal-50 text-teal-700 border-teal-200 font-semibold';
+                            return `<span class="text-[9px] px-1.5 py-0.2 rounded border ${pillClass}">${shortMonths[num]}</span>`;
+                        }).join('')
+                        : `<span class="text-[9px] italic text-gray-400">No months anchored</span>`;
 
                     return `
-                        <div id="maint_${m.id}" draggable="true" ondragstart="window.handleDragStart(event, 'maint', '${m.id}')" ondragend="window.handleDragEnd(event)" class="maint-card bg-white p-4 rounded-xl shadow-sm border border-gray-200 hover:border-teal-400 hover:-translate-y-1 hover:shadow-md transform transition-all duration-200 group relative">
-                            <button onclick="window.openModal('maintModal', '${escapeHTML(m.id)}')" class="absolute top-3 right-3 text-gray-400 hover:text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity bg-white/90 shadow-sm border border-gray-100 hover:bg-teal-50 p-1.5 rounded-lg z-10" title="Edit Task"><i class="fa-solid fa-pen text-xs"></i></button>
+                        <div id="maint_${m.id}" draggable="true" ondragstart="window.handleDragStart(event, 'maint', '${m.id}')" ondragend="window.handleDragEnd(event)" class="maint-card bg-white px-3 py-2.5 rounded-xl shadow-xs border border-gray-200 hover:border-teal-400 hover:shadow-sm transition-all duration-150 group relative">
+                            <div class="flex items-start justify-between gap-2">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-1.5 flex-wrap mb-1">
+                                        ${m.category ? `<span class="text-[9px] font-bold uppercase tracking-wider text-gray-600 bg-gray-100 px-1.5 py-0.2 rounded">${escapeHTML(m.category)}</span>` : ''}
+                                        <div class="flex items-center gap-1 flex-wrap">${monthPillsHtml}</div>
+                                    </div>
+                                    <h4 class="text-xs font-bold text-gray-900 leading-snug truncate" title="${escapeHTML(m.name)}">${escapeHTML(m.name)}</h4>
+                                </div>
 
-                            <div class="flex items-center gap-2 mb-2 pr-6">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-teal-50 px-2 py-0.5 rounded border border-teal-200">${escapeHTML(m.interval)}</span>
-                                ${m.category ? `<span class="text-[10px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">${escapeHTML(m.category)}</span>` : ''}
+                                <!-- Compact Action Buttons on Right -->
+                                <div class="flex items-center gap-1 shrink-0">
+                                    <button onclick="window.openModal('maintModal', '${escapeHTML(m.id)}')" class="text-gray-300 hover:text-teal-600 opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded" title="Edit Rhythm / Months">
+                                        <i class="fa-solid fa-pen text-[10px]"></i>
+                                    </button>
+                                    <button onclick="window.markMaintDone('${escapeHTML(m.id)}', event)" class="px-2 py-1 bg-emerald-50 hover:bg-emerald-600 text-emerald-700 hover:text-white border border-emerald-200 hover:border-emerald-600 font-bold rounded-lg text-[10px] transition-all flex items-center gap-1 shadow-2xs" title="Log completion today">
+                                        <i class="fa-solid fa-check"></i> Done
+                                    </button>
+                                </div>
                             </div>
 
-                            <h4 class="text-sm font-bold text-gray-900 leading-snug mb-2">${escapeHTML(m.name)}</h4>
-
-                            <div class="space-y-1 my-3 text-xs text-gray-600">
-                                ${m.nextDue ? `
-                                    <div class="flex items-center justify-between">
-                                        <span class="font-medium text-gray-500">Next Due:</span>
-                                        <span class="font-bold ${isDueFlag ? 'text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200' : 'text-gray-800'}">${escapeHTML(m.nextDue)}</span>
-                                    </div>
-                                ` : ''}
-
-                                ${m.lastDone ? `
-                                    <div class="flex items-center justify-between text-[11px] text-gray-400">
-                                        <span>Last Done:</span>
-                                        <span>${escapeHTML(m.lastDone)}</span>
-                                    </div>
-                                ` : ''}
-
-                                ${monthDisplay ? `
-                                    <div class="flex items-center justify-between text-[11px] text-gray-500">
-                                        <span>Typical Season:</span>
-                                        <span class="font-semibold text-teal-800">${escapeHTML(monthDisplay)}</span>
-                                    </div>
-                                ` : ''}
+                            <!-- Compact Footer Row: Last Completed & Notes -->
+                            <div class="flex items-center justify-between gap-2 mt-1.5 pt-1.5 border-t border-gray-50 text-[10px] text-gray-400">
+                                <span class="shrink-0">
+                                    ${m.lastDone
+                                        ? `<i class="fa-solid fa-clock-rotate-left text-emerald-500 mr-1"></i>Last: <strong class="text-gray-600">${escapeHTML(m.lastDone)}</strong>`
+                                        : `<i class="fa-regular fa-circle mr-1"></i>Never logged`}
+                                </span>
+                                ${m.notes ? `<span class="truncate text-gray-400" title="${escapeHTML(m.notes)}">${escapeHTML(m.notes)}</span>` : ''}
                             </div>
-
-                            <div class="flex items-center justify-between pt-2 border-t border-gray-100 text-xs">
-                                <button onclick="window.markMaintDone('${escapeHTML(m.id)}', event)" class="w-full text-center py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold rounded-lg text-xs transition-colors flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-check"></i> Mark Complete (Reset Interval)
-                                </button>
-                            </div>
-
-                            ${m.notes ? `<div class="text-[11px] text-gray-400 mt-2 truncate"><i class="fa-regular fa-comment-dots mr-1"></i>${escapeHTML(m.notes)}</div>` : ''}
                         </div>
                     `;
                 }).join('');
 
                 board.innerHTML += `
-                    <div class="flex-1 min-w-[320px] flex flex-col bg-white rounded-2xl p-1 border border-gray-200 shadow-sm overflow-hidden">
-                        <div class="${col.bg} mb-2 px-4 py-3 flex justify-between items-center rounded-t-xl border-b border-gray-100">
+                    <div class="flex-1 min-w-[300px] flex flex-col bg-white rounded-2xl p-1 border border-gray-200 shadow-sm overflow-hidden">
+                        <div class="${col.bg} mb-1.5 px-3.5 py-2.5 flex justify-between items-center rounded-t-xl border-b border-gray-100">
                             <div>
-                                <h3 class="font-bold text-sm ${col.header} flex items-center gap-2">
+                                <h3 class="font-bold text-xs ${col.header} flex items-center gap-1.5">
                                     <i class="fa-solid ${col.icon} opacity-80"></i> ${col.name}
                                 </h3>
-                                <p class="text-[10px] font-semibold text-gray-400 mt-0.5">${col.subtitle}</p>
+                                <p class="text-[10px] font-medium text-gray-400">${col.subtitle}</p>
                             </div>
-                            <span class="${col.badge} text-xs px-2.5 py-0.5 rounded-full font-bold shadow-sm">${colItems.length}</span>
+                            <span class="${col.badge} text-xs px-2 py-0.5 rounded-full font-bold shadow-2xs">${colItems.length}</span>
                         </div>
-                        <div class="maint-column flex-1 flex flex-col gap-3 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropMaintItem(event)">
+                        <div class="maint-column flex-1 flex flex-col gap-2 overflow-y-auto min-h-[150px] p-2 bg-gray-50/30" data-status="${col.id}" ondragover="window.handleDragOver(event)" ondrop="window.dropMaintItem(event)">
                             ${cardsHtml}
-                            ${colItems.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-8">No maintenance tasks here</div>` : ''}
+                            ${colItems.length === 0 ? `<div class="text-center text-xs text-gray-400 italic py-6">No tasks in this stage</div>` : ''}
                         </div>
                     </div>
                 `;
@@ -1143,32 +1338,32 @@
                 }
             } else if (modalId === 'maintModal') {
                 const isEdit = !!itemId;
-                document.getElementById('maintModalTitle').innerText = isEdit ? 'Edit Maintenance Task' : 'Add Recurring Maintenance';
+                document.getElementById('maintModalTitle').innerText = isEdit ? 'Edit Recurring Task' : 'New Recurring Maintenance';
                 document.getElementById('btnDeleteMaint').classList.toggle('hidden', !isEdit);
 
                 if (isEdit) {
                     const m = state.maintenance.find(x => x.id === itemId);
                     document.getElementById('maintId').value = m.id;
                     document.getElementById('maintName').value = m.name;
-                    document.getElementById('maintInterval').value = m.interval;
-                    document.getElementById('maintStatus').value = m.status || 'Auto';
                     document.getElementById('maintCategory').value = m.category || '';
-                    document.getElementById('maintTargetMonth').value = m.targetMonth || '';
                     document.getElementById('maintLastDone').value = m.lastDone || '';
-                    document.getElementById('maintNextDue').value = m.nextDue || '';
                     document.getElementById('maintNotes').value = m.notes || '';
+                    document.getElementById('maintManualStatus').value = m.manualStatus || 'Auto';
+                    window.applyMonthPreset(getTaskMonths(m));
                 } else {
                     document.getElementById('formMaint').reset();
                     document.getElementById('maintId').value = '';
-                    document.getElementById('maintStatus').value = 'Auto';
-                    document.getElementById('maintInterval').value = 'Quarterly';
+                    document.getElementById('maintManualStatus').value = 'Auto';
+                    window.applyMonthPreset([]);
                 }
+            } else if (modalId === 'maintLogModal') {
+                window.renderMaintLogsModal();
             }
         };
 
         window.closeModals = function() {
             document.getElementById('modalOverlay').classList.add('hidden');
-            ['repairModal', 'maintModal'].forEach(id => {
+            ['repairModal', 'maintModal', 'maintLogModal'].forEach(id => {
                 const m = document.getElementById(id);
                 if (m) m.classList.add('hidden');
             });
@@ -1210,17 +1405,18 @@
         document.getElementById('formMaint').addEventListener('submit', (e) => {
             e.preventDefault();
             const existingId = document.getElementById('maintId').value;
+            const checkedMonths = [...document.querySelectorAll('input[name="maintMonth"]:checked')].map(cb => parseInt(cb.value));
+
             const maintData = {
                 id: existingId || 'maint_' + Date.now(),
-                name: document.getElementById('maintName').value,
-                interval: document.getElementById('maintInterval').value,
-                status: document.getElementById('maintStatus').value,
+                name: document.getElementById('maintName').value.trim(),
+                months: checkedMonths,
+                // Reset manual override to Auto when saving modal so newly anchored months take effect immediately
+                manualStatus: 'Auto',
                 category: document.getElementById('maintCategory').value.trim(),
-                targetMonth: document.getElementById('maintTargetMonth').value,
                 lastDone: document.getElementById('maintLastDone').value,
-                nextDue: document.getElementById('maintNextDue').value,
-                notes: document.getElementById('maintNotes').value,
-                order: state.maintenance.length
+                notes: document.getElementById('maintNotes').value.trim(),
+                order: existingId ? (state.maintenance.find(x => x.id === existingId)?.order ?? 0) : state.maintenance.length
             };
 
             if (existingId) {
@@ -1248,6 +1444,9 @@
             const headerBox = document.getElementById('headerBrandSvg');
             if (loginBox) loginBox.innerHTML = HOME_SVG;
             if (headerBox) headerBox.innerHTML = HOME_SVG;
+
+            initMonthPills();
+            window.renderTodos();
 
             // Seamless session pass-through: auto-login if passcode is stored
             let savedWorkspace = null;
